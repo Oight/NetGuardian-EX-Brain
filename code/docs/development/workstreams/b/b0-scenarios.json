@@ -1,0 +1,1007 @@
+{
+  "materialVersion": "b0/1",
+  "synthetic": true,
+  "scenarioInterpretation": "Future real-service acceptance expectations; this file is not an executable product implementation.",
+  "scenarios": [
+    {
+      "id": "B0-01",
+      "module": "S02",
+      "phase": "B1",
+      "ports": [
+        "DatabasePort.read",
+        "DatabasePort.write"
+      ],
+      "fixtureRefs": [
+        "contexts.ui"
+      ],
+      "given": {
+        "existingMigration": "correct checksum; close/reopen same identity"
+      },
+      "when": [
+        "createStorage; write a synthetic case; close; reopen; read"
+      ],
+      "expected": {
+        "preserveCommittedRows": true,
+        "tableCount": 49,
+        "journalMode": "wal",
+        "foreignKeys": true,
+        "checksumMismatch": "STORAGE_UNAVAILABLE",
+        "preserveDatabaseOnFailure": true
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-02",
+      "module": "S02",
+      "phase": "B1",
+      "ports": [
+        "DatabasePort.write",
+        "EventPort.appendInTx"
+      ],
+      "fixtureRefs": [
+        "contexts.ui"
+      ],
+      "given": {
+        "businessRows": 0,
+        "eventRows": 0
+      },
+      "when": [
+        "write business row; append event; return failure, then repeat with throw"
+      ],
+      "expected": {
+        "businessRows": 0,
+        "eventRows": 0,
+        "atomicRollback": true
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-03",
+      "module": "S02",
+      "phase": "B1",
+      "ports": [
+        "DatabasePort.read",
+        "DatabasePort.write"
+      ],
+      "fixtureRefs": [
+        "contexts.ui"
+      ],
+      "given": {
+        "handles": "captured inside active callbacks"
+      },
+      "when": [
+        "return Promise/thenable; later use captured handles; enqueue during callback"
+      ],
+      "expected": {
+        "asyncCallbackAccepted": false,
+        "lateHandleAccepted": false,
+        "nestedOperationAccepted": false,
+        "committedSideEffects": 0
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-04",
+      "module": "S02",
+      "phase": "B1",
+      "ports": [
+        "DatabasePort.read",
+        "DatabasePort.write"
+      ],
+      "fixtureRefs": [
+        "contexts.ui"
+      ],
+      "given": {
+        "storedIdentity": "fixture UI actor"
+      },
+      "when": [
+        "change spaceId, principalId, or identityEpoch; read/write"
+      ],
+      "expected": {
+        "error": "FORBIDDEN",
+        "disclosedStoredValues": false
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-05",
+      "module": "S02",
+      "phase": "B1",
+      "ports": [
+        "EventPort.appendInTx",
+        "EventPort.read"
+      ],
+      "fixtureRefs": [
+        "contexts.system"
+      ],
+      "given": {
+        "committedSeqs": [
+          1,
+          2,
+          3
+        ]
+      },
+      "when": [
+        "read limit=2; prune old events; prune all; read afterSeq=0"
+      ],
+      "expected": {
+        "initialEventSeqs": [
+          1,
+          2
+        ],
+        "lastSeq": 3,
+        "resetRequiredAfterPrune": true,
+        "invalidLimit201": "INVALID_INPUT"
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-06",
+      "module": "S06",
+      "phase": "B2",
+      "ports": [
+        "CaseService.create",
+        "CaseService.list",
+        "CaseService.snapshot",
+        "CaseService.evidence",
+        "CaseAtomicPort.createInTx",
+        "CaseAtomicPort.snapshotInTx",
+        "CaseAtomicPort.getInTx"
+      ],
+      "fixtureRefs": [
+        "cases.pending",
+        "scopes.single"
+      ],
+      "given": {
+        "seedRefs": []
+      },
+      "when": [
+        "create without evidence; list with escaped %/_ search; restart and snapshot"
+      ],
+      "expected": {
+        "revision": 1,
+        "status": "pending",
+        "evidenceCount": 0,
+        "restartPersistence": true,
+        "cursorBoundToSpaceAndQuery": true,
+        "pageLimit": 50
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-07",
+      "module": "S06",
+      "phase": "B2",
+      "ports": [
+        "CaseService.setStatus",
+        "CaseAtomicPort.setStatusInTx",
+        "CaseAtomicPort.recordChangeInTx"
+      ],
+      "fixtureRefs": [
+        "cases.pending"
+      ],
+      "given": {
+        "revision": 1
+      },
+      "when": [
+        "two updates using expectedRevision=1; resolve without reason; try pending->resolved directly"
+      ],
+      "expected": {
+        "successfulCAS": 1,
+        "loserError": "REVISION_CONFLICT",
+        "invalidTransitionAccepted": false,
+        "emptyCloseReasonAccepted": false,
+        "auditWithRevision": true
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-08",
+      "module": "S06",
+      "phase": "B2",
+      "ports": [
+        "CaseService.moveEvidence",
+        "CaseAtomicPort.attachInTx"
+      ],
+      "fixtureRefs": [
+        "refs.one"
+      ],
+      "given": {
+        "sourceRevision": 3,
+        "targetRevision": 7,
+        "concurrentTargetRevision": 8
+      },
+      "when": [
+        "move with revisions 3/7; then retry after refresh"
+      ],
+      "expected": {
+        "conflictError": "REVISION_CONFLICT",
+        "bothCasesUnchangedOnFailure": true,
+        "sameTransactionOnSuccess": true,
+        "historicalRunEvidencePreserved": true,
+        "differentConnectionDenied": true
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-09",
+      "module": "S06",
+      "phase": "B2",
+      "ports": [
+        "CaseAtomicPort.captureInTx"
+      ],
+      "fixtureRefs": [
+        "records.authentication",
+        "pages.partial"
+      ],
+      "given": {
+        "sameSource": "same locator; available version 1"
+      },
+      "when": [
+        "capture identical page with same hash; capture same source content in a new query; capture changed content in another query"
+      ],
+      "expected": {
+        "identicalPageIdempotent": true,
+        "sameSourceUnchangedReusesVersion": true,
+        "newRetrievalForNewFetch": true,
+        "changedContentCreatesVersion": 2,
+        "oldFieldsUnchanged": true
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-10",
+      "module": "S06",
+      "phase": "B2",
+      "ports": [
+        "CaseAtomicPort.captureInTx"
+      ],
+      "fixtureRefs": [
+        "records.authentication",
+        "records.missingTime"
+      ],
+      "given": {
+        "otherLocator": "same text, different documentId"
+      },
+      "when": [
+        "capture both documents; capture record without observedAt; reacquire expired version"
+      ],
+      "expected": {
+        "distinctEvidenceIds": 2,
+        "missingObservedAtRemainsAbsent": true,
+        "timeQuality": "unknown",
+        "expiredReacquisitionCreatesNewVersion": true
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-11",
+      "module": "S06",
+      "phase": "B2",
+      "ports": [
+        "CaseAtomicPort.captureInTx",
+        "CaseService.snapshot"
+      ],
+      "fixtureRefs": [
+        "pages.partial",
+        "pages.empty",
+        "pages.denied"
+      ],
+      "given": {
+        "firstPagePersisted": true
+      },
+      "when": [
+        "repeat page ordinal with different response hash; miss an ordinal; receive denied or interrupted next page"
+      ],
+      "expected": {
+        "changedPageError": "CONFLICT",
+        "originalPagePreserved": true,
+        "completenessAfterGap": "partial",
+        "deniedIsZeroMatch": false,
+        "collectionCoverageStillIndependent": true
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-12",
+      "module": "S06",
+      "phase": "B2",
+      "ports": [
+        "CaseService.putContext"
+      ],
+      "fixtureRefs": [
+        "businessContexts.unverified",
+        "contexts.ui"
+      ],
+      "given": {
+        "outerCase": "fixture case",
+        "innerCase": "fixture case"
+      },
+      "when": [
+        "put unverified context; verify/edit with CAS; submit mismatching inner caseId or forged author"
+      ],
+      "expected": {
+        "authorFromActor": true,
+        "oldVersionsPreserved": true,
+        "onlyIntersectingScopesAffected": true,
+        "mismatchAccepted": false,
+        "verificationDefault": "unverified"
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-13",
+      "module": "S06",
+      "phase": "B2",
+      "ports": [
+        "CaseAtomicPort.initializeRunInTx",
+        "CaseAtomicPort.projectInTx",
+        "CaseAtomicPort.inspectRunInTx",
+        "CaseAtomicPort.releaseInTx",
+        "CaseService.evidence",
+        "CaseAtomicPort.setStatusInTx"
+      ],
+      "fixtureRefs": [
+        "runs.active",
+        "projections.prepared",
+        "projections.released"
+      ],
+      "given": {
+        "currentCaseRevision": 2
+      },
+      "when": [
+        "freeze inputs at returned investigating revision; project whitelisted fields; observe successful vs lost send"
+      ],
+      "expected": {
+        "initialState": "prepared",
+        "releaseAfterObservedSendOnly": true,
+        "lostSendState": "uncertain",
+        "wrongVersionOrRunAccepted": false,
+        "budgetHandledByS07": true
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-14",
+      "module": "S06",
+      "phase": "B2",
+      "ports": [
+        "CaseAtomicPort.sealInTx"
+      ],
+      "fixtureRefs": [
+        "runs.active",
+        "validationInputs.current"
+      ],
+      "given": {
+        "metadata": "S07 persisted input/profile/mapping/steps"
+      },
+      "when": [
+        "seal; repeat same metadata; repeat changed metadata"
+      ],
+      "expected": {
+        "sameHashOnRetry": true,
+        "changedMetadataError": "CONFLICT",
+        "sealedQueriesImmutable": true,
+        "requiresDecision": "G01"
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-15",
+      "module": "S06",
+      "phase": "B2",
+      "ports": [
+        "CaseAtomicPort.applyRunInTx"
+      ],
+      "fixtureRefs": [
+        "runs.active"
+      ],
+      "given": {
+        "baseRevision": 2,
+        "currentCaseRevision": 3,
+        "currentReportId": "existing report"
+      },
+      "when": [
+        "apply completed run based on revision 2"
+      ],
+      "expected": {
+        "applied": false,
+        "revision": 3,
+        "currentReportUnchanged": true,
+        "latestReportRetained": true,
+        "historicalRunPreserved": true
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-16",
+      "module": "S06",
+      "phase": "B4",
+      "ports": [
+        "CaseAtomicPort.previewCleanupInTx",
+        "CaseAtomicPort.applyCleanupInTx"
+      ],
+      "fixtureRefs": [
+        "runs.active",
+        "refs.one"
+      ],
+      "given": {
+        "planTTLMinutes": 10,
+        "protectedRunIds": "read by S07 in current WriteTx"
+      },
+      "when": [
+        "preview; add new reference or uncertain active run; apply old plan; simulate cache invalidation failure"
+      ],
+      "expected": {
+        "changedPlanAccepted": false,
+        "expiredPlanError": "EXPIRED",
+        "protectedBodyExpired": false,
+        "bodyAndCacheRollbackTogether": true,
+        "retainedLocatorAndHash": true
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-17",
+      "module": "S05",
+      "phase": "B3",
+      "ports": [
+        "AlertService.pollOnce",
+        "AlertService.list",
+        "AlertService.markRead"
+      ],
+      "fixtureRefs": [
+        "pages.alerts",
+        "policies.enabled"
+      ],
+      "given": {
+        "firstConnect": true,
+        "enabledAfterReceiveSeq": 10
+      },
+      "when": [
+        "preview history; recover last 30 minutes; poll realtime after activation"
+      ],
+      "expected": {
+        "historyAndRecoveryAutoRequests": 0,
+        "modelCallsForReminder": 0,
+        "kindPersistedNotGuessedFromTimestamp": true,
+        "readStatePersists": true,
+        "olderGapVisible": true
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-18",
+      "module": "S05",
+      "phase": "B3",
+      "ports": [
+        "AlertService.pollOnce"
+      ],
+      "fixtureRefs": [
+        "pages.alerts"
+      ],
+      "given": {
+        "duplicatePage": "same source IDs",
+        "differentDocument": "same event text"
+      },
+      "when": [
+        "poll overlap; receive duplicate then different document; restart"
+      ],
+      "expected": {
+        "duplicateNotifications": 0,
+        "differentDocumentInserted": true,
+        "receiveSeqMonotonicAfterRestart": true,
+        "noDoubleBudget": true
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-19",
+      "module": "S05",
+      "phase": "B3",
+      "ports": [
+        "AlertService.pollOnce"
+      ],
+      "fixtureRefs": [
+        "pages.alerts",
+        "pages.alertsDenied"
+      ],
+      "given": {
+        "completedUpper": "2026-10-23T00:30:00.000Z",
+        "newFixedUpper": "2026-10-23T01:00:00.000Z"
+      },
+      "when": [
+        "persist page 0; page 1 fails; retry with overlap and late record"
+      ],
+      "expected": {
+        "page0Preserved": true,
+        "completedUpperAdvancedOnFailure": false,
+        "partialVisible": true,
+        "lateRecordDeduplicated": true,
+        "noOverlappingPollForConnection": true
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-20",
+      "module": "S05",
+      "phase": "B3",
+      "ports": [
+        "AlertService.setPolicy",
+        "AlertService.flushCandidates"
+      ],
+      "fixtureRefs": [
+        "policies.enabled"
+      ],
+      "given": {
+        "policyEpoch": 1,
+        "candidateEpoch": 1,
+        "candidateCoalesceMs": 10000,
+        "candidateTTLms": 900000
+      },
+      "when": [
+        "disable/change before dispatch; cancelPolicyInTx fails once; retry"
+      ],
+      "expected": {
+        "obsoleteEpochDispatched": false,
+        "policyAndCancellationAtomic": true,
+        "executionPortCalledByS05": false,
+        "clientUserInvestigationCancelled": false
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-21",
+      "module": "S05",
+      "phase": "B3",
+      "ports": [
+        "AlertService.flushCandidates",
+        "AlertService.pollOnce"
+      ],
+      "fixtureRefs": [
+        "policies.enabled"
+      ],
+      "given": {
+        "candidate": "coalesced and due",
+        "createAutoResults": [
+          "QUEUE_FULL",
+          "BUDGET_EXHAUSTED",
+          "HOST_UNAVAILABLE"
+        ]
+      },
+      "when": [
+        "reject one acceptance; then accept a fresh candidate; expire old candidate"
+      ],
+      "expected": {
+        "reminderPreserved": true,
+        "reasonVisible": true,
+        "noPartialS07Commit": true,
+        "acceptedAndDispatchedSameTransaction": true,
+        "unboundedRetry": false,
+        "expiredCandidateAutoReplayedNextDay": false,
+        "requiresDecision": "G04"
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-22",
+      "module": "S05",
+      "phase": "B3",
+      "ports": [
+        "AlertService.pollOnce"
+      ],
+      "fixtureRefs": [
+        "pages.alerts"
+      ],
+      "given": {
+        "records": "multiple missing agent/subject namespace; equal source IP"
+      },
+      "when": [
+        "group candidates during storm; add records after completed first pass"
+      ],
+      "expected": {
+        "unknownsShareOneGroup": false,
+        "singleCandidateDefaultAgentLimit": 1,
+        "maxConfirmedAssociatedAgents": 5,
+        "maxSpanMs": 1800000,
+        "idleMs": 600000,
+        "completedCandidateAutoReinvestigated": false,
+        "inboxRetainsAll": true
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-23",
+      "module": "S05",
+      "phase": "B3",
+      "ports": [
+        "AlertService.pollOnce"
+      ],
+      "fixtureRefs": [
+        "pages.alerts"
+      ],
+      "given": {
+        "notificationState": "pending"
+      },
+      "when": [
+        "commit notification intent; OS shows it; crash before observation; recover"
+      ],
+      "expected": {
+        "notificationState": "uncertain",
+        "defaultRepeatedPopup": false,
+        "claimExactlyOnce": false,
+        "inboxVisible": true
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-24",
+      "module": "S10",
+      "phase": "B3",
+      "ports": [
+        "ReportService.prepare"
+      ],
+      "fixtureRefs": [
+        "frozenInputs.noSeed",
+        "runs.active"
+      ],
+      "given": {
+        "seedProjections": []
+      },
+      "when": [
+        "prepare profile without seeds; prepare with unverified maintenance context"
+      ],
+      "expected": {
+        "seedProjectionIds": [],
+        "inventedEvidence": false,
+        "allowedToolsProjectOnly": true,
+        "contextNotAutomaticallyExculpatory": true,
+        "actualHostLoadingClaimed": false,
+        "preparedDoesNotRelease": true
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-25",
+      "module": "S10",
+      "phase": "B3",
+      "ports": [
+        "ReportService.proposeInTx",
+        "ReportService.assessInTx"
+      ],
+      "fixtureRefs": [
+        "candidates.bounded",
+        "validationInputs.current"
+      ],
+      "given": {
+        "caller": "trusted S07 validation snapshot"
+      },
+      "when": [
+        "propose bounded candidate; assess latest"
+      ],
+      "expected": {
+        "validation": "valid",
+        "review": "unreviewed",
+        "caseAutomaticallyClosed": false,
+        "taskTerminalStateChosenByS10": false
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-26",
+      "module": "S10",
+      "phase": "B3",
+      "ports": [
+        "ReportService.proposeInTx"
+      ],
+      "fixtureRefs": [
+        "candidates.unreleased",
+        "candidates.crossRun",
+        "candidates.unknownEvidence",
+        "validationInputs.current"
+      ],
+      "given": {
+        "otherVariants": [
+          "expired projection",
+          "wrong content hash",
+          "unknown queryId",
+          "context not actually delivered"
+        ]
+      },
+      "when": [
+        "submit each invalid reference variant"
+      ],
+      "expected": {
+        "validationNeverValid": true,
+        "invalidCandidateRetained": true,
+        "modelSuppliedValidationSnapshotAccepted": false,
+        "issueIdentifiesReference": true
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-27",
+      "module": "S10",
+      "phase": "B3",
+      "ports": [
+        "ReportService.proposeInTx"
+      ],
+      "fixtureRefs": [
+        "candidates.zeroMatches",
+        "candidates.semanticOverclaim",
+        "pages.empty",
+        "pages.denied",
+        "validationInputs.current"
+      ],
+      "given": {
+        "zeroMatch": "complete query, unknown collection coverage",
+        "overclaim": "partial query claims entire window safe"
+      },
+      "when": [
+        "save bounded zero-match statement; flag denied/partial semantic overclaim"
+      ],
+      "expected": {
+        "zeroMatchUsesQueryIdNotInventedEvidence": true,
+        "deniedMeansNoAttack": false,
+        "semanticOverclaimRequiresReview": true,
+        "semanticCorrectnessProvenByRefs": false,
+        "requiresDecision": "G05"
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-28",
+      "module": "S10",
+      "phase": "B3",
+      "ports": [
+        "ReportService.assessInTx",
+        "ReportService.finalizeInTx"
+      ],
+      "fixtureRefs": [
+        "runs.active",
+        "resultContexts.withRun",
+        "decisions.review"
+      ],
+      "given": {
+        "assessment": "missing or invalid"
+      },
+      "when": [
+        "request succeeded completion; then pass explicit needs_review decision"
+      ],
+      "expected": {
+        "succeededWithoutValidCandidateError": "VALIDATION_FAILED",
+        "S10SilentlyChangesTerminalState": false,
+        "explicitReviewDecisionHonored": true,
+        "noJobsOrExecutionSnapshotReads": true
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-29",
+      "module": "S10",
+      "phase": "B3",
+      "ports": [
+        "ReportService.terminalWithoutRunInTx",
+        "ResultPackageReadPort.getInTx"
+      ],
+      "fixtureRefs": [
+        "resultContexts.withoutRun",
+        "decisions.cancelBeforeRun",
+        "resultPackages.cancelBeforeRun"
+      ],
+      "given": {
+        "noRunWasCreated": true
+      },
+      "when": [
+        "cancel before run; read result; read a request with no result"
+      ],
+      "expected": {
+        "runIdAbsent": true,
+        "fabricatedSessionOrEvidence": false,
+        "terminalState": "cancelled",
+        "notReadyError": "RESULT_NOT_READY",
+        "jobsReadToInferResult": false
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-30",
+      "module": "S10",
+      "phase": "B3",
+      "ports": [
+        "ReportService.finalizeInTx",
+        "ResultPackageReadPort.getInTx"
+      ],
+      "fixtureRefs": [
+        "resultPackages.review"
+      ],
+      "given": {
+        "existingVersion": 1
+      },
+      "when": [
+        "repeat identical finalization; repeat same version with changed decision/content"
+      ],
+      "expected": {
+        "identicalReturnsOriginal": true,
+        "changedContentError": "CONFLICT",
+        "duplicateFollowups": 0,
+        "resultImmutable": true
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-31",
+      "module": "S10",
+      "phase": "B3",
+      "ports": [
+        "ReportService.review",
+        "ReportService.list",
+        "ReportService.followups",
+        "CaseAtomicPort.recordChangeInTx"
+      ],
+      "fixtureRefs": [
+        "candidates.bounded",
+        "contexts.ui"
+      ],
+      "given": {
+        "caseRevision": 3,
+        "reviewExpectedRevision": 3
+      },
+      "when": [
+        "revise report; race a stale review; list original and new version"
+      ],
+      "expected": {
+        "originalRetained": true,
+        "newReportVersion": true,
+        "authorFromActor": true,
+        "caseAuditSameTransaction": true,
+        "staleError": "REVISION_CONFLICT",
+        "automaticDeliveryCalls": 0
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-32",
+      "module": "S10",
+      "phase": "B4",
+      "ports": [
+        "ReportService.publishReviewedInTx"
+      ],
+      "fixtureRefs": [
+        "resultPackages.review"
+      ],
+      "given": {
+        "expectedCaseRevision": 4,
+        "expectedResultVersion": 1
+      },
+      "when": [
+        "publish; simulate S11 enqueue failure; race result version"
+      ],
+      "expected": {
+        "resultAndOutboxRollbackTogether": true,
+        "terminalStatePreserved": "needs_review",
+        "newResultVersionOnSuccess": 2,
+        "doubleVersionCheck": true,
+        "executionRerun": false
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-33",
+      "module": "S10",
+      "phase": "B3",
+      "ports": [
+        "ReportService.putFollowup",
+        "ReportService.searchFollowups",
+        "ReportService.followups"
+      ],
+      "fixtureRefs": [
+        "followups.new"
+      ],
+      "given": {
+        "newExpectedRevision": 0,
+        "newItemRevision": 1
+      },
+      "when": [
+        "create; update with stale revision; search across current principal cases"
+      ],
+      "expected": {
+        "createRevision": 1,
+        "staleError": "REVISION_CONFLICT",
+        "dueAtNullLast": true,
+        "idAscendingTieBreak": true,
+        "completionIsHumanRecord": true,
+        "responseNoteSourceInferredFromAttachedRef": false,
+        "requiresDecision": "G02"
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-34",
+      "module": "S10",
+      "phase": "B3",
+      "ports": [
+        "ReportService.export",
+        "CaseAtomicPort.snapshotInTx"
+      ],
+      "fixtureRefs": [
+        "unsafeText.export",
+        "cases.pending"
+      ],
+      "given": {
+        "requestedCaseRevision": 3,
+        "format": [
+          "markdown",
+          "json"
+        ]
+      },
+      "when": [
+        "read S06 plus S10 in one ReadTx; export untrusted strings"
+      ],
+      "expected": {
+        "oneSnapshot": true,
+        "semanticParity": true,
+        "jsonSchemaVersion": "0.1.0",
+        "filenameNotPath": true,
+        "remoteImagesAutoLoaded": false,
+        "secretsOrOtherCaseIncluded": false,
+        "unreviewedAndUnknownCoveragePreserved": true
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-35",
+      "module": "S06",
+      "phase": "B4",
+      "ports": [
+        "CaseAtomicPort.captureInTx",
+        "CaseAtomicPort.projectInTx"
+      ],
+      "fixtureRefs": [
+        "pages.partial",
+        "runs.active"
+      ],
+      "given": {
+        "distinctEventsUsed": 300,
+        "newSourceKeys": 1,
+        "caller": "S07 after fence check"
+      },
+      "when": [
+        "recordEventsInTx then capture/project in same transaction"
+      ],
+      "expected": {
+        "error": "BUDGET_EXHAUSTED",
+        "newEvidenceRows": 0,
+        "budgetRowsUnchanged": true,
+        "S06CallsBudgetOrMCP": false
+      },
+      "execution": "planned_product_acceptance"
+    },
+    {
+      "id": "B0-36",
+      "module": "S10",
+      "phase": "B4",
+      "ports": [
+        "ReportService.finalizeInTx",
+        "CaseAtomicPort.applyRunInTx"
+      ],
+      "fixtureRefs": [
+        "runs.active",
+        "decisions.review"
+      ],
+      "given": {
+        "jobState": "verifying",
+        "outboxWrite": "fails after package creation"
+      },
+      "when": [
+        "S07 seal/assess/decide/finalize/apply/enqueue in same WriteTx"
+      ],
+      "expected": {
+        "jobResultCaseAndOutboxAtomic": true,
+        "terminalStateUnchangedOnRollback": true,
+        "deliveryPerformedInsideTransaction": false
+      },
+      "execution": "planned_product_acceptance"
+    }
+  ]
+}

@@ -1,0 +1,760 @@
+{
+  "materialVersion": "b0/1",
+  "businessBaseline": "v4.2",
+  "engineeringContract": "0.2.0",
+  "wireVersion": "0.1.0",
+  "tables": [
+    {
+      "module": "S02",
+      "name": "schema_migrations",
+      "plannedWriter": "S02.migrations",
+      "scenarios": [
+        "B0-01"
+      ]
+    },
+    {
+      "module": "S02",
+      "name": "space_metadata",
+      "plannedWriter": "S02.migrations",
+      "scenarios": [
+        "B0-01"
+      ]
+    },
+    {
+      "module": "S02",
+      "name": "domain_events",
+      "plannedWriter": "EventPort.appendInTx",
+      "scenarios": [
+        "B0-02",
+        "B0-05"
+      ]
+    },
+    {
+      "module": "S02",
+      "name": "diagnostic_events",
+      "plannedWriter": "S02.privateDiagnostics",
+      "scenarios": [
+        "B0-02"
+      ]
+    },
+    {
+      "module": "S05",
+      "name": "alerts_inbox",
+      "plannedWriter": "AlertService.pollOnce",
+      "scenarios": [
+        "B0-17",
+        "B0-18",
+        "B0-19",
+        "B0-23"
+      ]
+    },
+    {
+      "module": "S05",
+      "name": "watch_checkpoints",
+      "plannedWriter": "AlertService.pollOnce",
+      "scenarios": [
+        "B0-17",
+        "B0-18",
+        "B0-19",
+        "B0-23"
+      ]
+    },
+    {
+      "module": "S05",
+      "name": "notifications",
+      "plannedWriter": "AlertService.pollOnce",
+      "scenarios": [
+        "B0-17",
+        "B0-18",
+        "B0-19",
+        "B0-23"
+      ]
+    },
+    {
+      "module": "S05",
+      "name": "trigger_policies",
+      "plannedWriter": "AlertService.setPolicy",
+      "scenarios": [
+        "B0-20"
+      ]
+    },
+    {
+      "module": "S05",
+      "name": "auto_candidates",
+      "plannedWriter": "AlertService.pollOnce / flushCandidates",
+      "scenarios": [
+        "B0-20",
+        "B0-21",
+        "B0-22"
+      ]
+    },
+    {
+      "module": "S05",
+      "name": "trigger_decisions",
+      "plannedWriter": "AlertService.pollOnce / flushCandidates",
+      "scenarios": [
+        "B0-20",
+        "B0-21",
+        "B0-22"
+      ]
+    },
+    {
+      "module": "S06",
+      "name": "cases",
+      "plannedWriter": "CaseAtomicPort.createInTx / recordChangeInTx / applyRunInTx",
+      "scenarios": [
+        "B0-06",
+        "B0-07",
+        "B0-15"
+      ]
+    },
+    {
+      "module": "S06",
+      "name": "case_changes",
+      "plannedWriter": "CaseAtomicPort.createInTx / recordChangeInTx / applyRunInTx",
+      "scenarios": [
+        "B0-06",
+        "B0-07",
+        "B0-15"
+      ]
+    },
+    {
+      "module": "S06",
+      "name": "evidence_sources",
+      "plannedWriter": "CaseAtomicPort.captureInTx",
+      "scenarios": [
+        "B0-09",
+        "B0-10",
+        "B0-11"
+      ]
+    },
+    {
+      "module": "S06",
+      "name": "evidence_versions",
+      "plannedWriter": "CaseAtomicPort.captureInTx",
+      "scenarios": [
+        "B0-09",
+        "B0-10",
+        "B0-11"
+      ]
+    },
+    {
+      "module": "S06",
+      "name": "evidence_retrievals",
+      "plannedWriter": "CaseAtomicPort.captureInTx",
+      "scenarios": [
+        "B0-09",
+        "B0-10",
+        "B0-11"
+      ]
+    },
+    {
+      "module": "S06",
+      "name": "query_runs",
+      "plannedWriter": "CaseAtomicPort.captureInTx",
+      "scenarios": [
+        "B0-09",
+        "B0-10",
+        "B0-11"
+      ]
+    },
+    {
+      "module": "S06",
+      "name": "query_pages",
+      "plannedWriter": "CaseAtomicPort.captureInTx",
+      "scenarios": [
+        "B0-09",
+        "B0-10",
+        "B0-11"
+      ]
+    },
+    {
+      "module": "S06",
+      "name": "query_evidence",
+      "plannedWriter": "CaseAtomicPort.captureInTx",
+      "scenarios": [
+        "B0-09",
+        "B0-10",
+        "B0-11"
+      ]
+    },
+    {
+      "module": "S06",
+      "name": "evidence_links",
+      "plannedWriter": "CaseAtomicPort.attachInTx / CaseService.moveEvidence",
+      "scenarios": [
+        "B0-08"
+      ]
+    },
+    {
+      "module": "S06",
+      "name": "business_context",
+      "plannedWriter": "CaseService.putContext",
+      "scenarios": [
+        "B0-12"
+      ]
+    },
+    {
+      "module": "S06",
+      "name": "context_versions",
+      "plannedWriter": "CaseService.putContext",
+      "scenarios": [
+        "B0-12"
+      ]
+    },
+    {
+      "module": "S06",
+      "name": "run_evidence",
+      "plannedWriter": "CaseAtomicPort.initializeRunInTx / captureInTx",
+      "scenarios": [
+        "B0-13",
+        "B0-35"
+      ]
+    },
+    {
+      "module": "S06",
+      "name": "evidence_projections",
+      "plannedWriter": "CaseAtomicPort.projectInTx / releaseInTx / applyCleanupInTx",
+      "scenarios": [
+        "B0-13",
+        "B0-16"
+      ]
+    },
+    {
+      "module": "S06",
+      "name": "cleanup_plans",
+      "plannedWriter": "CaseAtomicPort.previewCleanupInTx / applyCleanupInTx",
+      "scenarios": [
+        "B0-16"
+      ]
+    },
+    {
+      "module": "S10",
+      "name": "report_drafts",
+      "plannedWriter": "ReportService.proposeInTx / review",
+      "scenarios": [
+        "B0-25",
+        "B0-26",
+        "B0-27",
+        "B0-31"
+      ]
+    },
+    {
+      "module": "S10",
+      "name": "reviews",
+      "plannedWriter": "ReportService.proposeInTx / review",
+      "scenarios": [
+        "B0-25",
+        "B0-26",
+        "B0-27",
+        "B0-31"
+      ]
+    },
+    {
+      "module": "S10",
+      "name": "followups",
+      "plannedWriter": "ReportService.putFollowup / finalizeInTx",
+      "scenarios": [
+        "B0-30",
+        "B0-33"
+      ]
+    },
+    {
+      "module": "S10",
+      "name": "response_notes",
+      "plannedWriter": "Pending G02: no declared standalone write method",
+      "scenarios": [
+        "B0-33"
+      ]
+    },
+    {
+      "module": "S10",
+      "name": "result_packages",
+      "plannedWriter": "ReportService.finalizeInTx / terminalWithoutRunInTx / publishReviewedInTx",
+      "scenarios": [
+        "B0-28",
+        "B0-29",
+        "B0-30",
+        "B0-32",
+        "B0-36"
+      ]
+    }
+  ],
+  "ports": [
+    {
+      "interface": "DatabasePort",
+      "method": "read",
+      "module": "S02",
+      "tx": "managed_sync_callback",
+      "scenarios": [
+        "B0-01",
+        "B0-03",
+        "B0-04"
+      ]
+    },
+    {
+      "interface": "DatabasePort",
+      "method": "write",
+      "module": "S02",
+      "tx": "managed_sync_callback",
+      "scenarios": [
+        "B0-01",
+        "B0-02",
+        "B0-03",
+        "B0-04"
+      ]
+    },
+    {
+      "interface": "EventPort",
+      "method": "appendInTx",
+      "module": "S02",
+      "tx": "WriteTx",
+      "scenarios": [
+        "B0-02",
+        "B0-05"
+      ]
+    },
+    {
+      "interface": "EventPort",
+      "method": "read",
+      "module": "S02",
+      "tx": "ReadTx_managed",
+      "scenarios": [
+        "B0-05"
+      ]
+    },
+    {
+      "interface": "CaseService",
+      "method": "list",
+      "module": "S06",
+      "tx": "ReadTx_managed",
+      "scenarios": [
+        "B0-06"
+      ]
+    },
+    {
+      "interface": "CaseService",
+      "method": "create",
+      "module": "S06",
+      "tx": "WriteTx_managed",
+      "scenarios": [
+        "B0-06"
+      ]
+    },
+    {
+      "interface": "CaseService",
+      "method": "snapshot",
+      "module": "S06",
+      "tx": "ReadTx_managed",
+      "scenarios": [
+        "B0-06",
+        "B0-11"
+      ]
+    },
+    {
+      "interface": "CaseService",
+      "method": "evidence",
+      "module": "S06",
+      "tx": "ReadTx_managed",
+      "scenarios": [
+        "B0-06",
+        "B0-13"
+      ]
+    },
+    {
+      "interface": "CaseService",
+      "method": "setStatus",
+      "module": "S06",
+      "tx": "WriteTx_managed",
+      "scenarios": [
+        "B0-07"
+      ]
+    },
+    {
+      "interface": "CaseService",
+      "method": "moveEvidence",
+      "module": "S06",
+      "tx": "WriteTx_managed",
+      "scenarios": [
+        "B0-08"
+      ]
+    },
+    {
+      "interface": "CaseService",
+      "method": "putContext",
+      "module": "S06",
+      "tx": "WriteTx_managed",
+      "scenarios": [
+        "B0-12"
+      ]
+    },
+    {
+      "interface": "CaseAtomicPort",
+      "method": "getInTx",
+      "module": "S06",
+      "tx": "ReadTx",
+      "scenarios": [
+        "B0-06"
+      ]
+    },
+    {
+      "interface": "CaseAtomicPort",
+      "method": "snapshotInTx",
+      "module": "S06",
+      "tx": "ReadTx",
+      "scenarios": [
+        "B0-06",
+        "B0-34"
+      ]
+    },
+    {
+      "interface": "CaseAtomicPort",
+      "method": "recordChangeInTx",
+      "module": "S06",
+      "tx": "WriteTx",
+      "scenarios": [
+        "B0-07",
+        "B0-31"
+      ]
+    },
+    {
+      "interface": "CaseAtomicPort",
+      "method": "createInTx",
+      "module": "S06",
+      "tx": "WriteTx",
+      "scenarios": [
+        "B0-06"
+      ]
+    },
+    {
+      "interface": "CaseAtomicPort",
+      "method": "setStatusInTx",
+      "module": "S06",
+      "tx": "WriteTx",
+      "scenarios": [
+        "B0-07",
+        "B0-13"
+      ]
+    },
+    {
+      "interface": "CaseAtomicPort",
+      "method": "captureInTx",
+      "module": "S06",
+      "tx": "WriteTx",
+      "scenarios": [
+        "B0-09",
+        "B0-10",
+        "B0-11",
+        "B0-35"
+      ]
+    },
+    {
+      "interface": "CaseAtomicPort",
+      "method": "initializeRunInTx",
+      "module": "S06",
+      "tx": "WriteTx",
+      "scenarios": [
+        "B0-13"
+      ]
+    },
+    {
+      "interface": "CaseAtomicPort",
+      "method": "inspectRunInTx",
+      "module": "S06",
+      "tx": "ReadTx",
+      "scenarios": [
+        "B0-13"
+      ]
+    },
+    {
+      "interface": "CaseAtomicPort",
+      "method": "attachInTx",
+      "module": "S06",
+      "tx": "WriteTx",
+      "scenarios": [
+        "B0-08"
+      ]
+    },
+    {
+      "interface": "CaseAtomicPort",
+      "method": "projectInTx",
+      "module": "S06",
+      "tx": "WriteTx",
+      "scenarios": [
+        "B0-13",
+        "B0-35"
+      ]
+    },
+    {
+      "interface": "CaseAtomicPort",
+      "method": "releaseInTx",
+      "module": "S06",
+      "tx": "WriteTx",
+      "scenarios": [
+        "B0-13"
+      ]
+    },
+    {
+      "interface": "CaseAtomicPort",
+      "method": "sealInTx",
+      "module": "S06",
+      "tx": "WriteTx",
+      "scenarios": [
+        "B0-14"
+      ]
+    },
+    {
+      "interface": "CaseAtomicPort",
+      "method": "applyRunInTx",
+      "module": "S06",
+      "tx": "WriteTx",
+      "scenarios": [
+        "B0-15",
+        "B0-36"
+      ]
+    },
+    {
+      "interface": "CaseAtomicPort",
+      "method": "previewCleanupInTx",
+      "module": "S06",
+      "tx": "WriteTx",
+      "scenarios": [
+        "B0-16"
+      ]
+    },
+    {
+      "interface": "CaseAtomicPort",
+      "method": "applyCleanupInTx",
+      "module": "S06",
+      "tx": "WriteTx",
+      "scenarios": [
+        "B0-16"
+      ]
+    },
+    {
+      "interface": "AlertService",
+      "method": "pollOnce",
+      "module": "S05",
+      "tx": "external_IO_then_multiple_WriteTx",
+      "scenarios": [
+        "B0-17",
+        "B0-18",
+        "B0-19",
+        "B0-22",
+        "B0-23"
+      ]
+    },
+    {
+      "interface": "AlertService",
+      "method": "list",
+      "module": "S05",
+      "tx": "ReadTx_managed",
+      "scenarios": [
+        "B0-17"
+      ]
+    },
+    {
+      "interface": "AlertService",
+      "method": "markRead",
+      "module": "S05",
+      "tx": "WriteTx_managed",
+      "scenarios": [
+        "B0-17"
+      ]
+    },
+    {
+      "interface": "AlertService",
+      "method": "setPolicy",
+      "module": "S05",
+      "tx": "WriteTx_managed",
+      "scenarios": [
+        "B0-20"
+      ]
+    },
+    {
+      "interface": "AlertService",
+      "method": "flushCandidates",
+      "module": "S05",
+      "tx": "WriteTx_managed",
+      "scenarios": [
+        "B0-20",
+        "B0-21"
+      ]
+    },
+    {
+      "interface": "ReportService",
+      "method": "prepare",
+      "module": "S10",
+      "tx": "outside_transaction",
+      "scenarios": [
+        "B0-24"
+      ]
+    },
+    {
+      "interface": "ReportService",
+      "method": "proposeInTx",
+      "module": "S10",
+      "tx": "WriteTx",
+      "scenarios": [
+        "B0-25",
+        "B0-26",
+        "B0-27"
+      ]
+    },
+    {
+      "interface": "ReportService",
+      "method": "assessInTx",
+      "module": "S10",
+      "tx": "WriteTx",
+      "scenarios": [
+        "B0-25",
+        "B0-28"
+      ]
+    },
+    {
+      "interface": "ReportService",
+      "method": "finalizeInTx",
+      "module": "S10",
+      "tx": "WriteTx",
+      "scenarios": [
+        "B0-28",
+        "B0-30",
+        "B0-36"
+      ]
+    },
+    {
+      "interface": "ReportService",
+      "method": "terminalWithoutRunInTx",
+      "module": "S10",
+      "tx": "WriteTx",
+      "scenarios": [
+        "B0-29"
+      ]
+    },
+    {
+      "interface": "ReportService",
+      "method": "review",
+      "module": "S10",
+      "tx": "WriteTx_managed",
+      "scenarios": [
+        "B0-31"
+      ]
+    },
+    {
+      "interface": "ReportService",
+      "method": "publishReviewedInTx",
+      "module": "S10",
+      "tx": "WriteTx",
+      "scenarios": [
+        "B0-32"
+      ]
+    },
+    {
+      "interface": "ReportService",
+      "method": "list",
+      "module": "S10",
+      "tx": "ReadTx_managed",
+      "scenarios": [
+        "B0-31"
+      ]
+    },
+    {
+      "interface": "ReportService",
+      "method": "followups",
+      "module": "S10",
+      "tx": "ReadTx_managed",
+      "scenarios": [
+        "B0-31",
+        "B0-33"
+      ]
+    },
+    {
+      "interface": "ReportService",
+      "method": "searchFollowups",
+      "module": "S10",
+      "tx": "ReadTx_managed",
+      "scenarios": [
+        "B0-33"
+      ]
+    },
+    {
+      "interface": "ReportService",
+      "method": "putFollowup",
+      "module": "S10",
+      "tx": "WriteTx_managed",
+      "scenarios": [
+        "B0-33"
+      ]
+    },
+    {
+      "interface": "ReportService",
+      "method": "export",
+      "module": "S10",
+      "tx": "ReadTx_managed",
+      "scenarios": [
+        "B0-34"
+      ]
+    },
+    {
+      "interface": "ResultPackageReadPort",
+      "method": "getInTx",
+      "module": "S10",
+      "tx": "ReadTx",
+      "scenarios": [
+        "B0-29",
+        "B0-30"
+      ]
+    }
+  ],
+  "aliases": {
+    "CaseReadPort": [
+      "CaseService",
+      [
+        "snapshot",
+        "evidence"
+      ]
+    ],
+    "InvestigationProfilePort": [
+      "ReportService",
+      [
+        "prepare"
+      ]
+    ],
+    "ReportProposalPort": [
+      "ReportService",
+      [
+        "proposeInTx"
+      ]
+    ],
+    "ReportCompletionPort": [
+      "ReportService",
+      [
+        "assessInTx",
+        "finalizeInTx",
+        "terminalWithoutRunInTx",
+        "publishReviewedInTx"
+      ]
+    ]
+  },
+  "transactions": [
+    "TX01",
+    "TX02",
+    "TX03",
+    "TX04",
+    "TX05",
+    "TX06",
+    "TX07",
+    "TX08",
+    "TX09",
+    "TX10",
+    "TX11",
+    "TX12"
+  ],
+  "gaps": [
+    "G01",
+    "G02",
+    "G03",
+    "G04",
+    "G05"
+  ]
+}
