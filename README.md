@@ -33,10 +33,12 @@ python -B scripts/design/verify_development_docs.py
 python -B scripts/design/verify_subsystem_designs.py --node-syntax
 ```
 
-上述命令只做离线设计与规范检查；不等同于产品 tsc、构建或真实链路验收。`.github/workflows/design-checks.yml` 已准备，GitHub 远端与线上执行尚未配置。
+上述命令只做离线设计与规范检查；不等同于产品 tsc、构建或真实链路验收。`.github/workflows/design-checks.yml` 已准备，线上执行尚未验证。
 
 ## 三账号小组协作
 
 使用一条 `main` 主线和短任务分支。完成者负责自检、记录结果及合并；PR 按需使用，不设置专职审查者或另一账号审批门槛。初期任务状态统一记录在 [docs/development/tasks](docs/development/tasks/README.md)。共享文件一次只交一个任务修改。
 
-本轮仅初始化本地仓库。下一步建立具有实际 base commit、允许路径和验收命令的产品基座任务；尚不启动全部子系统或真实外部实验。
+远端已配置为 [Oight/NetGuardian-EX-Brain](https://github.com/Oight/NetGuardian-EX-Brain)，正在[准备首次同步](docs/development/remote-sync.md)。远端文件树为空但保留旧历史，本地合并保留该历史；尚未实际推送，也未创建 Issue/PR 或修改仓库权限。
+
+下一步建立具有实际 base commit、允许路径和验收命令的产品基座任务；尚不启动全部子系统或真实外部实验。
