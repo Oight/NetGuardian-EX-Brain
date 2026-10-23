@@ -1,6 +1,6 @@
 # 并行开发准备与开工门槛
 
-状态日期：2026-10-23。本文记录准备条件；不是项目完成率。当前仅设计与规范修订，本地Git仓库已初始化为main；产品workspace未实现，origin已配置并准备首次推送。采用三账号轻量流程。
+状态日期：2026-10-23。本文记录准备条件；不是项目完成率。当前仅设计与规范修订，本地main已完成GitHub首次同步并跟踪origin/main；产品workspace未实现。采用三账号轻量流程。
 
 | ID | 条件 | 本轮状态 | 所需依据 |
 |---|---|---|---|
@@ -11,10 +11,10 @@
 | R05 | 共享fake/testkit | 未实现 | 标准模块可运行、外部已执行响应丢失等场景 |
 | R06 | 真实存储和最小安装包 | 未实现 | 创建案件→保存→重启回读、无宿主降级 |
 | R07 | 产品CI与源码边界检查 | 未实现 | 产品build/typecheck/关键集成及实际依赖检查 |
-| R08 | GitHub远端协作（按需） | origin及dry-run已验证；实际推送及线上CI未执行，不阻塞本地开发 | [首次同步记录](remote-sync.md)；任务仍在本地文件维护 |
+| R08 | GitHub远端协作（按需） | main实际推送及远端HEAD核对通过；线上Actions未核实，任务/权限设置未改 | [首次同步记录](remote-sync.md)；任务仍在本地文件维护 |
 | R09 | 宿主M0能力 | 未验收完整 | 认证/专用配置/工具隔离/可信来源/回传逐项真实证据 |
 
-本轮提供的design-checks工作流仅运行设计/规范离线检查，未在GitHub执行；不把它标为R07产品CI完成。当前检查记录见[verification](../implementation/verification.md)。
+design-checks工作流已随首次同步上传，仅运行设计/规范离线检查；线上Actions结果尚未核实，不把它标为R07产品CI完成。设计附件检查记录见[verification](../implementation/verification.md)。
 
 ## 分批放行
 

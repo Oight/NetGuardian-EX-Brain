@@ -1,4 +1,4 @@
-# 首次 GitHub 同步准备
+# 首次 GitHub 同步记录
 
 日期：2026-10-23。任务状态唯一位置为 [T000](tasks/T000-github-bootstrap.md)。本记录保存已观察事实与验证依据，不维护第二份任务看板。
 
@@ -6,7 +6,7 @@
 
 - HTTPS origin：https://github.com/Oight/NetGuardian-EX-Brain.git。
 - 目标分支：main。
-- 用户要求：查看线上仓库并准备推至线上。本轮执行读取、本地整合和 dry-run；实际推送待确认。
+- 用户要求：先查看线上仓库并准备推至线上，随后明确确认“好，推送吧”。本轮已执行读取、本地整合、dry-run 及正式 main 推送。
 - 不创建 Issue/PR，不修改仓库权限或分支保护，不启动模型、宿主或 Wazuh 操作。
 
 ## 远端观察
@@ -34,14 +34,18 @@ contracts.ts、schema.sql、contract-vectors.json、architecture.json 与原资�
 
 后续补记结果的文档提交随任务分支快进合并到本地 main，准确最终 HEAD 由 Git 历史记录。现有产品 workspace、runtime schema、客户端与安装包仍未实现。
 
-未实际推送，未执行线上 Actions。即使 dry-run 通过，也不能据此证明线上 CI、分支规则或包含 workflow 的实际上传一定通过。
+上述准备完成后，正式推送的实际结果另列于下一节，不将 dry-run 当作实际上传证明。线上 Actions 状态尚未核实。
 
-## 确认后的推送方式
+## 正式推送与回读
 
-复核 origin/main 没有新增提交、待推送内容与检查后，执行：
+用户确认后，重新核对 main、origin URL、干净工作区、待推送 a11a11b 及远端 d51096a 均与预演一致，执行：
 
 ```powershell
 git push --set-upstream origin main
 ```
 
-只推送准备好的 main 分支，不使用 force、mirror 或批量标签推送；推送后再核对线上 HEAD 和 Actions 实际结果。远端任务功能与保护设置继续按三账号小组需要安排，不增加强制另一账号审查门槛。
+命令返回 0，线上 main 从 d51096a 更新到 a11a11ba0e9d8d1c374584a0163aeb6c643731bb。再次 ls-remote 取得同一完整 SHA，本地 main 已跟踪 origin/main，工作区干净。没有使用 force、mirror 或批量标签推送。
+
+GitHub Actions 匿名 API 请求返回 HTTP 404，无法核实线上工作流是否运行或通过；不将该响应解释为仓库不存在、检查未运行或检查成功，也不读取/打印 Git 凭据来调用其他接口。
+
+本记录及相关说明随实际推送状态补记一笔文档提交并同步 main，最终 HEAD 以 Git 历史及线上回读为准。远端任务功能与保护设置继续按三账号小组需要安排，不增加强制另一账号审查门槛。
