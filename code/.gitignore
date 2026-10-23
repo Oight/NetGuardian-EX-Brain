@@ -1,0 +1,14 @@
+node_modules/
+dist/
+dist-test/
+.cache/
+.local/
+.venv/
+__pycache__/
+*.sqlite*
+*.db*
+*.log
+.env*
+!.env.example
+release/
+

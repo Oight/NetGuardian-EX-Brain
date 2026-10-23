@@ -1,0 +1,5 @@
+* text=auto eol=lf
+# Preserve checksum-verified snapshots and the initial migration byte for byte.
+spec/** -text
+packages/storage/migrations/0001.sql -text
+*.png binary

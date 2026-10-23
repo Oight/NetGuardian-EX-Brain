@@ -1,0 +1,19 @@
+# T005 · D：工作台与用户验收
+
+状态：planned（尚未领取；现有页面仅为旧基座状态页）。唯一状态位置：本文件。分支入口：task/T005-d-workbench。
+
+分工来源：`120c81cfd4d8ed720c9cc70178edb9c6fd172a34`；实际产品 base/执行者/依赖合并 commit：未提供。允许 renderer、tests/acceptance 和[本线交接目录](../workstreams/d/README.md)，不写 main/preload/runtime、公共 fake、根锁或业务数据库。
+
+| 阶段 | 状态 | 前置实际交付 | 目标 |
+|---|---|---|---|
+| D0 | ready | 无产品依赖 | 页面流程、隔离静态原型、合成案例和验收矩阵 |
+| D1 | planned | A1/A2、A3 对应 DesktopApi fake | typed client、完整工作台与明确错误状态 |
+| D2 | planned | D1、B2、A4 最小 IPC | 真实创建案件/保存/重启回读与最小安装包 |
+| D3 | planned | D2、B3、C3/C4、A4 | 三入口、预算/取消/恢复/导出/投递场景 |
+| D4 | planned | A5；真实场景另需授权 | 使用说明、可复现流程、证据与剩余问题 |
+
+## 交接
+
+现有 [renderer](../../../apps/desktop/renderer/README.md)显示真实摘要，没有完整案件操作，不能宣布 S12/D1 完成。UI 只消费 DesktopApi，不用内部模块名代替功能；D0 不另搭正式 workspace 或公共 fake。
+
+按[统一命令](../commands.md)和[交接模板](../workflow.md)记录结果；本机不得启动 Electron。

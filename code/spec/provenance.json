@@ -1,0 +1,23 @@
+{
+  "sourceCommit": "c8f152eae64395b24f965decfc3e434e0e0b8ae1",
+  "providedBy": "Shimakaze-17900",
+  "implementation": "Codex assisted",
+  "files": [
+    {
+      "name": "contracts.ts",
+      "sha256": "0803deb61048564a63041f6ae0534878ac3ba810bfee1ed6463ac29973f158a5"
+    },
+    {
+      "name": "schema.sql",
+      "sha256": "8788f63b08746523db55c8c25e68561f2b42f270540bf56ce65df9a2d840d014"
+    },
+    {
+      "name": "architecture.json",
+      "sha256": "23815c9a95a5d8ddf72f9fce04e00973c462561ae6dc74a78a358df8dccaa089"
+    },
+    {
+      "name": "contract-vectors.json",
+      "sha256": "a2406d7b6eff4ef75a7d468f566d754025a6a8fe079db8fe020f19eae692c6c7"
+    }
+  ]
+}
