@@ -39,6 +39,6 @@ python -B scripts/design/verify_subsystem_designs.py --node-syntax
 
 使用一条 `main` 主线和短任务分支。完成者负责自检、记录结果及合并；PR 按需使用，不设置专职审查者或另一账号审批门槛。初期任务状态统一记录在 [docs/development/tasks](docs/development/tasks/README.md)。共享文件一次只交一个任务修改。
 
-远端已配置为 [Oight/NetGuardian-EX-Brain](https://github.com/Oight/NetGuardian-EX-Brain)，正在[准备首次同步](docs/development/remote-sync.md)。远端文件树为空但保留旧历史，本地合并保留该历史；尚未实际推送，也未创建 Issue/PR 或修改仓库权限。
+远端已配置为 [Oight/NetGuardian-EX-Brain](https://github.com/Oight/NetGuardian-EX-Brain)，[首次同步准备](docs/development/remote-sync.md)和推送 dry-run 已通过。远端文件树为空但保留旧历史，本地合并保留该历史；尚未实际推送，也未创建 Issue/PR 或修改仓库权限。
 
 下一步建立具有实际 base commit、允许路径和验收命令的产品基座任务；尚不启动全部子系统或真实外部实验。

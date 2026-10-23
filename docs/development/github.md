@@ -1,6 +1,6 @@
 # Git 与 GitHub 接入
 
-日期：2026-10-23；协作规范 0.2。本地仓库已在 main 初始化，origin 已配置为 [Oight/NetGuardian-EX-Brain](https://github.com/Oight/NetGuardian-EX-Brain)。本轮准备首次同步，尚未实际推送、创建 Issue/PR 或修改 GitHub 权限；状态及证据见[首次同步记录](remote-sync.md)。
+日期：2026-10-23；协作规范 0.2。本地仓库已在 main 初始化，origin 已配置为 [Oight/NetGuardian-EX-Brain](https://github.com/Oight/NetGuardian-EX-Brain)。本轮首次同步准备及 dry-run 已通过，尚未实际推送、创建 Issue/PR 或修改 GitHub 权限；状态及证据见[首次同步记录](remote-sync.md)。
 
 ## 当前本地用法
 

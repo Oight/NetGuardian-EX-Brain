@@ -19,7 +19,20 @@ git ls-remote --symref 与 fetch 结果一致：HEAD 指向 main，main 为 d510
 
 ## 验证
 
-本地整合和文档更新正在准备，离线检查、暂存范围核对和 dry-run 结果执行后追加。现有产品 workspace、runtime schema、客户端与安装包仍未实现。
+整合提交为 753cd96，保留本地基准和远端 main 两个父历史；merge-base --is-ancestor origin/main HEAD 通过。整合后六项授权文档变化及 60 份 UTF-8 文本/规范文件已核对，未纳入 private、研究、归档、迁移或运行材料；定向检查未发现私钥、长 JWT 和指定 API key 格式。该定向检查不代表完整秘密检测认证。
+
+contracts.ts、schema.sql、contract-vectors.json、architecture.json 与原资料工作区字节一致。source-imports.json 继续表示初次导入快照，不因本轮后续有意修改文档而重算原始哈希。
+
+执行结果：
+
+| 检查 | 实际结果 |
+|---|---|
+| verify_subsystem_designs.py --node-syntax | 通过；17 份工程文档、137 个契约声明、49 张表和合成约束；13 份 TypeScript 仅语法解析 |
+| verify_development_docs.py | 通过；48 份 Markdown、238 个本地链接、19 个声明组件和49张表所有者 |
+| git diff --cached --check | 本轮六份文档的增量检查通过；不改写此前历史格式提示 |
+| push --dry-run --porcelain origin HEAD:refs/heads/main | 对 753cd96 返回 0，显示 d51096a..753cd96 可更新；没有实际更新线上分支 |
+
+后续补记结果的文档提交随任务分支快进合并到本地 main，准确最终 HEAD 由 Git 历史记录。现有产品 workspace、runtime schema、客户端与安装包仍未实现。
 
 未实际推送，未执行线上 Actions。即使 dry-run 通过，也不能据此证明线上 CI、分支规则或包含 workflow 的实际上传一定通过。
 

@@ -2,7 +2,7 @@
 
 - 完成者：当前用户授权的本地执行 Agent；不设专职审查者。
 - 唯一状态位置：本文件。
-- 状态：checking。
+- 状态：done（本地推送准备完成；实际推送待确认）。
 - 分支：task/github-bootstrap。
 - 本地实际 base commit：af60d1e5c67d6a114f07b49c42aa3cc8776075e6。
 - 依赖：本地初始化 d2a10dc 和克隆核验 af60d1e 已在 main；远端 main 基准为 d51096a5cbdae282e6d7c28ca3752e980c2c0cfb。
@@ -31,6 +31,10 @@ git push --dry-run --porcelain origin main:refs/heads/main
 
 ## 进度与交接
 
-已核实远端文件树为空，但存在 d01b76c Initial commit → d51096a Delete LICENSE 历史；已 fetch 并在本任务分支准备保留两段历史的合并，无内容冲突。离线检查及 dry-run 待执行。
+已核实远端文件树为空，但存在 d01b76c Initial commit → d51096a Delete LICENSE 历史；fetch 后的整合提交为 753cd96，保留两段历史，无内容冲突，origin/main 是该提交的祖先。
+
+两个离线检查通过：17 份工程文档、137 个契约声明、49 张 SQL 表和合成约束、13 份 TypeScript 语法，以及 48 份 Markdown、238 个本地链接、19 个声明组件。六项授权文档变化、60 份纳入文件和四份权威附件已核对，本轮增量空白检查通过。
+
+对 753cd96 执行 push --dry-run --porcelain origin HEAD:refs/heads/main 返回 0，预演结果为 d51096a..753cd96 可更新。随后仅补记验证结果，并将任务分支快进合并到本地 main；本任务完成的是推送准备，实际推送和线上 CI 保持未执行。
 
 实际结果和待确认项见[首次同步记录](../remote-sync.md)。PR/他人复核未使用，完成者自检。实际准备提交和 main 合并依据以 Git 历史为准，避免虚构自引用提交号。

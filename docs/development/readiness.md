@@ -11,7 +11,7 @@
 | R05 | 共享fake/testkit | 未实现 | 标准模块可运行、外部已执行响应丢失等场景 |
 | R06 | 真实存储和最小安装包 | 未实现 | 创建案件→保存→重启回读、无宿主降级 |
 | R07 | 产品CI与源码边界检查 | 未实现 | 产品build/typecheck/关键集成及实际依赖检查 |
-| R08 | GitHub远端协作（按需） | origin已配置；实际推送及线上CI未执行，不阻塞本地开发 | [首次同步记录](remote-sync.md)；任务仍在本地文件维护 |
+| R08 | GitHub远端协作（按需） | origin及dry-run已验证；实际推送及线上CI未执行，不阻塞本地开发 | [首次同步记录](remote-sync.md)；任务仍在本地文件维护 |
 | R09 | 宿主M0能力 | 未验收完整 | 认证/专用配置/工具隔离/可信来源/回传逐项真实证据 |
 
 本轮提供的design-checks工作流仅运行设计/规范离线检查，未在GitHub执行；不把它标为R07产品CI完成。当前检查记录见[verification](../implementation/verification.md)。
