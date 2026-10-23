@@ -1,46 +1,30 @@
 # 安装、构建与检查
 
-所有命令从项目根执行。候选工具版本由 package.json 与锁记录；Electron/SQLite 真实兼容仍待目标环境验收，不把版本声明写成已通过组合。
-
-## 本机 Bun/uv
-
-本机禁止 Node.js、nodejs、npm、npx、Electron 和依赖安装钩子，不用改名或包装器绕过。先审查新增依赖生命周期脚本，再禁用脚本安装。
+所有产品命令从仓库 code/ 执行。Node 须符合 package.json 的 >=24.15 <25；系统版本不足时使用独立工具链，不修改 engines 来绕过门槛。依赖由双锁记录，默认禁用安装钩子。
 
 ```sh
-bun install --ignore-scripts --frozen-lockfile --cache-dir .cache/bun
-bun scripts/local/check.ts
-```
-
-| 检查 | 本机 Bun | 其他成员标准环境 |
-|---|---|---|
-| 类型 | `bun node_modules/typescript/bin/tsc --noEmit` | `npm run typecheck` |
-| 源码边界 | `bun scripts/product/check-boundaries.ts` | `npm run check:boundaries` |
-| 原文/schema/权限配置 | `bun scripts/product/verify-foundation.ts` | `npm run check:spec` |
-| 锁图元数据 | `bun scripts/product/export-npm-lock.ts --check` | `npm run check:locks` |
-| 测试 | `bun scripts/product/test.ts` | `npm test` |
-| 构建 | `bun scripts/product/build.ts` | `npm run build` |
-| 全部检查 | `bun scripts/local/check.ts` | `npm run check` |
-
-本机检查只用当前 Bun 可执行文件启动子命令，最后编译标准测试代码，不启动 Node.js/Electron。测试从源码发现 packages、apps、tests 下 *.test.ts，不执行旧生成物。Python 如需使用，通过 uv 保持 3.12；缓存与其他写入也放在授权目录。
-
-## 其他成员的独立环境
-
-以下命令不在本机执行。
-
-```sh
-npm ci
+npm ci --ignore-scripts
 npm run check
-npm run desktop
 ```
 
-共享代码保持标准 TypeScript、ES modules、npm workspaces，其他成员不需要 Bun/uv。Node.js 为 package.json 声明的候选 24.x。Electron 窗口/SQLite/保护存储、Windows 和安装包分别记录目标环境结果。
+| 检查 | 标准命令 |
+|---|---|
+| 类型 | npm run typecheck |
+| 构建 | npm run build |
+| 源码边界 | npm run check:boundaries |
+| 原文/schema/安全配置 | npm run check:spec（先构建） |
+| 双锁图元数据 | npm run check:locks |
+| 构建与行为测试 | npm test |
+| 全部检查 | npm run check |
 
-依赖变化由 A 维护两份锁。简单单版本图可使用 `bun scripts/product/export-npm-lock.ts` 导出 npm 锁；复杂图明确拒绝，不能猜测 npm 解析。锁图一致不等于 npm ci 通过。
+总检查先构建再加载包，支持没有 dist 的干净检出。check:boundaries 覆盖静态导入与字面量 SQL，不证明动态 SQL 或运行时授权。check:spec 核对快照哈希、137 个声明、70 个 DTO、43 个桌面方法、初始迁移和宿主安全配置。
 
-## 检查边界
+Bun 环境可执行 `bun install --ignore-scripts --frozen-lockfile --cache-dir .cache/bun` 后运行 `bun scripts/local/check.ts`。旧 Linux/Bun 的禁止启动 Node 限制仅是该执行环境记录；不是当前 Windows 或其他成员的全组要求。Python 设计检查仍在 design_document/ 执行。
 
-check:boundaries 扫描全部现有产品源码，检查声明组件依赖、公共 fake 纯度、renderer 特权、Bun 专用 API 和字面量 SQL 写所有权。它不证明动态 SQL 或运行时授权正确。
+## 桌面与 CI
 
-check:spec 检查设计哈希、137 个声明、DTO/桌面 schema、初始迁移和桌面安全配置。设计仓库删除 Actions 后的 Python 检查问题仍需来源维护者修复，本次不越界修改。
+依赖安装禁用钩子时未准备 Electron 二进制，不能直接把 npm run desktop 当作已可运行。窗口、托盘、系统保护、目标 Electron 的 SQLite 和安装包均需独立验证；当前未执行。
 
-外部 CI 文件只为标准环境准备，尚未推送或触发。原文快照不被产品脚本写入。
+根 .github/workflows/foundation.yml 可从 GitHub Actions 手动触发，分别在 code/ 和 design_document/ 执行；没有 push/pull_request 自动触发，保持此前关闭自动检查的决定。标准矩阵为 Linux/Windows，线上结果待执行。
+
+依赖变化由 A 维护两份锁。现有导出器只支持简单单版本图，复杂图明确拒绝；锁元数据一致与 npm ci 成功分别记录。当前结果见[接手验证](../verification/a-handoff-2026-10-23.md)。

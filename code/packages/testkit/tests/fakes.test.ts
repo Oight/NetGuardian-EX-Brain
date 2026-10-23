@@ -15,3 +15,30 @@ test('shared fakes require explicit scripts and can model executed requests whos
   const uncertain=await execution.port.inspect(context(),CASE);assert.ok(uncertain.ok);assert.equal(uncertain.value.phase,'uncertain');
   const late=await execution.port.abort(context(),CASE);assert.ok(late.ok);assert.equal(late.value.phase,'completed');
 });
+
+
+test('desktop fake preserves ordering, validates boundaries and exposes explicit failures', async () => {
+  const { createScriptedDesktop } = await import('@campussec/testkit');
+  const desktop = createScriptedDesktop();
+  const request = { protocolVersion: '0.1.0' as const, requestId: CASE, method: 'connections.list' as const, payload: {} };
+  await assert.rejects(() => desktop.port.invoke(request), /Unscripted/);
+  desktop.push('connections.list', async () => fail('FORBIDDEN', '合成权限不足'));
+  await assert.rejects(() => desktop.port.invoke({ ...request, method: 'runtime.status' }), /Expected/);
+  assert.equal(desktop.pending(), 1);
+  const denied = await desktop.port.invoke(request);
+  assert.equal(denied.requestId, CASE);
+  assert.equal(denied.result.ok, false);
+  if (!denied.result.ok) assert.equal(denied.result.error.code, 'FORBIDDEN');
+  assert.equal(desktop.pending(), 0);
+  desktop.push('connections.list', async () => ok([{ id: CASE, displayName: '合成连接', generation: 1 }]));
+  const result = await desktop.port.invoke(request);
+  assert.ok(result.result.ok);
+  assert.equal(result.result.value[0]?.displayName, '合成连接');
+  desktop.push('connections.list', async () => ok([{ id: CASE, displayName: 'bad', generation: -1 }]));
+  assert.equal((await desktop.port.invoke(request)).result.ok, false);
+  desktop.push('connections.list', async () => ok([]));
+  const invalid = { ...request, payload: { unexpected: true } };
+  // @ts-expect-error Inject malformed external input to exercise runtime validation.
+  assert.equal((await desktop.port.invoke(invalid)).result.ok, false);
+  assert.equal(desktop.pending(), 1);
+});

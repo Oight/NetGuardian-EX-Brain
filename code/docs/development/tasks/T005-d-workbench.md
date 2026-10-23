@@ -2,7 +2,7 @@
 
 状态：planned（尚未领取；现有页面仅为旧基座状态页）。唯一状态位置：本文件。分支入口：task/T005-d-workbench。
 
-分工来源：`120c81cfd4d8ed720c9cc70178edb9c6fd172a34`；实际产品 base/执行者/依赖合并 commit：未提供。允许 renderer、tests/acceptance 和[本线交接目录](../workstreams/d/README.md)，不写 main/preload/runtime、公共 fake、根锁或业务数据库。
+分工来源：`120c81cfd4d8ed720c9cc70178edb9c6fd172a34`；可领取产品基准：64443ed；执行者、实际启动 HEAD 与依赖验收 commit 在领取时填写。允许 renderer、tests/acceptance 和[本线交接目录](../workstreams/d/README.md)，不写 main/preload/runtime、公共 fake、根锁或业务数据库。
 
 | 阶段 | 状态 | 前置实际交付 | 目标 |
 |---|---|---|---|
@@ -16,4 +16,6 @@
 
 现有 [renderer](../../../apps/desktop/renderer/README.md)显示真实摘要，没有完整案件操作，不能宣布 S12/D1 完成。UI 只消费 DesktopApi，不用内部模块名代替功能；D0 不另搭正式 workspace 或公共 fake。
 
-按[统一命令](../commands.md)和[交接模板](../workflow.md)记录结果；本机不得启动 Electron。
+按[统一命令](../commands.md)和[交接模板](../workflow.md)记录结果；真实 Electron 验证独立记录，不继承旧机器限制。
+
+接手说明：根仓库与 code/ 共用 Git 历史。64443ed 只证明现有基座入库；A 当前复验未合并前，不自动放行本线后续阶段。A 的实际标准运行时结果见 T002。

@@ -9,6 +9,6 @@
 | C | task/T004-c-integrations | [T004](T004-c-integrations.md) | S04/S08/S09/S11 |
 | D | task/T005-d-workbench | [T005](T005-d-workbench.md) | S12、用户验收 |
 
-当前整理任务：[T007](T007-project-structure.md)。旧 S01/S02/S03“T002”存入[历史记录](../../history/foundation-initial-task.md)，不再与新版 A 线共用身份。
+已入库的结构整理记录：[T007](T007-project-structure.md)。旧 S01/S02/S03“T002”存入[历史记录](../../history/foundation-initial-task.md)，不再与新版 A 线共用身份。
 
-开始前填写执行者、真实产品 base、依赖合并 commit、路径与检查。尚无产品 Git main，不用设计 commit 代替实现提交；现有代码可复用不等于阶段已放行。
+既有产品成果已随 64443ed 进入仓库 main；全仓唯一产品任务状态在本目录，design_document 的四线文件只转发。开始前填写执行者、实际 HEAD、依赖合并 commit、路径与检查；代码入库不等于全部阶段验收通过。指定上表分支名即可读取相应任务并创建独立本地分支；实体分支是否存在由执行者先核对。

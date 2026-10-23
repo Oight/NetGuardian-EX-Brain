@@ -12,4 +12,7 @@ script.push(async () => fail('UPSTREAM_TIMEOUT', '合成响应丢失'));
 // 将 port 注入被测模块；fake 不访问真实网络。
 ```
 
-真实数据库、文件与跨模块预置记录放根 tests/support。本包还没有所有模块所需 fake；DesktopApi 和存储 fake 仍需按对应阶段补齐，不能据现有出口宣布 A3 全部完成。
+真实数据库、文件与跨模块预置记录放根 tests/support。本包还没有所有模块所需 fake；DesktopApi 已提供 createScriptedDesktop，按方法显式排队并校验输入/输出；存储 fake 仍需按实际消费者需求补齐，不能据现有出口宣布 A3 全部完成。
+
+
+界面开发可注入 `createScriptedDesktop().port`；使用 `push(method, reply)` 排入合成响应，方法乱序或无脚本时抛错，非法输入不消耗脚本。它不证明真实 IPC/业务已接通。合成错误与响应丢失须由调用者显式脚本化。

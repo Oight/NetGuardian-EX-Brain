@@ -17,7 +17,7 @@
 - 轻量协作规范、任务模板及离线检查脚本；已按[四人工作线](development/tasks/README.md)覆盖全部子系统，尚不代表实现完成。
 - 已同步的 Git 仓库与 Actions 工作流文件；线上 Actions 结果尚未核实。
 
-这些是设计与开发准备产物。产品 workspace、运行时 schema、共享 testkit、客户端实现、安装包和完整 P0 均未完成，具体门槛见[准备清单](development/readiness.md)。
+产品基座已随 64443ed 入 main，位于 code/，包含 workspace、runtime schema、共享 testkit、SQLite 和桌面宿主基座；完整业务界面、安装包及 P0 尚未完成。实时阶段状态以[产品任务入口](../../code/docs/development/tasks/README.md)为准，当前复验见[接手验证](../../code/docs/verification/a-handoff-2026-10-23.md)。
 
 ## 提供者历史记录的范围
 

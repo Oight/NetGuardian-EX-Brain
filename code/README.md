@@ -23,15 +23,15 @@
 
 根配置、锁、公共导出、检查脚本、CI 与装配由 A 串行维护；B 维护迁移不等于拥有全部业务状态。完整目录见结构说明。
 
-## 本机检查
+## 检查
 
-在本目录执行。本机只使用 Bun，不启动 Node.js、npm、npx、Electron 或安装钩子。
+在 code/ 执行标准环境命令：
 
 ```sh
-bun install --ignore-scripts --frozen-lockfile --cache-dir .cache/bun
-bun scripts/local/check.ts
+npm ci --ignore-scripts
+npm run check
 ```
 
-其他成员使用标准 Node/npm/Python 环境，命令见[检查说明](docs/development/commands.md)。Python 保持 3.12 约定，目前产品检查无需 Python 依赖。
+Node 版本须满足 package.json；当前 Windows 接手复验使用 Node 24.15.0，见[接手验证](docs/verification/a-handoff-2026-10-23.md)。Bun 可作为另一个验证环境，命令见运行说明。安装默认禁用依赖钩子，因此 Electron 二进制不会自动下载；GUI 和安装包需独立准备与验收。
 
-本机通过只证明 Bun 下的类型、真实 SQLite 与合成行为。Node/npm、Electron、Windows、系统保护和安装包仍待外部验收。当前目录尚未建立产品 Git main；旧基座不能作为新版四线阶段已合并的证明。
+既有产品基座已在当前仓库 main 的 64443ed 入库，不能继续将其描述为“尚无产品 Git”。四线阶段是否完成仍以各任务验收为准；当前 S06/S07 和真实调查链路未实现。

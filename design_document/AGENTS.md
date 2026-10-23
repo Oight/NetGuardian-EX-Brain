@@ -11,7 +11,7 @@
 
 - 2026-10-23 用户确认采用轻量流程：一条 main 主线、短任务分支、完成者自检并合并。PR 和他人复核按需使用，不要求专职审查者、固定集成负责人或另一账号审批。
 - 2026-10-23 用户进一步要求四人分工：指定 `task/T002-a-foundation`、`task/T003-b-local-domain`、`task/T004-c-integrations` 或 `task/T005-d-workbench` 时，先查 docs/development/tasks/README.md 和对应任务文件，按首个可执行阶段独立工作；未放行阶段不得跳过依赖。
-- 当前任务状态唯一位置为 docs/development/tasks 内的具体任务文件；若将来迁往 Issue，明确切换位置，避免维护两份状态。
+- 当前产品任务状态唯一位置为仓库根下 code/docs/development/tasks；本目录四线任务文件仅转发导航。若迁往 Issue，明确切换位置。
 - 产品实现任务开始前填写实际 base commit、依赖、允许路径、检查命令和交接要求。无产品基座时不声称 12 模块全面可开工。
 - 同时工作的任务使用独立分支与独立目录；不得在共享目录并发切分支。共享契约、DDL、根配置、锁、装配和 CI 同一时刻仅一个任务写入；当次完成者负责协调，不设长期专人。
 - 合并前自查差异和实际文件清单，执行本任务检查及受影响组合检查。记录失败、未执行和限制；以准确 commit 保存依据。
@@ -30,5 +30,5 @@
 - 初始项目设计与研究材料由 Shimakaze-17900 提供并署名；仓库文字整理标明 Codex 辅助，后续贡献按文内说明及 Git 历史归属。第三方资料保留自身出处，Git 提交署名不自动证明其他来源的原作者。
 - 引用必须区分仓库内可读文件和未入库来源；来源登记不是报告正文。历史结果记录执行者、日期、环境和验证层级，不将某次电脑环境或结果写成全组条件、当前状态或共同验收成绩。
 - 本地检查：python -B scripts/design/verify_subsystem_designs.py；python -B scripts/design/verify_development_docs.py。--sync 只用于有意更新工程包内嵌块，CI 只读检查。
-- Node --check 仅语法；源码依赖检查、runtime schema、产品 tsc/构建和共享 testkit 仍待产品基座实现。
+- Node --check 仅语法；code/ 已有源码静态边界、runtime schema、tsc/构建与 testkit，实际结果见产品任务，不据此推导真实链路完成。
 - 本地可逆工作按任务授权继续；远端推送、GitHub 配置及真实外部操作依当次授权。
