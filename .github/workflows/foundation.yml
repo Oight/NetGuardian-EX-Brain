@@ -1,5 +1,10 @@
 name: Foundation checks
 on:
+<<<<<<< HEAD
+=======
+  push:
+  pull_request:
+>>>>>>> 119c4fd (ci: move .github directory to root)
   workflow_dispatch:
 permissions:
   contents: read
@@ -10,9 +15,12 @@ jobs:
         os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 10
+<<<<<<< HEAD
     defaults:
       run:
         working-directory: code
+=======
+>>>>>>> 119c4fd (ci: move .github directory to root)
     env:
       ELECTRON_SKIP_BINARY_DOWNLOAD: '1'
     steps:
@@ -23,6 +31,7 @@ jobs:
         with:
           node-version: '24'
           cache: npm
+<<<<<<< HEAD
           cache-dependency-path: code/package-lock.json
       - run: npm ci --ignore-scripts
       - run: npm run check
@@ -40,3 +49,7 @@ jobs:
           python-version: '3.12'
       - run: python -B scripts/design/verify_subsystem_designs.py
       - run: python -B scripts/design/verify_development_docs.py
+=======
+      - run: npm ci
+      - run: npm run check
+>>>>>>> 119c4fd (ci: move .github directory to root)

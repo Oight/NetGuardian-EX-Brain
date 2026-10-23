@@ -11,4 +11,4 @@ __pycache__/
 .env*
 !.env.example
 release/
-
+AGENTS.md/
