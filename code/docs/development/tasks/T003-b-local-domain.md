@@ -1,12 +1,12 @@
 # T003 · B：存储与本地业务
 
-状态：checking（B0 材料与离线核验完成，待保存实际提交及合入 main；B1—B4 不启动）。唯一状态位置：本文件。分支入口：task/T003-b-local-domain；本轮阶段分支：task/T003-b-local-domain-b0。
+状态：in_progress（B 线已领取，B0 已完成并合入本地 main；本轮结束，B1—B4 保持 planned、未启动）。唯一状态位置：本文件。分支入口：task/T003-b-local-domain；本轮阶段分支：task/T003-b-local-domain-b0。
 
 分工来源：`120c81cfd4d8ed720c9cc70178edb9c6fd172a34`；本轮实际产品 base：`1d379e11916fe03cc03e5355fc6c1ee108633b6c`；执行者：Codex（用户指定 B 线），2026-10-23。B0 无产品依赖，不以现有 S02 或设计提交推定 A/B 后续阶段已放行。允许 storage、core/{alerts,cases,reports}、investigation-profile、自有测试和[本线交接目录](../workstreams/b/README.md)。本轮实际写入限本任务文件与本线交接目录。物理迁移由 B 独占，根锁/公共导出交 A。
 
 | 阶段 | 状态 | 前置实际交付 | 目标 |
 |---|---|---|---|
-| B0 | checking | 无产品依赖 | 表/事务/端口映射与合成验收材料 |
+| B0 | done | 无产品依赖 | 表/事务/端口映射与合成验收材料；实现提交 88cd3f8 已快进合入本地 main |
 | B1 | planned | A1/A2、A3 对应 fake | S02 初始化/迁移/同步事务/事件 |
 | B2 | planned | B1、A3 | S06 案件/证据/背景/投影，真实保存与重启回读 |
 | B3 | planned | B2、A4/C2 对应接口 | S05 告警与触发；S10 配置/核查/结果包/导出 |
@@ -38,4 +38,4 @@ S06 不回调预算/MCP；S10 不决定任务终态、不读任务私表解释�
 
 首轮 DDL 核验曾因重开连接未显式关闭，导致 Windows 临时库清理失败；已用显式 closing 修复并复验通过。首次遗留的一个 512 KiB 合成临时库位于系统临时目录，自动审批以 `blocked by policy` 拒绝清理；后续核验的临时库正常关闭与清理。
 
-实现/合并 commit：检查完成，实际保存及合并后补记；此时不预填未来自引用提交。B1 及后续阶段继续 planned，本轮止于 B0。
+实现/合并 commit：`88cd3f86b16c2af8b1c41c66901aa0b8126ffa89`（docs(b): prepare B0 domain plan and acceptance materials）；2026-10-23 从阶段分支以 fast-forward 合入本地 main，无独立 merge commit。本段在合并完成后补记，不预填自身提交哈希。B1 及后续阶段继续 planned，本轮止于 B0；未推送远端。
