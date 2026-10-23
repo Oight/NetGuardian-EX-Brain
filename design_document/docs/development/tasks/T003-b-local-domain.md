@@ -30,7 +30,7 @@ B2 覆盖不可变证据、revision/CAS、重复写、覆盖缺口、过期与�
 
 ## 启动、依赖与共享规则
 
-只指定本任务分支名即可按本文件开始；先读根 AGENTS、README、开发入口、boundaries、对应 Sxx 设计和权威 contracts.ts/schema.sql。业务 v4.2、内部契约 0.2.0、外部信封 0.1.0。
+只指定本任务分支名即可按本文件开始；先读 README、贡献流程、开发入口、boundaries、对应 Sxx 设计和权威 contracts.ts/schema.sql。业务 v4.2、内部契约 0.2.0、外部信封 0.1.0。
 
 分支名是待创建的本地工作线名称，不表示已创建或已推送。以包含本分工文件的 main 提交创建独立 clone/worktree，再记录 `git rev-parse HEAD` 的实际启动 commit；下列设计 base 是已存在的设计基准，不是未来实现依赖已交付的声明。不要从旧 base 创建一个缺少本任务文件的工作目录。启动前执行 `git status --short`、`git branch --show-current` 和 `git rev-parse HEAD`，保留他人改动。独立目录不得放入版本控制；工作区外创建目录须遵守环境权限。
 

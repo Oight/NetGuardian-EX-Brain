@@ -23,15 +23,15 @@
 
 根配置、锁、公共导出、检查脚本、CI 与装配由 A 串行维护；B 维护迁移不等于拥有全部业务状态。完整目录见结构说明。
 
-## 本机检查
+## 安装与检查
 
-在本目录执行。本机只使用 Bun，不启动 Node.js、npm、npx、Electron 或安装钩子。
+在本目录执行。使用 package.json 声明的 Node.js 版本和现有锁文件；设备专属环境与 Agent 角色保存在 Git 忽略的仓库根 AGENTS.md。
 
 ```sh
-bun install --ignore-scripts --frozen-lockfile --cache-dir .cache/bun
-bun scripts/local/check.ts
+npm ci
+npm run check
 ```
 
-其他成员使用标准 Node/npm/Python 环境，命令见[检查说明](docs/development/commands.md)。Python 保持 3.12 约定，目前产品检查无需 Python 依赖。
+Windows PowerShell 可使用 npm.cmd 调用同一命令；Bun 可选检查路径见[检查说明](docs/development/commands.md)。Python 保持 3.12 约定，目前产品检查无需 Python 依赖。
 
-本机通过只证明 Bun 下的类型、真实 SQLite 与合成行为。Node/npm、Electron、Windows、系统保护和安装包仍待外部验收。当前目录尚未建立产品 Git main；旧基座不能作为新版四线阶段已合并的证明。
+历史 Bun 检查只证明对应环境下的类型、真实 SQLite 与合成行为，不代表当前设备复现。Node/npm、Electron、Windows、系统保护和安装包分别记录实际验收结果。工程基座已纳入本仓库 Git；各工作线阶段是否完成仍以任务单及准确实现/合并记录为准。

@@ -8,7 +8,7 @@
 
 ## 阅读顺序
 
-1. 根 [AGENTS.md](../../AGENTS.md)与[贡献流程](../../CONTRIBUTING.md)。
+1. [贡献流程](../../CONTRIBUTING.md)与[工程规则](engineering-rules.md)。本机 Agent 说明不纳入共享仓库。
 2. [子系统边界](../implementation/boundaries.md)、自己的 Sxx 设计、[契约](../implementation/contracts.ts)和 [SQL](../implementation/schema.sql)。
 3. 当前任务单、实际 base commit、允许路径、检查命令与依赖提交。
 

@@ -18,7 +18,8 @@ DESIGN = ROOT / "docs/implementation"
 
 
 def check_links() -> tuple[int, int]:
-    paths = [ROOT / "README.md", ROOT / "AGENTS.md", ROOT / "CONTRIBUTING.md"]
+    # AGENTS.md is machine-local and ignored; shared checks must not require it.
+    paths = [ROOT / "README.md", ROOT / "CONTRIBUTING.md"]
     paths += sorted((ROOT / "docs").rglob("*.md"))
     paths += sorted((ROOT / ".github").rglob("*.md"))
     count = 0

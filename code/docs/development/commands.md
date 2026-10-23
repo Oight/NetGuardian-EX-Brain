@@ -1,46 +1,47 @@
 # 安装、构建与检查
 
-所有命令从项目根执行。候选工具版本由 package.json 与锁记录；Electron/SQLite 真实兼容仍待目标环境验收，不把版本声明写成已通过组合。
+产品命令从 `code/` 目录执行。工具版本以 package.json 与锁文件为准；各设备的路径、工具探测和 Agent 角色保存在 Git 忽略的仓库根 AGENTS.md，不作为其他成员的环境限制。
 
-## 本机 Bun/uv
+## 标准 Node/npm 环境
 
-本机禁止 Node.js、nodejs、npm、npx、Electron 和依赖安装钩子，不用改名或包装器绕过。先审查新增依赖生命周期脚本，再禁用脚本安装。
+使用 package.json 声明的 Node.js 版本及现有 npm 锁文件：
+
+```sh
+npm ci
+npm run check
+```
+
+Windows PowerShell 可使用 `npm.cmd`、`npx.cmd` 调用对应工具，不要求修改全局执行策略。产品检查不依赖 Python；设计检查使用 Python 3.12，可直接调用 `python`，不强制要求 uv。
+
+需要实际桌面验证时，在已安装 Electron 二进制的环境执行 `npm run desktop`。只准备无依赖安装脚本的检查环境时，可用 `npm ci --ignore-scripts`；此方式不会准备 Electron 二进制，不能据此宣布桌面运行通过。
+
+| 检查 | 标准环境 | 可选 Bun 环境 |
+|---|---|---|
+| 类型 | `npm run typecheck` | `bun node_modules/typescript/bin/tsc --noEmit` |
+| 源码边界 | `npm run check:boundaries` | `bun scripts/product/check-boundaries.ts` |
+| 原文/schema/权限配置 | `npm run check:spec` | `bun scripts/product/verify-foundation.ts` |
+| 锁图元数据 | `npm run check:locks` | `bun scripts/product/export-npm-lock.ts --check` |
+| 测试 | `npm test` | `bun scripts/product/test.ts` |
+| 构建 | `npm run build` | `bun scripts/product/build.ts` |
+| 全部检查 | `npm run check` | `bun scripts/local/check.ts` |
+
+## 可选 Bun 检查环境
+
+以下路径保留给需要 Bun 检查的设备，不限制 Node/npm 的正常使用：
 
 ```sh
 bun install --ignore-scripts --frozen-lockfile --cache-dir .cache/bun
 bun scripts/local/check.ts
 ```
 
-| 检查 | 本机 Bun | 其他成员标准环境 |
-|---|---|---|
-| 类型 | `bun node_modules/typescript/bin/tsc --noEmit` | `npm run typecheck` |
-| 源码边界 | `bun scripts/product/check-boundaries.ts` | `npm run check:boundaries` |
-| 原文/schema/权限配置 | `bun scripts/product/verify-foundation.ts` | `npm run check:spec` |
-| 锁图元数据 | `bun scripts/product/export-npm-lock.ts --check` | `npm run check:locks` |
-| 测试 | `bun scripts/product/test.ts` | `npm test` |
-| 构建 | `bun scripts/product/build.ts` | `npm run build` |
-| 全部检查 | `bun scripts/local/check.ts` | `npm run check` |
+Bun 统一检查用当前 Bun 可执行文件启动子命令，最后编译标准测试代码，不启动 Electron。其规范检查要求依赖目录未执行 Electron 安装钩子；已有完整 Electron 安装的设备使用标准 Node/npm 检查。切换环境前核对已有依赖，不为通过检查删除已安装二进制或改写锁。
 
-本机检查只用当前 Bun 可执行文件启动子命令，最后编译标准测试代码，不启动 Node.js/Electron。测试从源码发现 packages、apps、tests 下 *.test.ts，不执行旧生成物。Python 如需使用，通过 uv 保持 3.12；缓存与其他写入也放在授权目录。
+共享代码使用标准 TypeScript、ES modules 和 npm workspaces，不要求每位成员安装 Bun。测试从 packages、apps、tests 的源码发现 `*.test.ts`，不执行旧生成物。历史 Linux/Bun 结果只代表原执行环境；Node 内置 SQLite、Electron SQLite、系统保护存储、Windows 窗口/托盘及安装包分别记录实际结果。
 
-## 其他成员的独立环境
-
-以下命令不在本机执行。
-
-```sh
-npm ci
-npm run check
-npm run desktop
-```
-
-共享代码保持标准 TypeScript、ES modules、npm workspaces，其他成员不需要 Bun/uv。Node.js 为 package.json 声明的候选 24.x。Electron 窗口/SQLite/保护存储、Windows 和安装包分别记录目标环境结果。
+## 锁与检查边界
 
 依赖变化由 A 维护两份锁。简单单版本图可使用 `bun scripts/product/export-npm-lock.ts` 导出 npm 锁；复杂图明确拒绝，不能猜测 npm 解析。锁图一致不等于 npm ci 通过。
 
-## 检查边界
-
 check:boundaries 扫描全部现有产品源码，检查声明组件依赖、公共 fake 纯度、renderer 特权、Bun 专用 API 和字面量 SQL 写所有权。它不证明动态 SQL 或运行时授权正确。
 
-check:spec 检查设计哈希、137 个声明、DTO/桌面 schema、初始迁移和桌面安全配置。设计仓库删除 Actions 后的 Python 检查问题仍需来源维护者修复，本次不越界修改。
-
-外部 CI 文件只为标准环境准备，尚未推送或触发。原文快照不被产品脚本写入。
+check:spec 检查设计哈希、137 个声明、DTO/桌面 schema、初始迁移和桌面权限配置。原文快照不被产品脚本写入。设计检查、产品检查和线上 CI 分别记录通过、失败或未执行，不能互相替代。

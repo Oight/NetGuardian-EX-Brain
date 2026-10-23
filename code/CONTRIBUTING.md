@@ -1,6 +1,6 @@
 # 参与开发
 
-先读 [AGENTS](AGENTS.md)、[目录归属](docs/development/structure.md)、[自己的任务](docs/development/tasks/README.md)和[协作流程](docs/development/workflow.md)。
+先读[目录归属](docs/development/structure.md)、[自己的任务](docs/development/tasks/README.md)和[协作流程](docs/development/workflow.md)。设备环境与本机 Agent 角色写入 Git 忽略的仓库根 AGENTS.md，不作为共享开发规范。
 
 只修改任务允许路径。公共契约、根配置、两份锁、公共 testkit、装配和 CI 由 A 的一个任务串行维护；迁移交 B。跨线请求写明调用场景、差异、消费者、检查和依赖提交。
 

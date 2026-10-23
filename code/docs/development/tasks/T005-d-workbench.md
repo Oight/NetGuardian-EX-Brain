@@ -16,4 +16,4 @@
 
 现有 [renderer](../../../apps/desktop/renderer/README.md)显示真实摘要，没有完整案件操作，不能宣布 S12/D1 完成。UI 只消费 DesktopApi，不用内部模块名代替功能；D0 不另搭正式 workspace 或公共 fake。
 
-按[统一命令](../commands.md)和[交接模板](../workflow.md)记录结果；本机不得启动 Electron。
+按[统一命令](../commands.md)和[交接模板](../workflow.md)记录结果；Electron 实机验收需在具备依赖的目标设备执行并单独记录。

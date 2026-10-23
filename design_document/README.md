@@ -21,7 +21,7 @@
 - [项目现状](docs/project-status.md)与[文档目录](docs/README.md)
 - [v4.2 主设计](docs/current/security-triage-client-design-v4.md)与[实验计划](docs/current/security-triage-client-experiments-v4.md)
 - [子系统工程设计](docs/implementation/README.md)、[契约](docs/implementation/contracts.ts)与[SQL](docs/implementation/schema.sql)
-- [开发准备清单](docs/development/readiness.md)、[贡献流程](CONTRIBUTING.md)与[Agent 约定](AGENTS.md)
+- [开发准备清单](docs/development/readiness.md)、[贡献流程](CONTRIBUTING.md)与[工程规则](docs/development/engineering-rules.md)
 
 ## 离线检查
 

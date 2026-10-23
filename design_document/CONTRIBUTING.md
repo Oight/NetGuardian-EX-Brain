@@ -1,6 +1,6 @@
 # 开发与贡献
 
-当前为设计与产品基座准备阶段。先读 [Agent 约定](AGENTS.md)、[协作入口](docs/development/README.md)及[开工门槛](docs/development/readiness.md)。
+当前为设计与产品基座准备阶段。先读[协作入口](docs/development/README.md)、[工程规则](docs/development/engineering-rules.md)及[开工门槛](docs/development/readiness.md)。设备环境与本机 Agent 角色保存在 Git 忽略的仓库根 AGENTS.md，不作为共享开发规范。
 
 ## 日常流程
 
