@@ -7,10 +7,10 @@
 | 早期总体架构与工作流 | [来源登记：原架构](reference-index.md#source-31)、[来源登记：早期工作流](reference-index.md#source-32) | 历史讨论；自研导入/解析/检测职责与旧双入口不能覆盖 v4.2 |
 | 早期系统 v0.1 | [来源登记：Markdown](reference-index.md#source-33)、[来源登记：导出材料](reference-index.md#source-34) | 历史；PDF、流程图、ZIP 和生成器只对应 v0.1 |
 | 早期业务 v0.2 | [来源登记：业务草案](reference-index.md#source-16) | 当时优先于 v0.1，记录实时/短期事件响应方向；已不是全工作区的当前基线 |
-| 自研 v1 | [历史文档](history/security-triage-mvp-design.md) | 已被 v4.2 替代 |
-| 开源复用 v2 | [历史文档](history/security-triage-open-source-design.md) | 多机平台与 Python 方案不再作为当前实施主线 |
-| 单机 v3 | [历史文档](history/security-triage-single-host-design.md) | 同机服务、首周计划与资源预算不作为 v4.2 交付承诺 |
-| 设计修订提案 | [历史取舍](history/security-triage-design-revision-plan.md) | 解释修订原因，不独立改变主设计 |
+| 自研 v1 | [来源登记：自研 v1](reference-index.md#source-17) | 已被 v4.2 替代 |
+| 开源复用 v2 | [来源登记：开源复用 v2](reference-index.md#source-18) | 多机平台与 Python 方案不再作为当前实施主线 |
+| 单机 v3 | [来源登记：单机 v3](reference-index.md#source-19) | 同机服务、首周计划与资源预算不作为 v4.2 交付承诺 |
+| 设计修订提案 | [来源登记：设计修订提案](reference-index.md#source-13) | 解释修订原因，不独立改变主设计 |
 | 当前 v4.2 | [主设计](current/security-triage-client-design-v4.md) | 当前设计基线；文件正文日期 2026-10-20；尚未实现与端到端验收 |
 | 2026-10-21 环境核实 | [Wazuh 观察](current/wazuh-capability-assessment-2026-10-21.md) | 实验事实与限制；不能自动替代设计或补足受限身份验收 |
 | 2026-10-21 讨论稿 0.1 | [细化提案](proposals/security-triage-client-detail-proposal.md) | 当前候选细化，未替代 v4.2 |
@@ -20,4 +20,4 @@ v4.2 已明确替代“学校已有 Wazuh”“MCP 一律不得派发任务”�
 
 旧研究索引中“当前 v0.2”和旧协作说明的优先规则属于历史上下文；[来源登记：历史协作说明](reference-index.md#source-35)仅记录未入库的出处。当前以本仓库 AGENTS.md 和 v4.2 基线为准。
 
-初始历史项目资料由 Shimakaze-17900 提供并署名；外部原件的共享范围以[来源登记](reference-index.md)为准，不是 clone 后必备的个人目录。仓库可读副本补充状态、署名和来源说明，未据此发布新业务设计版本或重新导出旧 PDF。
+初始历史项目资料由 Shimakaze-17900 提供并署名；外部原件的共享范围以[来源登记](reference-index.md)为准，不是 clone 后必备的个人目录。历史 v1—v3 与设计修订提案副本已在 c8f152e 删除，可从其父提交追溯；表中链接仅指向来源登记。其他仓库可读副本补充状态、署名和来源说明，未据此发布新业务设计版本或重新导出旧 PDF。

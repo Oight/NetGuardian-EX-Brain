@@ -541,7 +541,9 @@
       "projectMaterialAuthor": "Shimakaze-17900",
       "availability": "original_not_in_repository",
       "scope": "Only the version, date, identity and sample stated in the original material; not a team-wide reproduction result.",
-      "repositoryCopy": "docs/history/security-triage-design-revision-plan.md",
+      "historicalRepositoryCopy": "docs/history/security-triage-design-revision-plan.md",
+      "repositoryCopyStatus": "removed_from_current_tree",
+      "removedInCommit": "c8f152e",
       "referencedAtImport": [
         "docs/history/security-triage-design-revision-plan.md"
       ]
@@ -591,7 +593,9 @@
       "projectMaterialAuthor": "Shimakaze-17900",
       "availability": "original_not_in_repository",
       "scope": "Only the version, date, identity and sample stated in the original material; not a team-wide reproduction result.",
-      "repositoryCopy": "docs/history/security-triage-mvp-design.md",
+      "historicalRepositoryCopy": "docs/history/security-triage-mvp-design.md",
+      "repositoryCopyStatus": "removed_from_current_tree",
+      "removedInCommit": "c8f152e",
       "referencedAtImport": [
         "docs/history/security-triage-mvp-design.md"
       ]
@@ -604,7 +608,9 @@
       "projectMaterialAuthor": "Shimakaze-17900",
       "availability": "original_not_in_repository",
       "scope": "Only the version, date, identity and sample stated in the original material; not a team-wide reproduction result.",
-      "repositoryCopy": "docs/history/security-triage-open-source-design.md",
+      "historicalRepositoryCopy": "docs/history/security-triage-open-source-design.md",
+      "repositoryCopyStatus": "removed_from_current_tree",
+      "removedInCommit": "c8f152e",
       "referencedAtImport": [
         "docs/history/security-triage-open-source-design.md"
       ]
@@ -617,7 +623,9 @@
       "projectMaterialAuthor": "Shimakaze-17900",
       "availability": "original_not_in_repository",
       "scope": "Only the version, date, identity and sample stated in the original material; not a team-wide reproduction result.",
-      "repositoryCopy": "docs/history/security-triage-single-host-design.md",
+      "historicalRepositoryCopy": "docs/history/security-triage-single-host-design.md",
+      "repositoryCopyStatus": "removed_from_current_tree",
+      "removedInCommit": "c8f152e",
       "referencedAtImport": [
         "docs/history/security-triage-single-host-design.md"
       ]

@@ -103,7 +103,7 @@
 
 - 署名/提供者：Shimakaze-17900；原始材料：未入库。
 - 历史文件名：`security-triage-design-revision-plan.md`。
-- 仓库内可读副本：[维护副本](history/security-triage-design-revision-plan.md)。
+- 当前文件树无维护副本；原路径 `docs/history/security-triage-design-revision-plan.md` 已在提交 c8f152e 删除，可从其父提交追溯。此登记不提供原报告正文。
 
 <a id="source-14"></a>
 
@@ -132,7 +132,7 @@
 
 - 署名/提供者：Shimakaze-17900；原始材料：未入库。
 - 历史文件名：`security-triage-mvp-design.md`。
-- 仓库内可读副本：[维护副本](history/security-triage-mvp-design.md)。
+- 当前文件树无维护副本；原路径 `docs/history/security-triage-mvp-design.md` 已在提交 c8f152e 删除，可从其父提交追溯。此登记不提供原报告正文。
 
 <a id="source-18"></a>
 
@@ -140,7 +140,7 @@
 
 - 署名/提供者：Shimakaze-17900；原始材料：未入库。
 - 历史文件名：`security-triage-open-source-design.md`。
-- 仓库内可读副本：[维护副本](history/security-triage-open-source-design.md)。
+- 当前文件树无维护副本；原路径 `docs/history/security-triage-open-source-design.md` 已在提交 c8f152e 删除，可从其父提交追溯。此登记不提供原报告正文。
 
 <a id="source-19"></a>
 
@@ -148,7 +148,7 @@
 
 - 署名/提供者：Shimakaze-17900；原始材料：未入库。
 - 历史文件名：`security-triage-single-host-design.md`。
-- 仓库内可读副本：[维护副本](history/security-triage-single-host-design.md)。
+- 当前文件树无维护副本；原路径 `docs/history/security-triage-single-host-design.md` 已在提交 c8f152e 删除，可从其父提交追溯。此登记不提供原报告正文。
 
 <a id="source-20"></a>
 

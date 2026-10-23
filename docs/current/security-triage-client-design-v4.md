@@ -10,7 +10,7 @@
 
 4.2 调整：Wazuh 是项目选择的参考技术栈，不假定学校已经部署；将报告生成流程重构为按需取证的 Agent 调查过程；告警、客户端主动调查、TeleAgent 对话委派三个入口共用任务核心；补充客户端功能、委派结果回传和两类 MCP 的设计。本版替代 v4.1 中“学校已有 Wazuh”“MCP 一律不得派发任务”和只有告警起点的表述。
 
-本版落实[设计修订提案](../history/security-triage-design-revision-plan.md)，替代 v1—v3 的实施主线。[实验与验收附录](security-triage-client-experiments-v4.md)单独说明数据准备、模拟环境、验证方法和演示条件。
+本版落实历史设计修订提案的取舍（[来源登记](../reference-index.md#source-13)，历史副本从 Git 历史追溯），替代 v1—v3 的实施主线。[实验与验收附录](security-triage-client-experiments-v4.md)单独说明数据准备、模拟环境、验证方法和演示条件。
 
 ## 1. 本版做什么
 

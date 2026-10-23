@@ -18,11 +18,11 @@
 | 外部 Indexer 接入记录 | [来源登记：2026-10-22 Indexer 专用账号](reference-index.md#source-24) | 告警、归档与 24 小时聚合通过；根信息、漏洞及两类清单状态请求为 403 |
 | 外部面板开发交接 | [来源登记：2026-10-22 API 实测汇总与态势面板交接](reference-index.md#source-29) | 可转发的 Markdown：认证、接口、聚合请求、字段、权限限制与时间/数量口径 |
 | 待评审提案 | [客户端、桥接与 MCP 细化提案](proposals/security-triage-client-detail-proposal.md) | 讨论稿 0.1；进程结构、契约、调查档案与创新候选 |
-| 历史取舍依据 | [设计修订提案](history/security-triage-design-revision-plan.md) | 解释向 v4 迁移的原因，不恢复旧范围 |
-| 历史 v3 | [单机方案](history/security-triage-single-host-design.md) | Wazuh 与 Python 研判服务同机的前版设计 |
-| 历史 v2 | [开源复用方案](history/security-triage-open-source-design.md) | 多机 Wazuh、Vector、Kafka 与 Python 的前版设计 |
-| 历史 v1 | [自研方案](history/security-triage-mvp-design.md) | 自研采集、解析、规则与多机服务的前版设计 |
+| 历史取舍依据 | [来源登记：设计修订提案](reference-index.md#source-13) | 解释向 v4 迁移的原因，不恢复旧范围 |
+| 历史 v3 | [来源登记：单机 v3](reference-index.md#source-19) | Wazuh 与 Python 研判服务同机的前版设计 |
+| 历史 v2 | [来源登记：开源复用 v2](reference-index.md#source-18) | 多机 Wazuh、Vector、Kafka 与 Python 的前版设计 |
+| 历史 v1 | [来源登记：自研 v1](reference-index.md#source-17) | 自研采集、解析、规则与多机服务的前版设计 |
 
 [项目现状](project-status.md) 汇总已有成果与缺口；[演进与过时内容说明](version-history.md) 解释版本冲突的处理；[来源登记：TeleAgent 研究入口](reference-index.md#source-30) 导向原始实验和分析。
 
-早期业务草案 v0.2、v0.1 PDF/图集和原始架构保留在研究树中，适用于回顾讨论；它们不替代本目录的 v4.2 基线。未提供比赛规则、正式会议纪要或独立的最新需求确认文件，不从讨论稿推导额外承诺。
+历史 v1—v3 与设计修订提案的维护副本已从当前文件树移除，可从删除提交 c8f152e 的父提交追溯；上表历史条目仅链接来源登记，不是原报告正文。早期业务草案 v0.2、v0.1 PDF/图集和原始架构属于未入库研究材料，适用于回顾讨论；它们不替代本目录的 v4.2 基线。未提供比赛规则、正式会议纪要或独立的最新需求确认文件，不从讨论稿推导额外承诺。

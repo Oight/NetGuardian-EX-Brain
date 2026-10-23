@@ -30,3 +30,7 @@
 - [T001 资料归属与可移植性](T001-docs-portability.md)。
 
 任务状态采用 planned、ready、in_progress、checking、done、blocked、cancelled；具体阶段状态和检查依据只更新所属任务文件。后续新任务使用未占用编号，复制[任务模板](../task-template.md)。
+
+## 后续文档维护
+
+- [T006 删除历史文档后的引用清理](T006-doc-links.md)。状态仅维护在任务文件。

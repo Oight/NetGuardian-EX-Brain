@@ -4,7 +4,7 @@
 
 - 先读根 README、docs/README.md、docs/project-status.md 和 [开发入口](docs/development/README.md)。
 - 业务基线是 [v4.2](docs/current/security-triage-client-design-v4.md)，文件名中的 v4 不代表旧版。内部工程契约为 0.2.0，外部 IPC/MCP/导出信封为 0.1.0；以 [边界](docs/implementation/boundaries.md)、contracts.ts 和 schema.sql 唯一原文为准。
-- docs/proposals 是候选讨论，不自动替代基线。调查档案、版本对照和局部重查仍非已确认完成条件；docs/history 仅供追溯。
+- docs/proposals 是候选讨论，不自动替代基线。调查档案、版本对照和局部重查仍非已确认完成条件；原 docs/history 内容已移除，仅从 Git 历史追溯。
 - Wazuh 是冻结的首个上游；本次仓库初始化不授权扩展上游选型、部署或改造。
 
 ## 四人工作线与轻量协作
