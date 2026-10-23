@@ -6,4 +6,4 @@
 
 模块测试跟随模块；纯 fake 从 @campussec/testkit 导入；真实临时库和文件夹具在 tests/support。不要提交数据库、凭据、日志或生成物，不把 fake 成功当作真实接入验收。
 
-按[命令说明](docs/development/commands.md)自检，分别记录通过、失败和未执行。done 要求真实实现提交已合并产品 main；当前尚无产品 Git 基准，不能用源设计 commit 替代。
+按[命令说明](docs/development/commands.md)自检，分别记录通过、失败和未执行。done 要求真实实现提交已合并产品 main；既有产品基准为 64443ed；记录实际启动 HEAD 和依赖 commit，不能用源设计 commit 替代。

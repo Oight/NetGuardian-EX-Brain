@@ -12,7 +12,7 @@
     "check:boundaries": "node scripts/product/check-boundaries.ts",
     "check:spec": "node scripts/product/verify-foundation.ts",
     "check:locks": "node scripts/product/export-npm-lock.ts --check",
-    "check": "npm run typecheck && npm run check:boundaries && npm run check:spec && npm run check:locks && npm test",
+    "check": "npm run typecheck && npm run build && npm run check:boundaries && npm run check:spec && npm run check:locks && node scripts/product/test.ts",
     "desktop": "electron dist/apps/desktop/main/bootstrap.js",
     "test:local": "bun scripts/product/test.ts",
     "check:local": "bun scripts/local/check.ts"

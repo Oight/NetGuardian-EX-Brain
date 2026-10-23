@@ -2,7 +2,7 @@
 
 状态：planned（尚未领取，无真实接入）。唯一状态位置：本文件。分支入口：task/T004-c-integrations。
 
-分工来源：`120c81cfd4d8ed720c9cc70178edb9c6fd172a34`；实际产品 base/执行者/依赖合并 commit：未提供。允许 wazuh-adapter、teleagent-bridge、mcp-server、core/delivery、自有测试和[本线交接目录](../workstreams/c/README.md)；根依赖/锁/装配交 A。
+分工来源：`120c81cfd4d8ed720c9cc70178edb9c6fd172a34`；可领取产品基准：64443ed；执行者、实际启动 HEAD 与依赖验收 commit 在领取时填写。允许 wazuh-adapter、teleagent-bridge、mcp-server、core/delivery、自有测试和[本线交接目录](../workstreams/c/README.md)；根依赖/锁/装配交 A。
 
 | 阶段 | 状态 | 前置实际交付 | 目标 |
 |---|---|---|---|
@@ -18,3 +18,5 @@
 当前只有目录说明。[纯 testkit](../../../packages/testkit/README.md)可提供 HTTP/执行/投递失败与响应丢失场景；C2 先交窄端口供 A4 接线，C3 再消费 A4，不相互等待整模块。
 
 不读取凭据或连接真实 Wazuh/宿主/模型，冻结首个上游。未知回执保持 uncertain，投递不重跑调查。按[统一命令](../commands.md)和[交接模板](../workflow.md)补齐记录。
+
+接手说明：根仓库与 code/ 共用 Git 历史。64443ed 只证明现有基座入库；A 当前复验未合并前，不自动放行本线后续阶段。A 的实际标准运行时结果见 T002。

@@ -39,3 +39,9 @@ S06 不回调预算/MCP；S10 不决定任务终态、不读任务私表解释�
 首轮 DDL 核验曾因重开连接未显式关闭，导致 Windows 临时库清理失败；已用显式 closing 修复并复验通过。首次遗留的一个 512 KiB 合成临时库位于系统临时目录，自动审批以 `blocked by policy` 拒绝清理；后续核验的临时库正常关闭与清理。
 
 实现/合并 commit：`88cd3f86b16c2af8b1c41c66901aa0b8126ffa89`（docs(b): prepare B0 domain plan and acceptance materials）；2026-10-23 从阶段分支以 fast-forward 合入本地 main，无独立 merge commit。本段在合并完成后补记，不预填自身提交哈希。B1 及后续阶段继续 planned，本轮止于 B0；未推送远端。
+
+## 远端整合补记（2026-10-23）
+
+合入远端 `6d033ba` 及其 A 线交接：产品基座源提交为 `64443ed`，A 的标准运行时复验依据见[T002](T002-a-foundation.md)和[接手验证](../../verification/a-handoff-2026-10-23.md)。现有代码已入库不替代阶段验收；远端将 B1 写为 checking 的接手标记不视为本机已启动 B1，用户指定的 B0 完成状态及 B1—B4 planned 保留。
+
+B0 表中的完整开发规范检查失败属于当时执行快照。远端将检查入口迁至根工作流；本次同步修正工作流原有残留冲突标记并重新核验，当前结果另见[同步记录](../../verification/sync-2026-10-23.md)，不改写 B0 历史结果。

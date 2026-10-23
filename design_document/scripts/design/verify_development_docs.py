@@ -111,7 +111,12 @@ def check_workflow_and_rules() -> None:
     expected = ("README.md", "workflow.md", "engineering-rules.md", "ownership.md", "task-template.md", "readiness.md", "github.md")
     for name in expected:
         assert (ROOT / "docs/development" / name).is_file()
-    workflow = (ROOT / ".github/workflows/design-checks.yml").read_text(encoding="utf-8")
+    workflow = (ROOT.parent / ".github/workflows/foundation.yml").read_text(encoding="utf-8")
+    assert not re.search(r"^(?:<{7}(?: .*)?|={7}|>{7}(?: .*)?)$", workflow, re.M), "Unresolved workflow merge markers"
+    assert "workflow_dispatch:" in workflow and "\n  push:" not in workflow and "\n  pull_request:" not in workflow
+    assert "working-directory: code" in workflow and "working-directory: design_document" in workflow
+    assert "cache-dependency-path: code/package-lock.json" in workflow
+    assert "npm ci --ignore-scripts" in workflow
     assert "contents: read" in workflow and "persist-credentials: false" in workflow
     assert "pull_request_target" not in workflow and "secrets." not in workflow
     assert "--sync" not in workflow and "migration/verify_materials" not in workflow

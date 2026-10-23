@@ -6,7 +6,7 @@
 
 ## 当前阶段
 
-仓库目前提供设计、契约、SQL、离线检查脚本与轻量协作规范。产品 workspace、依赖锁文件、共享 testkit、客户端代码和安装包仍待实现。
+本目录提供设计、契约、SQL、离线检查脚本与协作规范。产品基座已在仓库 code/ 入库，包含 workspace、锁、contracts/testkit、存储和桌面宿主；完整业务与安装包尚未完成。[产品实时任务](../code/docs/development/tasks/README.md)和[当前接手验证](../code/docs/verification/a-handoff-2026-10-23.md)记录实际进展。
 
 历史研究记录涉及静态分析、模拟验证、真实模型文本和 Wazuh API 读取；这些记录不等于真实模型、专用 Skill、两类 MCP 与 Wazuh 的完整调查闭环已完成。
 
@@ -38,7 +38,7 @@ python -B scripts/design/verify_development_docs.py
 python -B scripts/design/verify_subsystem_designs.py --node-syntax
 ```
 
-这些检查只核对设计与规范，不等同于产品 tsc、构建或真实链路验收。GitHub Actions 工作流已提交，线上结果尚未核实。
+这些检查只核对设计与规范，不等同于产品 tsc、构建或真实链路验收。根 GitHub Actions 手动工作流已适配当前双目录；自动检查保持关闭，线上结果未核实。
 
 ## 小组协作
 

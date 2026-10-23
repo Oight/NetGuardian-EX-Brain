@@ -1,19 +1,22 @@
 # T002 · A：工程、桌面与调度
 
-状态：planned（尚未正式领取；旧基座可复用，缺少产品合并依据）。唯一状态位置：本文件。分支入口：task/T002-a-foundation。
+状态：in_progress。执行者：Codex；用户授权 A 线及交接修复。唯一实时位置：本文件。分支：task/T002-a-foundation。
 
-分工来源：`120c81cfd4d8ed720c9cc70178edb9c6fd172a34`；实际产品 base/执行者/依赖合并 commit：未提供。允许路径见[结构归属](../structure.md)的 A 线，不写 renderer 或物理迁移。
+- 实际 base 与既有成果提交：64443ed（已在 main，包含 S01/S02/S03 与结构整理）。分工来源 120c81c。
+- 允许路径：根 README/AGENTS、根手动 CI、code 根配置/锁、contracts/testkit、scripts、S03 装配、S07；本次交接修复还包括产品/设计导航、任务入口与状态、设计检查脚本。禁止修改 B/C/D 业务实现、renderer 或物理迁移。
+- 检查：code/ 下 npm ci --ignore-scripts、npm run check；design_document/ 下两个 Python 检查；根 git diff --check。工具链不满足时明确记录，不按成功放行。
+- 外部范围：仅依赖安装所需公开包下载；不运行安装钩子、真实平台/模型或 Electron GUI，不推送。
 
-| 阶段 | 状态 | 前置实际交付 | 目标 |
+| 阶段 | 状态 | 依赖与现有依据 | 剩余验收 |
 |---|---|---|---|
-| A1 | ready | 无产品依赖 | workspace、ESM/strict、最小桌面构建与目标环境小验证 |
-| A2 | planned | A1 | S01 runtime schema 与公开入口 |
-| A3 | planned | A2 | 独立 testkit、失败/竞态、实际检查和外部 CI |
-| A4 | planned | A3、B1/B2、C2 窄端口 | S07 请求/预算/工具/终态/恢复；S03 接线与安装包 |
-| A5 | planned | B3、C4、D3 | 三入口与故障恢复，分别登记真实证据和缺口 |
+| A1 | checking | 64443ed 已有 workspace、构建与 S03 入口 | 当前目标环境冻结安装/构建与桌面小验证；未执行 GUI 不算通过 |
+| A2 | checking | 64443ed 已有 S01 schema/公开入口 | 当前标准运行时复验类型及错误输入；A1 完整门槛仍未通过 |
+| A3 | checking | 64443ed 已有纯 fake、测试和边界脚本 | 修复入口、共享场景及标准运行时检查；线上 CI 未执行 |
+| A4 | planned | A3、B1/B2、C2 窄端口 | S07 与真实接线；B2/C2 未实现，不提前交付成功占位 |
+| A5 | planned | B3、C4、D3 | 三入口、恢复及真实证据分层验收 |
 
-## 可复用成果与交接
+## 本轮交接
 
-已有 contracts、testkit、宿主基座和检查工具，[本次验证](../../verification/structure-2026-10-23.md)只代表本机结果，不能直接把 A1—A3 标 done。Node/npm/Electron/安装包未验收，S07 未实现。
+统一根入口与唯一产品任务位置，旧设计四线文件仅转发。旧 Linux/Bun 环境限制恢复为历史范围，不推定当前 Windows 禁止标准 Node。修复设计检查要求已删除工作流的问题；工作流迁到根并适配双目录，仅 workflow_dispatch，不恢复用户已关闭的自动检查。
 
-A 单任务维护共享文件，不接管 B/C/D 业务；S07 唯一决定终态，跨所有者调用同步 InTx。按[统一命令](../commands.md)和[交接模板](../workflow.md)补齐准确实现/合并记录。
+Node 24.15 / Windows 下严格类型、构建、边界、契约、双锁及 28 个测试通过；无生成物副本冻结安装和同组检查通过。DesktopApi fake 已补齐，存储 fake 按消费者需求仍待补齐。当前结果见[接手验证](../../verification/a-handoff-2026-10-23.md)。现有实现依据为 64443ed；本轮实现提交 e2036fe 已快进合并本地 main；远端未推送。剩余验收未完成，checking 不等于 done。A4 依赖不足时先继续 A1—A3 可独立工作。

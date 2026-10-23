@@ -17,7 +17,7 @@
 | 信息 | 当前唯一位置 | 更新方式 |
 |---|---|---|
 | 代码、设计、接口和长期决定 | main 上已合并文件 | 完成者检查后合并，PR 可选 |
-| 任务状态、范围、依赖和阻塞 | docs/development/tasks 中的任务文件 | 记录检查及准确 commit；同一文件跟进 |
+| 任务状态、范围、依赖和阻塞 | code/docs/development/tasks 中的产品任务文件 | 记录检查及准确 commit；同一文件跟进 |
 | 验证结果和交接 | 对应任务文件或版本化验证记录 | 标明环境、命令、证据层级和限制 |
 | GitHub Issue/PR | 尚未启用，后续按需 | 启用时明确任务状态切换，避免双份看板 |
 
@@ -29,4 +29,4 @@
 - [任务模板](task-template.md)与[四人分工及分支入口](tasks/README.md)
 - [开工准备](readiness.md)、[GitHub 可选接入](github.md)与[仓库初始化记录](repository-setup.md)
 
-尚无产品 workspace、runtime schema 或共享 fake/testkit。详细文档不能代替这些依赖，当前不能全面并行启动 12 个模块。
+64443ed 已导入产品 workspace、runtime schema 与共享 testkit；阶段验收仍以[产品任务](../../../code/docs/development/tasks/README.md)为准，不能据代码存在宣告 12 模块全面放行。

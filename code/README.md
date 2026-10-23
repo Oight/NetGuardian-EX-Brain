@@ -9,8 +9,8 @@
 - [结构与四线归属](docs/development/structure.md)：目录、模块入口、共享文件和测试位置。
 - [任务登记](docs/development/tasks/README.md)：每条线的阶段、依赖和交接；状态只在具体任务文件维护。
 - [协作流程](docs/development/workflow.md)：领取、分支、共享变更与交接。
-- [运行与检查](docs/development/commands.md)：Bun 本机命令和其他成员的标准命令。
-- [本次验证](docs/verification/structure-2026-10-23.md)：实际结果及未执行项。
+- [运行与检查](docs/development/commands.md)：标准 Node/npm 和可选 Bun 命令。
+- [A 线接手验证](docs/verification/a-handoff-2026-10-23.md)与[B0 材料](docs/development/workstreams/b/README.md)：分别记录对应环境的结果及限制。
 
 ## 四条工作线
 
@@ -28,10 +28,12 @@
 在本目录执行。使用 package.json 声明的 Node.js 版本和现有锁文件；设备专属环境与 Agent 角色保存在 Git 忽略的仓库根 AGENTS.md。
 
 ```sh
-npm ci
+npm ci --ignore-scripts
 npm run check
 ```
 
 Windows PowerShell 可使用 npm.cmd 调用同一命令；Bun 可选检查路径见[检查说明](docs/development/commands.md)。Python 保持 3.12 约定，目前产品检查无需 Python 依赖。
+
+默认禁用依赖安装钩子，因此不自动准备 Electron 二进制；GUI 和安装包需另外准备并验收。标准检查先构建再加载包，支持没有 dist 的干净检出。
 
 历史 Bun 检查只证明对应环境下的类型、真实 SQLite 与合成行为，不代表当前设备复现。Node/npm、Electron、Windows、系统保护和安装包分别记录实际验收结果。工程基座已纳入本仓库 Git；各工作线阶段是否完成仍以任务单及准确实现/合并记录为准。
