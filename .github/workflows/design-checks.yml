@@ -1,0 +1,25 @@
+name: Design and collaboration checks
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  design-specification:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Verify subsystem specifications
+        run: python scripts/design/verify_subsystem_designs.py
+      - name: Verify development rules and design boundaries
+        run: python scripts/design/verify_development_docs.py

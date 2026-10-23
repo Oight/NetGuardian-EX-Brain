@@ -1,0 +1,367 @@
+{
+  "contractVersion": "0.2.0",
+  "businessBaseline": "v4.2",
+  "wireVersion": "0.1.0",
+  "enforcementStatus": "specification-only",
+  "components": {
+    "common": {
+      "module": "S01",
+      "path": "packages/contracts",
+      "dependsOn": [],
+      "ports": [
+        "CallContext",
+        "Result",
+        "DEFAULT_LIMITS"
+      ]
+    },
+    "storage": {
+      "module": "S02",
+      "path": "packages/storage",
+      "dependsOn": [
+        "common"
+      ],
+      "ports": [
+        "DatabasePort",
+        "EventPort"
+      ]
+    },
+    "secrets": {
+      "module": "S03",
+      "path": "apps/desktop/main/secrets",
+      "dependsOn": [
+        "common"
+      ],
+      "ports": [
+        "SecretPort"
+      ]
+    },
+    "wazuh": {
+      "module": "S04",
+      "path": "packages/wazuh-adapter",
+      "dependsOn": [
+        "common",
+        "storage",
+        "secrets"
+      ],
+      "ports": [
+        "ConnectionService",
+        "PlatformQueryPort",
+        "ConnectionReadPort"
+      ]
+    },
+    "cases": {
+      "module": "S06",
+      "path": "packages/core/cases",
+      "dependsOn": [
+        "common",
+        "storage"
+      ],
+      "ports": [
+        "CaseService",
+        "CaseAtomicPort"
+      ]
+    },
+    "channels": {
+      "module": "S09",
+      "path": "packages/mcp-server/channels",
+      "dependsOn": [
+        "common",
+        "storage",
+        "secrets"
+      ],
+      "ports": [
+        "EvidenceChannelPort",
+        "EvidenceChannelControlPort",
+        "EvidenceChannelBindingPort"
+      ]
+    },
+    "host": {
+      "module": "S08",
+      "path": "packages/teleagent-bridge/host-access",
+      "dependsOn": [
+        "common",
+        "storage",
+        "secrets"
+      ],
+      "ports": [
+        "HostCapabilitiesPort",
+        "TrustedOriginPort",
+        "HostDeliveryPort"
+      ]
+    },
+    "execution": {
+      "module": "S08",
+      "path": "packages/teleagent-bridge/execution",
+      "dependsOn": [
+        "common",
+        "storage",
+        "secrets",
+        "host",
+        "channels"
+      ],
+      "ports": [
+        "ExecutionPort"
+      ]
+    },
+    "reports": {
+      "module": "S10",
+      "path": "packages/core/reports",
+      "dependsOn": [
+        "common",
+        "storage",
+        "cases"
+      ],
+      "ports": [
+        "ReportService",
+        "InvestigationProfilePort",
+        "ReportProposalPort",
+        "ReportCompletionPort",
+        "ResultPackageReadPort"
+      ]
+    },
+    "delivery": {
+      "module": "S11",
+      "path": "packages/core/delivery",
+      "dependsOn": [
+        "common",
+        "storage",
+        "host",
+        "reports"
+      ],
+      "ports": [
+        "DeliveryService",
+        "SubscriptionAtomicPort"
+      ]
+    },
+    "budget": {
+      "module": "S07",
+      "path": "packages/core/requests/budgets",
+      "dependsOn": [
+        "common",
+        "storage"
+      ],
+      "ports": [
+        "RunBudgetPort",
+        "RunBudgetAtomicPort"
+      ]
+    },
+    "tools": {
+      "module": "S07",
+      "path": "packages/core/investigations/tool-runner",
+      "dependsOn": [
+        "common",
+        "storage",
+        "budget",
+        "cases",
+        "wazuh",
+        "reports"
+      ],
+      "ports": [
+        "InvestigationToolPort",
+        "ToolReplyAtomicPort"
+      ]
+    },
+    "requests": {
+      "module": "S07",
+      "path": "packages/core/requests",
+      "dependsOn": [
+        "common",
+        "storage",
+        "budget",
+        "cases",
+        "wazuh",
+        "execution",
+        "channels",
+        "reports",
+        "delivery"
+      ],
+      "ports": [
+        "RequestService",
+        "RequestAtomicPort",
+        "RequestCommandPort",
+        "RequestReadPort"
+      ]
+    },
+    "retention": {
+      "module": "S07",
+      "path": "packages/core/investigations/retention",
+      "dependsOn": [
+        "common",
+        "storage",
+        "cases",
+        "budget",
+        "tools"
+      ],
+      "ports": [
+        "RetentionService"
+      ]
+    },
+    "publication": {
+      "module": "S07",
+      "path": "packages/core/investigations/publication",
+      "dependsOn": [
+        "common",
+        "storage",
+        "requests",
+        "reports",
+        "delivery"
+      ],
+      "ports": [
+        "ReviewPublicationPort"
+      ]
+    },
+    "alerts": {
+      "module": "S05",
+      "path": "packages/core/alerts",
+      "dependsOn": [
+        "common",
+        "storage",
+        "wazuh",
+        "cases",
+        "requests"
+      ],
+      "ports": [
+        "AlertService",
+        "NotificationPort"
+      ]
+    },
+    "gateway": {
+      "module": "S09",
+      "path": "packages/mcp-server/gateway",
+      "dependsOn": [
+        "common",
+        "channels",
+        "host",
+        "wazuh",
+        "requests",
+        "tools",
+        "delivery"
+      ],
+      "ports": [
+        "McpGatewayPort"
+      ]
+    },
+    "runtime": {
+      "module": "S03",
+      "path": "apps/desktop/runtime",
+      "dependsOn": [
+        "common",
+        "storage",
+        "secrets",
+        "wazuh",
+        "cases",
+        "channels",
+        "host",
+        "execution",
+        "reports",
+        "delivery",
+        "budget",
+        "tools",
+        "requests",
+        "retention",
+        "publication",
+        "alerts",
+        "gateway"
+      ],
+      "ports": [
+        "DesktopApi"
+      ]
+    },
+    "ui": {
+      "module": "S12",
+      "path": "apps/desktop/renderer",
+      "dependsOn": [
+        "common"
+      ],
+      "ports": [
+        "DesktopApi"
+      ]
+    }
+  },
+  "tableOwners": {
+    "S02": [
+      "schema_migrations",
+      "space_metadata",
+      "domain_events",
+      "diagnostic_events"
+    ],
+    "S03": [
+      "runtime_settings"
+    ],
+    "S04": [
+      "connections",
+      "capabilities"
+    ],
+    "S05": [
+      "alerts_inbox",
+      "watch_checkpoints",
+      "trigger_policies",
+      "auto_candidates",
+      "trigger_decisions",
+      "notifications"
+    ],
+    "S06": [
+      "cases",
+      "case_changes",
+      "evidence_sources",
+      "evidence_versions",
+      "evidence_retrievals",
+      "evidence_links",
+      "business_context",
+      "context_versions",
+      "query_runs",
+      "query_pages",
+      "query_evidence",
+      "run_evidence",
+      "evidence_projections",
+      "cleanup_plans"
+    ],
+    "S07": [
+      "investigation_requests",
+      "request_keys",
+      "request_events",
+      "deferred_inputs",
+      "jobs",
+      "analysis_runs",
+      "quota_ledger",
+      "tool_reservations",
+      "platform_attempts",
+      "run_event_keys",
+      "mcp_calls",
+      "investigation_steps"
+    ],
+    "S08": [
+      "execution_attempts",
+      "origin_bindings"
+    ],
+    "S09": [
+      "mcp_grants"
+    ],
+    "S10": [
+      "report_drafts",
+      "reviews",
+      "followups",
+      "response_notes",
+      "result_packages"
+    ],
+    "S11": [
+      "result_subscriptions",
+      "result_deliveries"
+    ]
+  },
+  "sharedWritePaths": [
+    "packages/contracts",
+    "packages/storage/migrations",
+    "package.json",
+    "package-lock.json",
+    "tsconfig.json",
+    "apps/desktop/runtime",
+    "fixtures/shared",
+    ".github",
+    "AGENTS.md",
+    "CONTRIBUTING.md",
+    "docs/implementation/contracts.ts",
+    "docs/implementation/schema.sql",
+    "docs/implementation/architecture.json"
+  ]
+}

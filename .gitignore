@@ -1,0 +1,53 @@
+# Secrets, personal settings and local runtime data
+.env
+.env.*
+!.env.example
+!.env.*.example
+private/
+secrets/
+*.local
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Dependencies and generated artifacts (including nested packages)
+node_modules/
+.pnpm-store/
+.yarn/cache/
+.venv/
+__pycache__/
+*.py[cod]
+dist/
+build/
+out/
+release/
+coverage/
+.cache/
+.vite/
+.turbo/
+*.tsbuildinfo
+
+# Local databases, logs and temporary files
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+*.log
+.tmp/
+tmp/
+runtime-data/
+
+# Original research and migration archives stay in the source workspace
+/archive/
+/research/
+/migration/
+/reports/raw/
+
+# Machine-specific files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

@@ -1,0 +1,80 @@
+{
+  "schemaVersion": "0.1.0",
+  "contractVersion": "0.2.0",
+  "provenance": "synthetic-only; not Wazuh or model validation",
+  "scope": {
+    "connectionId": "10000000-0000-4000-8000-000000000001",
+    "agentIds": ["001"],
+    "from": "2026-10-22T12:00:00.000Z",
+    "to": "2026-10-22T12:30:00.000Z",
+    "timeZone": "Asia/Shanghai"
+  },
+  "emptyComplete": {
+    "schemaVersion": "0.1.0",
+    "status": "ok",
+    "queryId": "20000000-0000-4000-8000-000000000001",
+    "records": [],
+    "coverage": {
+      "requestedScope": {"connectionId":"10000000-0000-4000-8000-000000000001","agentIds":["001"],"from":"2026-10-22T12:00:00.000Z","to":"2026-10-22T12:30:00.000Z","timeZone":"Asia/Shanghai"},
+      "effectiveScope": {"connectionId":"10000000-0000-4000-8000-000000000001","agentIds":["001"],"from":"2026-10-22T12:00:00.000Z","to":"2026-10-22T12:30:00.000Z","timeZone":"Asia/Shanghai"},
+      "queryCompleteness": "complete", "collectionCoverage": "unknown",
+      "sourceTypes": ["synthetic_archives"], "reasons": ["collection_not_verified"],
+      "retrievedAt": "2026-10-22T12:31:00.000Z", "returned": 0,
+      "total": {"value": 0, "relation": "eq"}
+    },
+    "budget": {"runId":"30000000-0000-4000-8000-000000000001","toolsUsed":1,"readsUsed":1,"platformAttempts":1,"distinctEvents":0,"deadline":"2026-10-22T12:35:00.000Z","closed":false},
+    "warnings": ["本次范围无匹配；采集覆盖未知，不证明没有发生"]
+  },
+  "denied": {
+    "schemaVersion": "0.1.0", "status": "denied", "records": [],
+    "coverage": {
+      "requestedScope": {"connectionId":"10000000-0000-4000-8000-000000000001","agentIds":["001"],"from":"2026-10-22T12:00:00.000Z","to":"2026-10-22T12:30:00.000Z","timeZone":"Asia/Shanghai"},
+      "effectiveScope": {"connectionId":"10000000-0000-4000-8000-000000000001","agentIds":["001"],"from":"2026-10-22T12:00:00.000Z","to":"2026-10-22T12:30:00.000Z","timeZone":"Asia/Shanghai"},
+      "queryCompleteness": "not_executed", "collectionCoverage": "unknown",
+      "sourceTypes": ["synthetic_archives"], "reasons": ["http_403"],
+      "retrievedAt": "2026-10-22T12:31:00.000Z", "returned": 0
+    },
+    "budget": {"runId":"30000000-0000-4000-8000-000000000001","toolsUsed":1,"readsUsed":1,"platformAttempts":1,"distinctEvents":0,"deadline":"2026-10-22T12:35:00.000Z","closed":false},
+    "warnings": ["权限受限，无法验证"]
+  },
+  "partial": {
+    "schemaVersion":"0.1.0", "status":"partial", "queryId":"20000000-0000-4000-8000-000000000002",
+    "records":[{"ref":{"evidenceId":"40000000-0000-4000-8000-000000000001","version":1,"projectionId":"50000000-0000-4000-8000-000000000001"},"content":{"agent":{"id":"001"},"event":"synthetic_authentication_success"}}],
+    "coverage": {
+      "requestedScope": {"connectionId":"10000000-0000-4000-8000-000000000001","agentIds":["001"],"from":"2026-10-22T12:00:00.000Z","to":"2026-10-22T12:30:00.000Z","timeZone":"Asia/Shanghai"},
+      "effectiveScope": {"connectionId":"10000000-0000-4000-8000-000000000001","agentIds":["001"],"from":"2026-10-22T12:00:00.000Z","to":"2026-10-22T12:30:00.000Z","timeZone":"Asia/Shanghai"},
+      "queryCompleteness":"partial", "collectionCoverage":"unknown",
+      "sourceTypes":["synthetic_archives"],"reasons":["remaining_pages"],
+      "retrievedAt":"2026-10-22T12:31:00.000Z","returned":1,"total":{"value":1,"relation":"gte"}
+    },
+    "nextCursor":"synthetic-opaque-cursor",
+    "budget":{"runId":"30000000-0000-4000-8000-000000000001","toolsUsed":1,"readsUsed":1,"platformAttempts":1,"distinctEvents":1,"deadline":"2026-10-22T12:35:00.000Z","closed":false},
+    "warnings":["仍有未读取页，不能据本页推断整个时间窗"]
+  },
+  "report": {
+    "caseId":"60000000-0000-4000-8000-000000000001","runId":"30000000-0000-4000-8000-000000000001",
+    "question":"合成认证活动是否需要继续核查？",
+    "facts":[{"text":"可见页包含一条合成成功认证记录，身份关联仍待核实。","evidenceRefs":[{"evidenceId":"40000000-0000-4000-8000-000000000001","version":1,"projectionId":"50000000-0000-4000-8000-000000000001"}],"queryIds":["20000000-0000-4000-8000-000000000002"],"contextRefs":[]}],
+    "analysis":[],"conflicts":[],"gaps":["分页未完成；采集覆盖未知"],
+    "classification":"insufficient_evidence","stopReason":"evidence_unavailable",
+    "followups":[{"question":"请确认授权维护范围","suggestedAction":"核对相同目标与时间的维护记录","responsibleRole":"运维人员"}]
+  },
+  "jobTransitions": {
+    "coalescing":["queued","cancelled","failed"],
+    "queued":["preparing","cancelled","failed"],
+    "preparing":["submitting","failed","cancelled","needs_review"],
+    "submitting":["running","uncertain","failed","cancel_requested"],
+    "running":["verifying","cancel_requested","uncertain","failed"],
+    "verifying":["succeeded","needs_review","failed","cancel_requested"],
+    "cancel_requested":["cancelled","uncertain","needs_review"],
+    "uncertain":["running","verifying","cancelled","failed","needs_review"],
+    "succeeded":[],"needs_review":[],"failed":[],"cancelled":[]
+  },
+  "deliveryTransitions": {
+    "pending":["sending","blocked"],
+    "sending":["delivered","uncertain","retryable_failed","blocked"],
+    "uncertain":["delivered","pending","blocked"],
+    "retryable_failed":["pending","blocked"],
+    "delivered":[],"blocked":["pending"]
+  }
+}

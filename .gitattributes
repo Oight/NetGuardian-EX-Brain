@@ -1,0 +1,4 @@
+* text=auto eol=lf
+
+# Preserve the imported architecture snapshot bytes and its provenance hash.
+docs/implementation/architecture.json -text

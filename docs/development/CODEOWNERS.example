@@ -1,0 +1,9 @@
+# 仅供启用任务填写，当前不是生效的CODEOWNERS。
+# 将下面ACCOUNT改为真实具有写权限的成员/团队，再复制到.github/CODEOWNERS。
+# 不能直接以占位账号启用；CODEOWNERS不提供文件写锁。
+# /packages/contracts/ @ACCOUNT
+# /packages/storage/ @ACCOUNT
+# /apps/desktop/runtime/ @ACCOUNT
+# /docs/implementation/contracts.ts @ACCOUNT
+# /docs/implementation/schema.sql @ACCOUNT
+# /.github/ @ACCOUNT

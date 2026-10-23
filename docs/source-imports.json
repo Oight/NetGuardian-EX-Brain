@@ -1,0 +1,608 @@
+{
+  "schemaVersion": "1.0.0",
+  "importedOn": "2026-10-23",
+  "sourceGitCommit": null,
+  "sourceDescription": "Unversioned local project materials; original workspace unchanged.",
+  "businessBaseline": "v4.2",
+  "contractVersion": "0.2.0",
+  "wireVersion": "0.1.0",
+  "files": [
+    {
+      "source": "docs/current/security-triage-client-design-v4.md",
+      "destination": "docs/current/security-triage-client-design-v4.md",
+      "sourceSha256": "0fa433a77f1a481867ca7eb6eaa557c034495635159c5d11805ed8d4d1756f63",
+      "importedSha256": "7119bed7b680cfc9d1649248ed922677d59938d26e8c3c10ccbf0fd6f47273da",
+      "adaptedAtImport": true
+    },
+    {
+      "source": "docs/current/security-triage-client-experiments-v4.md",
+      "destination": "docs/current/security-triage-client-experiments-v4.md",
+      "sourceSha256": "be82e5c6f26d25979fa31d5c4ebf119fdb0e2d069f881eb9e2214cf0ff4df2c1",
+      "importedSha256": "7e10de4f9fb5975fc1810391bae0f3a3eefcbb96ef693b5a4138e991d4235c46",
+      "adaptedAtImport": true
+    },
+    {
+      "source": "docs/current/wazuh-capability-assessment-2026-10-21.md",
+      "destination": "docs/current/wazuh-capability-assessment-2026-10-21.md",
+      "sourceSha256": "c2610baace1c73b2b5fcfb2d327322fe9d509b7c7ac14ee98e0e2fcdd9ee5a64",
+      "importedSha256": "7130079256266ede641de365c2ff0b12a42e4d9e1ed56f033cab8d420e395bde",
+      "adaptedAtImport": true
+    },
+    {
+      "source": "docs/development/CODEOWNERS.example",
+      "destination": "docs/development/CODEOWNERS.example",
+      "sourceSha256": "00fe7c28ace9196075e5cb4ad235471dd0aa5fab6bbacad7072f98855e62e0a6",
+      "importedSha256": "00fe7c28ace9196075e5cb4ad235471dd0aa5fab6bbacad7072f98855e62e0a6",
+      "adaptedAtImport": false
+    },
+    {
+      "source": "docs/development/engineering-rules.md",
+      "destination": "docs/development/engineering-rules.md",
+      "sourceSha256": "732990a4087bf940d22d863717fdf5a99b40d57e2e6aa7342b2f5ed881e16f47",
+      "importedSha256": "732990a4087bf940d22d863717fdf5a99b40d57e2e6aa7342b2f5ed881e16f47",
+      "adaptedAtImport": false
+    },
+    {
+      "source": "docs/development/github.md",
+      "destination": "docs/development/github.md",
+      "sourceSha256": "a0e491c0409d9edaec83b3873fc7474fe7af61b6737b4d878bb9659939febba2",
+      "importedSha256": "c735e3ce06484933d52f445b667859662016906095fae9fc0df806bd8b7c9785",
+      "adaptedAtImport": true
+    },
+    {
+      "source": "docs/development/ownership.md",
+      "destination": "docs/development/ownership.md",
+      "sourceSha256": "959b3ea7d0c09bc60bab6ef98dbc5d61ca0fd903cf4ee8b0d1b23d851e4cf59c",
+      "importedSha256": "37601e6493b696872ea4d58411af82c257b9873c024c88bdac0388a2492f2dc0",
+      "adaptedAtImport": true
+    },
+    {
+      "source": "docs/development/readiness.md",
+      "destination": "docs/development/readiness.md",
+      "sourceSha256": "f58f806c895937f7870ca385d9a3e5c95ab55c543cf4d344262828e3cb7169ca",
+      "importedSha256": "607ebef1348403c97e103b655f1536e9cc9f40ceade3d47e367361c0e920ab9f",
+      "adaptedAtImport": true
+    },
+    {
+      "source": "docs/development/README.md",
+      "destination": "docs/development/README.md",
+      "sourceSha256": "75229ceda37f1e38368b5328a561ab2b41d16b41d761f5f80220f9730e8649b1",
+      "importedSha256": "b94d5851414f5aced4633d874cbce5cfe4a98954f2ad9dc121f5662b011f0297",
+      "adaptedAtImport": true
+    },
+    {
+      "source": "docs/development/task-template.md",
+      "destination": "docs/development/task-template.md",
+      "sourceSha256": "15db4046063713f1eada13dba4c58076528aac7767b6913a2db8781942852aa6",
+      "importedSha256": "02b12fb46601a215ab71d8dbe6d9d3ddbf707ec1d4fa1cb710ebfe077e1976a5",
+      "adaptedAtImport": true
+    },
+    {
+      "source": "docs/development/tasks/README.md",
+      "destination": "docs/development/tasks/README.md",
+      "sourceSha256": "85338169f5985e37606668b0b66f210ab8a6496b2011e6429dedc08d38bd2eba",
+      "importedSha256": "11ba5868b48b878590b9a54400e8b43de702f8e603955d9b12c0619f41f4de48",
+      "adaptedAtImport": true
+    },
+    {
+      "source": "docs/development/workflow.md",
+      "destination": "docs/development/workflow.md",
+      "sourceSha256": "d57c41a7f1b46c0cc7f239dad2995f52388bcb82d2f1ef7d21a9e5f132b11913",
+      "importedSha256": "3ede5dbdd91a9085a6365e63af8684e7ced0524e0ee51d74aaa94eb1db67db49",
+      "adaptedAtImport": true
+    },
+    {
+      "source": "docs/history/security-triage-design-revision-plan.md",
+      "destination": "docs/history/security-triage-design-revision-plan.md",
+      "sourceSha256": "437e9d67f085a34b2fe9b0e0ebddc6a4a3e26c312170e0488a8efb17d374a5e4",
+      "importedSha256": "74df4949499dd25ba0df9336c237d73af3950970d2ac65d4e966d12d5bb9d8ce",
+      "adaptedAtImport": true
+    },
+    {
+      "source": "docs/history/security-triage-mvp-design.md",
+      "destination": "docs/history/security-triage-mvp-design.md",
+      "sourceSha256": "d02d99434d4456c596f9b412cb1ab515b65af8bcc2ddbfcca6effdabdd095d29",
+      "importedSha256": "dd38d22faadda5b3a85e3b90e34a7e9ee9c33cbf25fd31d07fe20277ff66e2be",
+      "adaptedAtImport": true
+    },
+    {
+      "source": "docs/history/security-triage-open-source-design.md",
+      "destination": "docs/history/security-triage-open-source-design.md",
+      "sourceSha256": "067f25909787932e63ddb1e5a2e407c223c4fd162fb857a7ae4234d12b892eb5",
+      "importedSha256": "5e299915e210e5bb82b3dcb35ad14cf1d3270b8fb2c745269dc3402d4625c264",
+      "adaptedAtImport": true
+    },
+    {
+      "source": "docs/history/security-triage-single-host-design.md",
+      "destination": "docs/history/security-triage-single-host-design.md",
+      "sourceSha256": "4bc65c80039b956066c6c44c59a6bbedaf1e997c955b4bac0700609bd1129984",
+      "importedSha256": "4a68689638db5c81f2dd58f10bb717c0b5501203e45980c6eba168889079056c",
+      "adaptedAtImport": true
+    },
+    {
+      "source": "docs/implementation/01-contracts.md",
+      "destination": "docs/implementation/01-contracts.md",
+      "sourceSha256": "7307d0011d496a51da1e9fb8a40f65fbb576ab9787a38d46b48197e5e35ebce9",
+      "importedSha256": "7307d0011d496a51da1e9fb8a40f65fbb576ab9787a38d46b48197e5e35ebce9",
+      "adaptedAtImport": false
+    },
+    {
+      "source": "docs/implementation/02-storage.md",
+      "destination": "docs/implementation/02-storage.md",
+      "sourceSha256": "82f5991dc49318a2a9667478bc4a8043eeaa5eac75b1ad154b16e51f717e49a6",
+      "importedSha256": "82f5991dc49318a2a9667478bc4a8043eeaa5eac75b1ad154b16e51f717e49a6",
+      "adaptedAtImport": false
+    },
+    {
+      "source": "docs/implementation/03-desktop-runtime.md",
+      "destination": "docs/implementation/03-desktop-runtime.md",
+      "sourceSha256": "ae8621447b5ee8c790f786689a2cedd16183b8638d92cb41bbc5db8f979cc672",
+      "importedSha256": "ae8621447b5ee8c790f786689a2cedd16183b8638d92cb41bbc5db8f979cc672",
+      "adaptedAtImport": false
+    },
+    {
+      "source": "docs/implementation/04-wazuh.md",
+      "destination": "docs/implementation/04-wazuh.md",
+      "sourceSha256": "8259ec342d2b27359f919ee8b8c577d9fca3c959325476f74ea81a4e3e7f6e45",
+      "importedSha256": "8259ec342d2b27359f919ee8b8c577d9fca3c959325476f74ea81a4e3e7f6e45",
+      "adaptedAtImport": false
+    },
+    {
+      "source": "docs/implementation/05-alerts.md",
+      "destination": "docs/implementation/05-alerts.md",
+      "sourceSha256": "ca0cf88b9fd44077bca9a1b266a2077eff44b19be25288ca4eb3c78616a0eac0",
+      "importedSha256": "ca0cf88b9fd44077bca9a1b266a2077eff44b19be25288ca4eb3c78616a0eac0",
+      "adaptedAtImport": false
+    },
+    {
+      "source": "docs/implementation/06-cases-evidence.md",
+      "destination": "docs/implementation/06-cases-evidence.md",
+      "sourceSha256": "a9d4224a2248e761a5e3483acaa38961797c8c471eb9bbdc1aaa96035d35cb08",
+      "importedSha256": "a9d4224a2248e761a5e3483acaa38961797c8c471eb9bbdc1aaa96035d35cb08",
+      "adaptedAtImport": false
+    },
+    {
+      "source": "docs/implementation/07-requests-scheduler.md",
+      "destination": "docs/implementation/07-requests-scheduler.md",
+      "sourceSha256": "428585befaeaeceec949bdef3453cea9cb0e04eacdc3f473f1655ffd02a31908",
+      "importedSha256": "428585befaeaeceec949bdef3453cea9cb0e04eacdc3f473f1655ffd02a31908",
+      "adaptedAtImport": false
+    },
+    {
+      "source": "docs/implementation/08-teleagent.md",
+      "destination": "docs/implementation/08-teleagent.md",
+      "sourceSha256": "1d9aa331e58b6e324dbfb9a2a4d182a1dd133a95af381a43985cdccd0b470d8b",
+      "importedSha256": "f791f514f17ca243cb6154fbb686b61760517c5c52ed6ba27806819bd12752aa",
+      "adaptedAtImport": true
+    },
+    {
+      "source": "docs/implementation/09-mcp.md",
+      "destination": "docs/implementation/09-mcp.md",
+      "sourceSha256": "4e941801b09e3b4fb619ddf6c0cca84ae1fa7b7f615d4430d925203deae41d94",
+      "importedSha256": "4e941801b09e3b4fb619ddf6c0cca84ae1fa7b7f615d4430d925203deae41d94",
+      "adaptedAtImport": false
+    },
+    {
+      "source": "docs/implementation/10-investigation-reports.md",
+      "destination": "docs/implementation/10-investigation-reports.md",
+      "sourceSha256": "f05478849cf8102df3fd65bc131762acdd39c9c6c8966d1097ae28100dfbddc1",
+      "importedSha256": "f05478849cf8102df3fd65bc131762acdd39c9c6c8966d1097ae28100dfbddc1",
+      "adaptedAtImport": false
+    },
+    {
+      "source": "docs/implementation/11-delivery.md",
+      "destination": "docs/implementation/11-delivery.md",
+      "sourceSha256": "0a6faae9b1954bccca81019e2e1ae77caf6cbe80e1e5d78704ddc5ab0d632c1c",
+      "importedSha256": "0a6faae9b1954bccca81019e2e1ae77caf6cbe80e1e5d78704ddc5ab0d632c1c",
+      "adaptedAtImport": false
+    },
+    {
+      "source": "docs/implementation/12-workbench.md",
+      "destination": "docs/implementation/12-workbench.md",
+      "sourceSha256": "cb21853dbb71f9f713c353433cc65d9b1b390ab53967a0cdf3191c8ca6297fff",
+      "importedSha256": "cb21853dbb71f9f713c353433cc65d9b1b390ab53967a0cdf3191c8ca6297fff",
+      "adaptedAtImport": false
+    },
+    {
+      "source": "docs/implementation/architecture.json",
+      "destination": "docs/implementation/architecture.json",
+      "sourceSha256": "23815c9a95a5d8ddf72f9fce04e00973c462561ae6dc74a78a358df8dccaa089",
+      "importedSha256": "23815c9a95a5d8ddf72f9fce04e00973c462561ae6dc74a78a358df8dccaa089",
+      "adaptedAtImport": false
+    },
+    {
+      "source": "docs/implementation/boundaries.md",
+      "destination": "docs/implementation/boundaries.md",
+      "sourceSha256": "7850948e6e4c3e8813f67ac1c8905a43eefa3173c4879746e09ccf67fd3cf8e6",
+      "importedSha256": "7850948e6e4c3e8813f67ac1c8905a43eefa3173c4879746e09ccf67fd3cf8e6",
+      "adaptedAtImport": false
+    },
+    {
+      "source": "docs/implementation/changes-0.2.0.md",
+      "destination": "docs/implementation/changes-0.2.0.md",
+      "sourceSha256": "d2f9e533fe8002f9e493e6b4dce9f221797fb131feb666497cfed875a7e4685a",
+      "importedSha256": "4a99bf179df8ab7da2ec0c50b10110064e8f8c3c15d3ffe75692061c4d33fa8e",
+      "adaptedAtImport": true
+    },
+    {
+      "source": "docs/implementation/contract-vectors.json",
+      "destination": "docs/implementation/contract-vectors.json",
+      "sourceSha256": "a2406d7b6eff4ef75a7d468f566d754025a6a8fe079db8fe020f19eae692c6c7",
+      "importedSha256": "a2406d7b6eff4ef75a7d468f566d754025a6a8fe079db8fe020f19eae692c6c7",
+      "adaptedAtImport": false
+    },
+    {
+      "source": "docs/implementation/contracts.ts",
+      "destination": "docs/implementation/contracts.ts",
+      "sourceSha256": "0803deb61048564a63041f6ae0534878ac3ba810bfee1ed6463ac29973f158a5",
+      "importedSha256": "0803deb61048564a63041f6ae0534878ac3ba810bfee1ed6463ac29973f158a5",
+      "adaptedAtImport": false
+    },
+    {
+      "source": "docs/implementation/integration.md",
+      "destination": "docs/implementation/integration.md",
+      "sourceSha256": "f696bc664e53484b0447702c55da4d1818afec85c4134c9d318ca1621ffdfd25",
+      "importedSha256": "f696bc664e53484b0447702c55da4d1818afec85c4134c9d318ca1621ffdfd25",
+      "adaptedAtImport": false
+    },
+    {
+      "source": "docs/implementation/README.md",
+      "destination": "docs/implementation/README.md",
+      "sourceSha256": "1b423bcba9f9d16424176ff88dd9dcee67d5e40231164807e5d8921179563907",
+      "importedSha256": "1b423bcba9f9d16424176ff88dd9dcee67d5e40231164807e5d8921179563907",
+      "adaptedAtImport": false
+    },
+    {
+      "source": "docs/implementation/schema.sql",
+      "destination": "docs/implementation/schema.sql",
+      "sourceSha256": "8788f63b08746523db55c8c25e68561f2b42f270540bf56ce65df9a2d840d014",
+      "importedSha256": "8788f63b08746523db55c8c25e68561f2b42f270540bf56ce65df9a2d840d014",
+      "adaptedAtImport": false
+    },
+    {
+      "source": "docs/implementation/verification.md",
+      "destination": "docs/implementation/verification.md",
+      "sourceSha256": "d816b283bb17f65c18451bc6f0289e6bbc85f48bf695a159629f8a7cf08f4763",
+      "importedSha256": "8245dcee58bc2b9a6fdb8897c69996d47461360d10b1294af000f7084c858cb3",
+      "adaptedAtImport": true
+    },
+    {
+      "source": "docs/project-status.md",
+      "destination": "docs/project-status.md",
+      "sourceSha256": "79648dc61c4b0e2499f1e90bfed0d4510e07dba27f5cd425f82cb275d2e7be50",
+      "importedSha256": "79176301cff520823c975404a38ad3475b403dd85329b34d92d354539d3eeeda",
+      "adaptedAtImport": true
+    },
+    {
+      "source": "docs/proposals/security-triage-client-detail-proposal.md",
+      "destination": "docs/proposals/security-triage-client-detail-proposal.md",
+      "sourceSha256": "0e80002d51344ae05f59b1030ae24f6c3f9569066a0c81c40ca749a91c8189e9",
+      "importedSha256": "86a194f7db0e409655cfd5352d55fd5798cbc27317a10c38d3911ca1aa4d3f37",
+      "adaptedAtImport": true
+    },
+    {
+      "source": "docs/proposals/wazuh-upstream-access-checklist-2026-10-22.md",
+      "destination": "docs/proposals/wazuh-upstream-access-checklist-2026-10-22.md",
+      "sourceSha256": "65151fe6d73325c962685006ce3048986844eead855bd4556727a9ff8a0415e6",
+      "importedSha256": "e7a001d4b7b78a9e122169eb60058b3d99e41d1f2645db56e43cd3009724e800",
+      "adaptedAtImport": true
+    },
+    {
+      "source": "docs/README.md",
+      "destination": "docs/README.md",
+      "sourceSha256": "652c95e27c4b3a41d68c8a34fb7127e5e3e15a63de71ce7be4ab6cec03a707b5",
+      "importedSha256": "fd67e47dc5ead262ce1275e275f5a4d9bd4dbc78336624046edad0465c8ed122",
+      "adaptedAtImport": true
+    },
+    {
+      "source": "docs/version-history.md",
+      "destination": "docs/version-history.md",
+      "sourceSha256": "45bcde3109678b1274c56fe463d36d15c6fb559910734685834eb8e52426123b",
+      "importedSha256": "48d1a4aea67c70648c1e6ae3c74d095536190d1fbd149c3f05787019b5009422",
+      "adaptedAtImport": true
+    },
+    {
+      "source": "scripts/design/verify_development_docs.py",
+      "destination": "scripts/design/verify_development_docs.py",
+      "sourceSha256": "d8912c4ab13e420a82c00e4210213f964137fd10a51d650dfad8be5c720b11a8",
+      "importedSha256": "d8912c4ab13e420a82c00e4210213f964137fd10a51d650dfad8be5c720b11a8",
+      "adaptedAtImport": false
+    },
+    {
+      "source": "scripts/design/verify_subsystem_designs.py",
+      "destination": "scripts/design/verify_subsystem_designs.py",
+      "sourceSha256": "8d6168e5d27a90c25f1fd405503f3085a672cec6d2d93280a1cfd2cb0b88a66f",
+      "importedSha256": "8d6168e5d27a90c25f1fd405503f3085a672cec6d2d93280a1cfd2cb0b88a66f",
+      "adaptedAtImport": false
+    },
+    {
+      "source": ".github/ISSUE_TEMPLATE/contract-change.md",
+      "destination": ".github/ISSUE_TEMPLATE/contract-change.md",
+      "sourceSha256": "fe379c9cd406f8c34e8ae64b6118f4a39d0e6ce4776dc8a864c21d09a8d8a9d5",
+      "importedSha256": "55785497293d564abf4d2039962835274fd5699af3bd53c6c6912b7d63a7b242",
+      "adaptedAtImport": true
+    },
+    {
+      "source": ".github/ISSUE_TEMPLATE/implementation-task.md",
+      "destination": ".github/ISSUE_TEMPLATE/implementation-task.md",
+      "sourceSha256": "7efbbe48ebcd5bc6d8c9eb1b60c6e62c0ed878244327a6cb38f9097b12941096",
+      "importedSha256": "947de9639d57ae656541d25d2609f30e89e00dfdc8f6697c2d7bc33d41f47fbf",
+      "adaptedAtImport": true
+    },
+    {
+      "source": ".github/PULL_REQUEST_TEMPLATE.md",
+      "destination": ".github/PULL_REQUEST_TEMPLATE.md",
+      "sourceSha256": "2670fa293f8ad8de0a3306931a64c32c05ac14db77de6cbc73d2f06622379c1b",
+      "importedSha256": "ba51f90a8cd474a3a32771b16b9aa90bffb829a3cc0bff96e06743af8d6cac2c",
+      "adaptedAtImport": true
+    },
+    {
+      "source": ".github/workflows/design-checks.yml",
+      "destination": ".github/workflows/design-checks.yml",
+      "sourceSha256": "af7a9bc806a54aa9672e51463aba902932e0e865519229823a300c04bbf7fc4a",
+      "importedSha256": "af7a9bc806a54aa9672e51463aba902932e0e865519229823a300c04bbf7fc4a",
+      "adaptedAtImport": false
+    },
+    {
+      "source": "AGENTS.md",
+      "destination": "AGENTS.md",
+      "sourceSha256": "3112aac69ebce05bbc08aa8eedd8e68cf2e507122b7d04bd1045f97e17f56a27",
+      "importedSha256": "e73d4993c892eb3c74245650fb3262c991549336364bc459e8325cb29368f579",
+      "adaptedAtImport": true
+    },
+    {
+      "source": "CONTRIBUTING.md",
+      "destination": "CONTRIBUTING.md",
+      "sourceSha256": "72bfe3d05c32d650fb4d3419fff29675f77aec8f5e215d4503b26c6be72c043a",
+      "importedSha256": "e32cf88ef0cfab552db92438fa1082a040ece7cc74cf9326525c8bb16533004c",
+      "adaptedAtImport": true
+    },
+    {
+      "source": "README.md",
+      "destination": "README.md",
+      "sourceSha256": "f143a6ba16050d826af00abc43b89db531881dd254c916a7890650e45c985181",
+      "importedSha256": "a76031610fd34eee14d5226f0b12c5679a56b91c42ac1b429ab9ea30747a27ea",
+      "adaptedAtImport": true
+    },
+    {
+      "source": ".gitignore",
+      "destination": ".gitignore",
+      "sourceSha256": "bb19d880338ea54c5203996c83561d6097696d9eb307cd616147607740284b7c",
+      "importedSha256": "7d67e00442abfebe8298126ee756d985462d5e353eadbe352d3e47914d413196",
+      "adaptedAtImport": true
+    }
+  ],
+  "externalReferences": {
+    "archive/sources/design/security-triage-client-design-v4.md": {
+      "id": "source-01",
+      "referencedBy": [
+        "docs/current/security-triage-client-design-v4.md"
+      ]
+    },
+    "research/teleagent/reverse/go-backend-analysis.md": {
+      "id": "source-02",
+      "referencedBy": [
+        "docs/current/security-triage-client-design-v4.md",
+        "docs/history/security-triage-design-revision-plan.md"
+      ]
+    },
+    "research/teleagent/reverse/api/live-desktop-validation.md": {
+      "id": "source-03",
+      "referencedBy": [
+        "docs/current/security-triage-client-design-v4.md",
+        "docs/current/security-triage-client-experiments-v4.md",
+        "docs/history/security-triage-design-revision-plan.md",
+        "docs/implementation/08-teleagent.md",
+        "docs/project-status.md",
+        "docs/proposals/security-triage-client-detail-proposal.md"
+      ]
+    },
+    "research/teleagent/reverse/api/README.md": {
+      "id": "source-04",
+      "referencedBy": [
+        "docs/current/security-triage-client-design-v4.md",
+        "docs/current/security-triage-client-experiments-v4.md",
+        "docs/history/security-triage-design-revision-plan.md",
+        "docs/implementation/08-teleagent.md",
+        "docs/project-status.md",
+        "docs/proposals/security-triage-client-detail-proposal.md"
+      ]
+    },
+    "research/teleagent/reverse/deep/agent-loop.md": {
+      "id": "source-05",
+      "referencedBy": [
+        "docs/current/security-triage-client-design-v4.md",
+        "docs/history/security-triage-design-revision-plan.md"
+      ]
+    },
+    "research/teleagent/reverse/deep/prompt-assembly.md": {
+      "id": "source-06",
+      "referencedBy": [
+        "docs/current/security-triage-client-design-v4.md",
+        "docs/history/security-triage-design-revision-plan.md"
+      ]
+    },
+    "archive/sources/design/security-triage-client-experiments-v4.md": {
+      "id": "source-07",
+      "referencedBy": [
+        "docs/current/security-triage-client-experiments-v4.md"
+      ]
+    },
+    "archive/sources/design/wazuh-capability-assessment-2026-10-21.md": {
+      "id": "source-08",
+      "referencedBy": [
+        "docs/current/wazuh-capability-assessment-2026-10-21.md"
+      ]
+    },
+    "reports/wazuh/wazuh-environment-probe-2026-10-21.json": {
+      "id": "source-09",
+      "referencedBy": [
+        "docs/current/wazuh-capability-assessment-2026-10-21.md"
+      ]
+    },
+    "reports/wazuh/wazuh-capability-audit-2026-10-21.json": {
+      "id": "source-10",
+      "referencedBy": [
+        "docs/current/wazuh-capability-assessment-2026-10-21.md"
+      ]
+    },
+    "reports/wazuh/wazuh-capability-details-2026-10-21.json": {
+      "id": "source-11",
+      "referencedBy": [
+        "docs/current/wazuh-capability-assessment-2026-10-21.md"
+      ]
+    },
+    "reports/wazuh/wazuh-network-source-check-2026-10-21.json": {
+      "id": "source-12",
+      "referencedBy": [
+        "docs/current/wazuh-capability-assessment-2026-10-21.md"
+      ]
+    },
+    "archive/sources/design/security-triage-design-revision-plan.md": {
+      "id": "source-13",
+      "referencedBy": [
+        "docs/history/security-triage-design-revision-plan.md"
+      ]
+    },
+    "research/teleagent/research/teleagent-api-integration.md": {
+      "id": "source-14",
+      "referencedBy": [
+        "docs/history/security-triage-design-revision-plan.md"
+      ]
+    },
+    "research/teleagent/reverse/deep/memory.md": {
+      "id": "source-15",
+      "referencedBy": [
+        "docs/history/security-triage-design-revision-plan.md"
+      ]
+    },
+    "research/teleagent/docs/business-service-design-v0.2.md": {
+      "id": "source-16",
+      "referencedBy": [
+        "docs/history/security-triage-design-revision-plan.md",
+        "docs/version-history.md"
+      ]
+    },
+    "archive/sources/design/security-triage-mvp-design.md": {
+      "id": "source-17",
+      "referencedBy": [
+        "docs/history/security-triage-mvp-design.md"
+      ]
+    },
+    "archive/sources/design/security-triage-open-source-design.md": {
+      "id": "source-18",
+      "referencedBy": [
+        "docs/history/security-triage-open-source-design.md"
+      ]
+    },
+    "archive/sources/design/security-triage-single-host-design.md": {
+      "id": "source-19",
+      "referencedBy": [
+        "docs/history/security-triage-single-host-design.md"
+      ]
+    },
+    "research/teleagent/research/teleagent-overview.md": {
+      "id": "source-20",
+      "referencedBy": [
+        "docs/project-status.md"
+      ]
+    },
+    "research/teleagent/reverse/deep/README.md": {
+      "id": "source-21",
+      "referencedBy": [
+        "docs/project-status.md"
+      ]
+    },
+    "reports/wazuh/README.md": {
+      "id": "source-22",
+      "referencedBy": [
+        "docs/project-status.md"
+      ]
+    },
+    "reports/wazuh/wazuh-server-api-check-20261022T123238Z.md": {
+      "id": "source-23",
+      "referencedBy": [
+        "docs/project-status.md",
+        "docs/proposals/wazuh-upstream-access-checklist-2026-10-22.md",
+        "docs/README.md"
+      ]
+    },
+    "reports/wazuh/wazuh-indexer-api-check-20261022T124710Z.md": {
+      "id": "source-24",
+      "referencedBy": [
+        "docs/project-status.md",
+        "docs/proposals/wazuh-upstream-access-checklist-2026-10-22.md",
+        "docs/README.md"
+      ]
+    },
+    "reports/wazuh/wazuh-direct-api-check-20261022T120730Z.md": {
+      "id": "source-25",
+      "referencedBy": [
+        "docs/project-status.md",
+        "docs/proposals/wazuh-upstream-access-checklist-2026-10-22.md",
+        "docs/README.md"
+      ]
+    },
+    "migration/legacy-references.json": {
+      "id": "source-26",
+      "referencedBy": [
+        "docs/project-status.md"
+      ]
+    },
+    "archive/sources/design/security-triage-client-detail-proposal.md": {
+      "id": "source-27",
+      "referencedBy": [
+        "docs/proposals/security-triage-client-detail-proposal.md"
+      ]
+    },
+    "reports/wazuh/wazuh-direct-api-check-20261022T120426Z.md": {
+      "id": "source-28",
+      "referencedBy": [
+        "docs/proposals/wazuh-upstream-access-checklist-2026-10-22.md"
+      ]
+    },
+    "reports/wazuh/wazuh-api-dashboard-handoff-2026-10-22.md": {
+      "id": "source-29",
+      "referencedBy": [
+        "docs/README.md"
+      ]
+    },
+    "research/teleagent/README.md": {
+      "id": "source-30",
+      "referencedBy": [
+        "docs/README.md"
+      ]
+    },
+    "research/teleagent/security-analysis-architecture.md": {
+      "id": "source-31",
+      "referencedBy": [
+        "docs/version-history.md"
+      ]
+    },
+    "research/teleagent/research/campussec-system-workflow.md": {
+      "id": "source-32",
+      "referencedBy": [
+        "docs/version-history.md"
+      ]
+    },
+    "research/teleagent/docs/system-design-v0.1.md": {
+      "id": "source-33",
+      "referencedBy": [
+        "docs/version-history.md"
+      ]
+    },
+    "research/teleagent/output/README.md": {
+      "id": "source-34",
+      "referencedBy": [
+        "docs/version-history.md"
+      ]
+    },
+    "archive/source-guidelines/research_teleagent-AGENTS.md": {
+      "id": "source-35",
+      "referencedBy": [
+        "docs/version-history.md"
+      ]
+    }
+  },
+  "snapshotMeaning": "Import-time working copies; future intended edits may differ. Original migration hashes were not changed."
+}
