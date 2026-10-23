@@ -19,7 +19,7 @@ python -B scripts/design/verify_subsystem_designs.py
 python -B scripts/design/verify_development_docs.py
 ```
 
-使用能直接解析 TypeScript 的 Node 时，可增加 --node-syntax。现有检查涵盖设计链接、内嵌契约、SQL 合成约束和声明边界；不提供产品 typecheck/build/runtime schema，也不调用真实模型或 Wazuh。CI 尚未在远端运行。
+使用能直接解析 TypeScript 的 Node 时，可增加 --node-syntax。现有检查涵盖设计链接、内嵌契约、SQL 合成约束和声明边界；不提供产品 typecheck/build/runtime schema，也不调用真实模型或 Wazuh。线上 Actions 结果尚未核实。
 
 ## 共享接口与依赖
 
@@ -31,4 +31,8 @@ python -B scripts/design/verify_development_docs.py
 
 检查未提供、未执行、失败和通过分别记录；合成、真实文本和真实工具证据分开。测试默认使用合成夹具，不以个人秘密或现场网络作为离线检查前提。
 
-初次提交选择性导入开发资料，原研究、归档、凭据和运行材料保留在仓库外；见[初始化记录](docs/development/repository-setup.md)。远端推送、权限设置、真实平台及模型操作按当次授权执行。
+初始项目设计和研究材料由 Shimakaze-17900 提供并署名，仓库文档由 Codex 辅助整理；第三方资料保持自身出处。后续贡献以文内说明和 Git 历史为准，不仅凭提交者推定其他原始材料的作者。
+
+共享文档使用仓库相对链接，不写个人绝对路径或临时权限排障经过。未入库原报告标明提供者、署名和共享状态，链接指向来源登记时明确它不是报告正文。测试记录注明执行者、日期和环境，仅代表对应提交与样本，不代表全组复现或产品依赖要求。
+
+导入和来源范围见[初始化记录](docs/development/repository-setup.md)及[来源登记](docs/reference-index.md)。远端推送、权限设置、真实平台及模型操作按当次授权执行。

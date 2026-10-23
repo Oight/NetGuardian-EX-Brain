@@ -6,6 +6,8 @@
 
 当前仓库维护任务：[T000 首次 GitHub 同步](T000-github-bootstrap.md)。实时状态仅维护在该任务文件中。
 
+后续文档维护：[T001 资料归属与可移植性](T001-docs-portability.md)。各任务状态仅维护在对应任务文件中。
+
 建立任务时复制[任务模板](../task-template.md)，填写真实 base commit、完成者、路径和验收。状态使用 planned、ready、in_progress、checking、done、blocked、cancelled；done 要求结果已合并到 main 且检查记录完整。
 
 采用任务 ID 命名，例如 T001-foundation.md。共享文件先明确当次唯一写任务；不设专职审查者。以后若迁往 Issue，在原任务文件注明唯一新位置，停止双份状态维护。

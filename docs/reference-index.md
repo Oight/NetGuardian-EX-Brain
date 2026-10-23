@@ -1,287 +1,267 @@
-# 未随仓库导入的来源索引
+# 外部资料来源登记
 
-日期：2026-10-23。下列研究、实验和归档原件留在导入时的本地资料工作区，没有纳入本仓库。这里仅保留原引用路径，便于有相应权限的成员追溯；它们不是本仓库可直接打开的报告，也不构成重新核验。
+登记日期：2026-10-23。初始项目设计、研究笔记和实验记录的署名及提供者：**Shimakaze-17900**（由提供者确认）；本页与仓库副本的文字整理：Codex 辅助。第三方官方文档、开源项目和公开数据集保留各自作者与出处。
 
-路径相对于原资料工作区 `D:\design_agent`。新的 clone 可以运行仓库内离线设计检查，但不会因此拥有原始证据。已有结论应结合对应实验的身份、时间和验证层级阅读；需要共享时另行选择并脱敏导入。
+本页是出处清单，不是报告正文或下载目录。下列原始材料没有随本仓库共享；其他成员需要复核时，由 Shimakaze-17900 另行提供可共享的脱敏材料。标有“仓库内副本”的链接可直接阅读，其余条目不能仅凭 clone 取得。
 
-本仓库的导入范围及协作决定见[初始化记录](development/repository-setup.md)。
+来源编号用于维持引用关系，文件名仅作历史识别，不表示仓库内存在同名文件，也不要求复刻个人目录。历史环境数据只适用于原报告的日期、版本、账号和样本；未共享原件不作为全组已复现或真实端到端验收的证明。
+
+导入时的哈希及材料归属见[快照清单](source-imports.json)，初始化背景见[历史记录](development/repository-setup.md)。旧目录映射仍可从初始提交追溯，但不作为当前文件路径或构建输入。
 
 <a id="source-01"></a>
 
-## source-01
+## source-01 · v4.2 主设计原稿
 
-- 原路径：`archive/sources/design/security-triage-client-design-v4.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/current/security-triage-client-design-v4.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`security-triage-client-design-v4.md`。
+- 仓库内可读副本：[维护副本](current/security-triage-client-design-v4.md)。
 
 <a id="source-02"></a>
 
-## source-02
+## source-02 · TeleAgent Go 后端分析
 
-- 原路径：`research/teleagent/reverse/go-backend-analysis.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/current/security-triage-client-design-v4.md`、`docs/history/security-triage-design-revision-plan.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`go-backend-analysis.md`。
 
 <a id="source-03"></a>
 
-## source-03
+## source-03 · 2026-10-18 真实文本验证报告
 
-- 原路径：`research/teleagent/reverse/api/live-desktop-validation.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/current/security-triage-client-design-v4.md`、`docs/current/security-triage-client-experiments-v4.md`、`docs/history/security-triage-design-revision-plan.md`、`docs/implementation/08-teleagent.md`、`docs/project-status.md`、`docs/proposals/security-triage-client-detail-proposal.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`live-desktop-validation.md`。
+- 适用范围：仅原报告的版本、时间与验证层级，不代表完整真实调查闭环或全组已复现。
 
 <a id="source-04"></a>
 
-## source-04
+## source-04 · TeleAgent API/MCP 验证报告
 
-- 原路径：`research/teleagent/reverse/api/README.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/current/security-triage-client-design-v4.md`、`docs/current/security-triage-client-experiments-v4.md`、`docs/history/security-triage-design-revision-plan.md`、`docs/implementation/08-teleagent.md`、`docs/project-status.md`、`docs/proposals/security-triage-client-detail-proposal.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`README.md`。
+- 适用范围：仅原报告的版本、时间与验证层级，不代表完整真实调查闭环或全组已复现。
 
 <a id="source-05"></a>
 
-## source-05
+## source-05 · TeleAgent 调查循环分析
 
-- 原路径：`research/teleagent/reverse/deep/agent-loop.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/current/security-triage-client-design-v4.md`、`docs/history/security-triage-design-revision-plan.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`agent-loop.md`。
 
 <a id="source-06"></a>
 
-## source-06
+## source-06 · TeleAgent 提示词装配分析
 
-- 原路径：`research/teleagent/reverse/deep/prompt-assembly.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/current/security-triage-client-design-v4.md`、`docs/history/security-triage-design-revision-plan.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`prompt-assembly.md`。
 
 <a id="source-07"></a>
 
-## source-07
+## source-07 · v4 实验与验收计划原稿
 
-- 原路径：`archive/sources/design/security-triage-client-experiments-v4.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/current/security-triage-client-experiments-v4.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`security-triage-client-experiments-v4.md`。
+- 仓库内可读副本：[维护副本](current/security-triage-client-experiments-v4.md)。
 
 <a id="source-08"></a>
 
-## source-08
+## source-08 · 2026-10-21 Wazuh 能力观察原稿
 
-- 原路径：`archive/sources/design/wazuh-capability-assessment-2026-10-21.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/current/wazuh-capability-assessment-2026-10-21.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`wazuh-capability-assessment-2026-10-21.md`。
+- 仓库内可读副本：[维护副本](current/wazuh-capability-assessment-2026-10-21.md)。
 
 <a id="source-09"></a>
 
-## source-09
+## source-09 · Wazuh 无凭据连通性记录
 
-- 原路径：`reports/wazuh/wazuh-environment-probe-2026-10-21.json`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/current/wazuh-capability-assessment-2026-10-21.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`wazuh-environment-probe-2026-10-21.json`。
 
 <a id="source-10"></a>
 
-## source-10
+## source-10 · Wazuh 版本与模块观察记录
 
-- 原路径：`reports/wazuh/wazuh-capability-audit-2026-10-21.json`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/current/wazuh-capability-assessment-2026-10-21.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`wazuh-capability-audit-2026-10-21.json`。
 
 <a id="source-11"></a>
 
-## source-11
+## source-11 · Wazuh Server/FIM/SCA 抽样记录
 
-- 原路径：`reports/wazuh/wazuh-capability-details-2026-10-21.json`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/current/wazuh-capability-assessment-2026-10-21.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`wazuh-capability-details-2026-10-21.json`。
 
 <a id="source-12"></a>
 
-## source-12
+## source-12 · Wazuh 网络设备来源补查记录
 
-- 原路径：`reports/wazuh/wazuh-network-source-check-2026-10-21.json`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/current/wazuh-capability-assessment-2026-10-21.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`wazuh-network-source-check-2026-10-21.json`。
 
 <a id="source-13"></a>
 
-## source-13
+## source-13 · 设计修订提案原稿
 
-- 原路径：`archive/sources/design/security-triage-design-revision-plan.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/history/security-triage-design-revision-plan.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`security-triage-design-revision-plan.md`。
+- 仓库内可读副本：[维护副本](history/security-triage-design-revision-plan.md)。
 
 <a id="source-14"></a>
 
-## source-14
+## source-14 · TeleAgent API 集成研究
 
-- 原路径：`research/teleagent/research/teleagent-api-integration.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/history/security-triage-design-revision-plan.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`teleagent-api-integration.md`。
 
 <a id="source-15"></a>
 
-## source-15
+## source-15 · TeleAgent 记忆机制分析
 
-- 原路径：`research/teleagent/reverse/deep/memory.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/history/security-triage-design-revision-plan.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`memory.md`。
 
 <a id="source-16"></a>
 
-## source-16
+## source-16 · 历史业务设计 v0.2
 
-- 原路径：`research/teleagent/docs/business-service-design-v0.2.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/history/security-triage-design-revision-plan.md`、`docs/version-history.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`business-service-design-v0.2.md`。
 
 <a id="source-17"></a>
 
-## source-17
+## source-17 · 历史自研设计 v1
 
-- 原路径：`archive/sources/design/security-triage-mvp-design.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/history/security-triage-mvp-design.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`security-triage-mvp-design.md`。
+- 仓库内可读副本：[维护副本](history/security-triage-mvp-design.md)。
 
 <a id="source-18"></a>
 
-## source-18
+## source-18 · 历史开源复用设计 v2
 
-- 原路径：`archive/sources/design/security-triage-open-source-design.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/history/security-triage-open-source-design.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`security-triage-open-source-design.md`。
+- 仓库内可读副本：[维护副本](history/security-triage-open-source-design.md)。
 
 <a id="source-19"></a>
 
-## source-19
+## source-19 · 历史单机设计 v3
 
-- 原路径：`archive/sources/design/security-triage-single-host-design.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/history/security-triage-single-host-design.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`security-triage-single-host-design.md`。
+- 仓库内可读副本：[维护副本](history/security-triage-single-host-design.md)。
 
 <a id="source-20"></a>
 
-## source-20
+## source-20 · TeleAgent 总体研究
 
-- 原路径：`research/teleagent/research/teleagent-overview.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/project-status.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`teleagent-overview.md`。
 
 <a id="source-21"></a>
 
-## source-21
+## source-21 · TeleAgent 循环与提示词研究目录
 
-- 原路径：`research/teleagent/reverse/deep/README.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/project-status.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`README.md`。
 
 <a id="source-22"></a>
 
-## source-22
+## source-22 · Wazuh 既往实验目录
 
-- 原路径：`reports/wazuh/README.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/project-status.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`README.md`。
 
 <a id="source-23"></a>
 
-## source-23
+## source-23 · 2026-10-22 Server 专用账号报告
 
-- 原路径：`reports/wazuh/wazuh-server-api-check-20261022T123238Z.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/project-status.md`、`docs/proposals/wazuh-upstream-access-checklist-2026-10-22.md`、`docs/README.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`wazuh-server-api-check-20261022T123238Z.md`。
+- 适用范围：仅原报告的版本、时间与验证层级，不代表完整真实调查闭环或全组已复现。
 
 <a id="source-24"></a>
 
-## source-24
+## source-24 · 2026-10-22 Indexer 专用账号报告
 
-- 原路径：`reports/wazuh/wazuh-indexer-api-check-20261022T124710Z.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/project-status.md`、`docs/proposals/wazuh-upstream-access-checklist-2026-10-22.md`、`docs/README.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`wazuh-indexer-api-check-20261022T124710Z.md`。
+- 适用范围：仅原报告的版本、时间与验证层级，不代表完整真实调查闭环或全组已复现。
 
 <a id="source-25"></a>
 
-## source-25
+## source-25 · 2026-10-22 旧入口连接与认证报告
 
-- 原路径：`reports/wazuh/wazuh-direct-api-check-20261022T120730Z.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/project-status.md`、`docs/proposals/wazuh-upstream-access-checklist-2026-10-22.md`、`docs/README.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`wazuh-direct-api-check-20261022T120730Z.md`。
 
 <a id="source-26"></a>
 
-## source-26
+## source-26 · 旧引用缺失记录
 
-- 原路径：`migration/legacy-references.json`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/project-status.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`legacy-references.json`。
 
 <a id="source-27"></a>
 
-## source-27
+## source-27 · 客户端与 MCP 细化提案原稿
 
-- 原路径：`archive/sources/design/security-triage-client-detail-proposal.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/proposals/security-triage-client-detail-proposal.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`security-triage-client-detail-proposal.md`。
+- 仓库内可读副本：[维护副本](proposals/security-triage-client-detail-proposal.md)。
 
 <a id="source-28"></a>
 
-## source-28
+## source-28 · 2026-10-22 本地连接受限记录
 
-- 原路径：`reports/wazuh/wazuh-direct-api-check-20261022T120426Z.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/proposals/wazuh-upstream-access-checklist-2026-10-22.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`wazuh-direct-api-check-20261022T120426Z.md`。
 
 <a id="source-29"></a>
 
-## source-29
+## source-29 · Wazuh API 与态势面板交接记录
 
-- 原路径：`reports/wazuh/wazuh-api-dashboard-handoff-2026-10-22.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/README.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`wazuh-api-dashboard-handoff-2026-10-22.md`。
 
 <a id="source-30"></a>
 
-## source-30
+## source-30 · TeleAgent 原研究目录
 
-- 原路径：`research/teleagent/README.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/README.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`README.md`。
 
 <a id="source-31"></a>
 
-## source-31
+## source-31 · 早期安全分析架构
 
-- 原路径：`research/teleagent/security-analysis-architecture.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/version-history.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`security-analysis-architecture.md`。
 
 <a id="source-32"></a>
 
-## source-32
+## source-32 · 早期系统工作流
 
-- 原路径：`research/teleagent/research/campussec-system-workflow.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/version-history.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`campussec-system-workflow.md`。
 
 <a id="source-33"></a>
 
-## source-33
+## source-33 · 历史系统设计 v0.1
 
-- 原路径：`research/teleagent/docs/system-design-v0.1.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/version-history.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`system-design-v0.1.md`。
 
 <a id="source-34"></a>
 
-## source-34
+## source-34 · 历史 v0.1 导出材料目录
 
-- 原路径：`research/teleagent/output/README.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/version-history.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`README.md`。
 
 <a id="source-35"></a>
 
-## source-35
+## source-35 · 原研究目录协作说明（历史）
 
-- 原路径：`archive/source-guidelines/research_teleagent-AGENTS.md`
-- 保存位置：原资料工作区，未随仓库导入。
-- 被引用于：`docs/version-history.md`
+- 署名/提供者：Shimakaze-17900；原始材料：未入库。
+- 历史文件名：`research_teleagent-AGENTS.md`。
+- 适用范围：历史协作说明，不覆盖当前仓库 AGENTS.md。

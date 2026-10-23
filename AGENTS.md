@@ -21,11 +21,13 @@
 - S07 独占任务终态和跨模块应用用例；S06 不回调预算/MCP，S10 不读任务私表决定取消，S09 通道管理独立于协议入口。跨所有者事务调用 InTx，禁止事务内 await 或直写他表。
 - 区分设计静态、合成业务、模拟模型、真实文本、真实工具及结果投递。不得用成功占位检查、空数组或 unavailable 改成功来通过验收。
 - 现有材料未证明真实模型、专用 Skill、两类 MCP 与实际 Wazuh 的完整调查闭环。历史授权不延续为读取进程凭据、创建真实会话、消耗模型额度或访问平台的授权。
-- 不打印或提交凭据、会话密钥、数据库及个人运行日志。不要自动运行历史研究脚本；原始材料留在仓库外，见 [来源索引](docs/reference-index.md)。
+- 不打印或提交凭据、会话密钥、数据库及个人运行日志。不要自动运行历史研究脚本；未入库材料由提供者另行共享，其署名和访问范围见[来源登记](docs/reference-index.md)。
 
 ## 维护与检查
 
-- 文档使用 UTF-8 和相对链接。当前设计副本仅做来源链接适配，不视为新的业务版本；导入依据见 [初始化记录](docs/development/repository-setup.md)和 docs/source-imports.json。
+- 文档使用 UTF-8 和相对链接，协作说明不写个人绝对路径或临时权限处理过程。来源、署名和个人环境说明的维护不视为新的业务版本；导入依据见[初始化记录](docs/development/repository-setup.md)和 docs/source-imports.json。
+- 初始项目设计与研究材料由 Shimakaze-17900 提供并署名；仓库文字整理标明 Codex 辅助，后续贡献按文内说明及 Git 历史归属。第三方资料保留自身出处，Git 提交署名不自动证明其他来源的原作者。
+- 引用必须区分仓库内可读文件和未入库来源；来源登记不是报告正文。历史结果记录执行者、日期、环境和验证层级，不将某次电脑环境或结果写成全组条件、当前状态或共同验收成绩。
 - 本地检查：python -B scripts/design/verify_subsystem_designs.py；python -B scripts/design/verify_development_docs.py。--sync 只用于有意更新工程包内嵌块，CI 只读检查。
 - Node --check 仅语法；源码依赖检查、runtime schema、产品 tsc/构建和共享 testkit 仍待产品基座实现。
 - 本地可逆工作按任务授权继续；远端推送、GitHub 配置及真实外部操作依当次授权。

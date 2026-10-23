@@ -95,7 +95,7 @@ deliver只向已绑定来源交付S11生成的HostMessage，deliveryKey由S11确
 
 离线覆盖编码后签名、中文/空格目录、query顺序、nonce重放、错误body、204不存在会话、消息parent不符、tool_calls中间轮、SSE断开、创建/提交响应丢失、abort后未知、身份切换、投递接受但不可见。合成driver必须能模拟这些路径。
 
-交付协议适配、版本映射事实表、capability记录、会话Repository与fake。真实验证报告逐项标静态/模拟/真实文本/真实工具/来源回传；不得把前一项通过推导下一项。参考[既有隔离记录](../reference-index.md#source-04)与[真实文本记录](../reference-index.md#source-03)仅作追溯。
+交付协议适配、版本映射事实表、capability记录、会话Repository与fake。真实验证报告逐项标静态/模拟/真实文本/真实工具/来源回传；不得把前一项通过推导下一项。参考[来源登记：既有隔离记录](../reference-index.md#source-04)与[来源登记：真实文本记录](../reference-index.md#source-03)仅作追溯。
 
 ## 9. 内嵌统一契约
 

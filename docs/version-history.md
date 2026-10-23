@@ -4,9 +4,9 @@
 
 | 阶段 | 保留位置 | 当前处理 |
 |---|---|---|
-| 早期总体架构与工作流 | [原架构](reference-index.md#source-31)、[早期工作流](reference-index.md#source-32) | 历史讨论；自研导入/解析/检测职责与旧双入口不能覆盖 v4.2 |
-| 早期系统 v0.1 | [Markdown](reference-index.md#source-33)、[导出材料](reference-index.md#source-34) | 历史；PDF、流程图、ZIP 和生成器只对应 v0.1 |
-| 早期业务 v0.2 | [业务草案](reference-index.md#source-16) | 当时优先于 v0.1，记录实时/短期事件响应方向；已不是全工作区的当前基线 |
+| 早期总体架构与工作流 | [来源登记：原架构](reference-index.md#source-31)、[来源登记：早期工作流](reference-index.md#source-32) | 历史讨论；自研导入/解析/检测职责与旧双入口不能覆盖 v4.2 |
+| 早期系统 v0.1 | [来源登记：Markdown](reference-index.md#source-33)、[来源登记：导出材料](reference-index.md#source-34) | 历史；PDF、流程图、ZIP 和生成器只对应 v0.1 |
+| 早期业务 v0.2 | [来源登记：业务草案](reference-index.md#source-16) | 当时优先于 v0.1，记录实时/短期事件响应方向；已不是全工作区的当前基线 |
 | 自研 v1 | [历史文档](history/security-triage-mvp-design.md) | 已被 v4.2 替代 |
 | 开源复用 v2 | [历史文档](history/security-triage-open-source-design.md) | 多机平台与 Python 方案不再作为当前实施主线 |
 | 单机 v3 | [历史文档](history/security-triage-single-host-design.md) | 同机服务、首周计划与资源预算不作为 v4.2 交付承诺 |
@@ -18,6 +18,6 @@
 
 v4.2 已明确替代“学校已有 Wazuh”“MCP 一律不得派发任务”和只有告警起点的旧表述；三个入口共享任务核心，但委派与取证权限分开。当前架构将平台检测与客户端调查分工，不恢复自研采集和检测职责。
 
-原研究索引中“当前 v0.2”和原 `AGENTS.md` 中的优先规则都属于源工作区的历史上下文。[原说明文件](reference-index.md#source-35) 已保留，新的工作区入口与规则统一指向 v4.2。
+旧研究索引中“当前 v0.2”和旧协作说明的优先规则属于历史上下文；[来源登记：历史协作说明](reference-index.md#source-35)仅记录未入库的出处。当前以本仓库 AGENTS.md 和 v4.2 基线为准。
 
-过时内容保留原件，避免失去讨论过程或实验出处；当前可读副本只增加状态标记和调整链接，未据此生成新的设计版本，也未重新导出旧 PDF。
+初始历史项目资料由 Shimakaze-17900 提供并署名；外部原件的共享范围以[来源登记](reference-index.md)为准，不是 clone 后必备的个人目录。仓库可读副本补充状态、署名和来源说明，未据此发布新业务设计版本或重新导出旧 PDF。
