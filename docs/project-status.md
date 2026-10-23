@@ -14,7 +14,7 @@
 
 - 业务主设计、实验计划、候选提案及历史取舍说明。
 - 12 个子系统工程设计、统一 TypeScript 契约、SQL、合成向量和声明边界。
-- 三账号轻量协作规范、任务模板及离线检查脚本。
+- 轻量协作规范、任务模板及离线检查脚本；已按[四人工作线](development/tasks/README.md)覆盖全部子系统，尚不代表实现完成。
 - 已同步的 Git 仓库与 Actions 工作流文件；线上 Actions 结果尚未核实。
 
 这些是设计与开发准备产物。产品 workspace、运行时 schema、共享 testkit、客户端实现、安装包和完整 P0 均未完成，具体门槛见[准备清单](development/readiness.md)。

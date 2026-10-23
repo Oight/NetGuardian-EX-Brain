@@ -42,6 +42,6 @@ python -B scripts/design/verify_subsystem_designs.py --node-syntax
 
 ## 小组协作
 
-使用一条 main 主线和短任务分支。完成者负责自检、记录结果及合并，PR 按需使用。任务状态统一记录在 [tasks](docs/development/tasks/README.md)，共享文件一次只由一个任务修改。
+使用一条 main 主线和短任务分支。完成者负责自检、记录结果及合并，PR 按需使用。四人工作线和分支入口见 [tasks](docs/development/tasks/README.md)，任务状态统一记录在对应任务文件，共享文件一次只由一个任务修改。
 
 远端为 [Oight/NetGuardian-EX-Brain](https://github.com/Oight/NetGuardian-EX-Brain)。初始化与首次同步的历史记录见[建库说明](docs/development/repository-setup.md)和[同步记录](docs/development/remote-sync.md)；这些记录中的环境版本只描述对应执行，不是其他成员必须复刻的电脑配置。
