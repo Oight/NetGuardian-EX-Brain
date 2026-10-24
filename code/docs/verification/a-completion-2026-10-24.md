@@ -47,6 +47,6 @@ A3 的 SQL fake 不解析 SQL、不证明真实持久化；真实 SQLite 与回�
 
 ## 提交依据
 
-本轮实现提交与合并依据待提交后由后续记录补入，未合并前各交付保持 checking。
+本轮实现提交：3ee347c0ba8472cdeee5807e2aedce0942676fcd，已于 2026-10-24 从 task/T002-a-foundation-complete 快进合入本地 main；本段为合并后的补记。A1/A2/A3/A4a 状态见 T002，A4b/A5 不据此宣告完成。远端未推送。
 
 本轮新增公共 fake 的类型检查曾在自定义 Result 推导处出现 TypeScript 错误，修复为按 ok:true 分支分配后复验通过；不将先前失败记录冒充成功。最终检查结果对应本轮全部代码。
