@@ -1,6 +1,6 @@
 # T009 · 全项目代码排版
 
-状态：in_progress；实际 base d5b87dd；工作分支 task/T009-format-only。用户授权统一项目代码格式，要求保持逻辑不变。
+状态：done；实际 base d5b87dd；工作分支 task/T009-format-only。格式化提交 39965fb 已快进合入本地 main，尚未推送远端。用户授权统一项目代码格式，要求保持逻辑不变。
 
 范围：全部受 Git 管理的可执行源码、测试、工具、可编辑 JSON/HTML/CSS/YAML、Python；添加共享 Prettier/Ruff 配置与本任务记录。TypeScript 等采用两空格，Python 采用四空格。
 
