@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+export { createOwnedGatewayAuthentication } from "./owned-auth.js";
 import { createServer, type IncomingMessage, type Server } from "node:http";
 import {
   canonicalJson,

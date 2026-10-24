@@ -13,20 +13,28 @@ import {
   type Result,
 } from "@campussec/contracts";
 /** Version-specific network adapter. A caller must provide a verified mapping; none is inferred from /ready. */
+export interface ExecutionControl {
+  signal: AbortSignal;
+  /** Save a newly created session before any prompt can be submitted. */
+  checkpoint(snapshot: ExecutionSnapshot): Promise<Result<void>>;
+}
 export interface ExecutionWire {
   start(
     ctx: CallContext,
     input: Parameters<ExecutionPort["start"]>[1],
+    control?: ExecutionControl,
   ): Promise<Result<ExecutionSnapshot>>;
   inspect(
     ctx: CallContext,
     runId: string,
     known: ExecutionSnapshot,
+    control?: ExecutionControl,
   ): Promise<Result<ExecutionSnapshot>>;
   abort(
     ctx: CallContext,
     runId: string,
     known: ExecutionSnapshot,
+    control?: ExecutionControl,
   ): Promise<Result<ExecutionSnapshot>>;
 }
 export interface ExecutionDependencies {
@@ -161,20 +169,95 @@ export function createExecutionDriver(
     if (!prepared.ok) return prepared;
     if ("existing" in prepared.value) return ok(prepared.value.existing);
     const { id, known } = prepared.value;
+    const controller = new AbortController();
+    let accepting = true;
+    let checkpointed = known;
+    const control: ExecutionControl = {
+      signal: controller.signal,
+      async checkpoint(value) {
+        if (!accepting || operation !== "start")
+          return fail("EXPIRED", "执行映射写入窗口已关闭");
+        const parsed = parseDto("ExecutionSnapshot", value);
+        if (
+          !parsed.ok ||
+          parsed.value.runId !== runId ||
+          (checkpointed.sessionId &&
+            parsed.value.sessionId !== checkpointed.sessionId) ||
+          (checkpointed.userMessageId &&
+            parsed.value.userMessageId !== checkpointed.userMessageId)
+        )
+          return fail("IDENTITY_CHANGED", "执行映射不能重定向");
+        const saved = await deps.db.write(ctx, (tx) => {
+          if (!accepting) return fail("EXPIRED", "执行映射写入窗口已关闭");
+          const live = tx.get<{
+            identity_epoch: number;
+            expires_at: string;
+            state: string;
+            tool_epoch: number;
+            connection_generation: number;
+            live_generation: number;
+            job_expires_at: string;
+          }>(
+            "SELECT r.identity_epoch,r.expires_at,r.tool_epoch,r.connection_generation,j.state,j.expires_at AS job_expires_at,c.generation AS live_generation FROM analysis_runs r JOIN jobs j ON j.id=r.job_id JOIN investigation_requests q ON q.id=j.request_id JOIN connections c ON c.id=q.connection_id WHERE r.id=?",
+            [runId],
+          );
+          if (!live || live.identity_epoch !== ctx.actor.identityEpoch)
+            return fail("IDENTITY_CHANGED", "保存执行映射时身份已改变");
+          if (
+            live.connection_generation !== live.live_generation ||
+            live.tool_epoch !== input!.run.toolEpoch
+          )
+            return fail("IDENTITY_CHANGED", "提交前连接或工具代次已变化");
+          if (
+            live.expires_at <= deps.clock.now() ||
+            live.job_expires_at <= deps.clock.now() ||
+            !["submitting", "running"].includes(live.state)
+          )
+            return fail("CANCELLED", "保存执行映射前轮次已停止");
+          tx.run(
+            "UPDATE execution_attempts SET session_id=?,user_message_id=?,snapshot_json=?,observed_at=? WHERE id=?",
+            [
+              value.sessionId ?? null,
+              value.userMessageId ?? null,
+              canonicalJson(parsed.value),
+              deps.clock.now(),
+              id,
+            ],
+          );
+          return ok(undefined);
+        });
+        if (saved.ok) checkpointed = parsed.value;
+        return saved;
+      },
+    };
     let snapshot: ExecutionSnapshot;
     try {
       let timer: ReturnType<typeof setTimeout> | undefined;
       const response = await Promise.race([
         Promise.resolve().then(() =>
           operation === "start"
-            ? deps.wire!.start(ctx, input!)
+            ? deps.wire!.start(ctx, input!, control)
             : operation === "abort"
-              ? deps.wire!.abort(ctx, runId, known)
-              : deps.wire!.inspect(ctx, runId, known),
+              ? deps.wire!.abort(ctx, runId, known, control)
+              : deps.wire!.inspect(ctx, runId, known, control),
         ),
         new Promise<Result<ExecutionSnapshot>>((resolve) => {
           timer = setTimeout(
-            () => resolve(ok(unknown(runId))),
+            () => {
+              accepting = false;
+              controller.abort();
+              resolve(
+                ok({
+                  ...unknown(runId),
+                  ...(checkpointed.sessionId
+                    ? { sessionId: checkpointed.sessionId }
+                    : {}),
+                  ...(checkpointed.userMessageId
+                    ? { userMessageId: checkpointed.userMessageId }
+                    : {}),
+                }),
+              );
+            },
             Math.max(1, Math.min(10000, deps.timeoutMs ?? 10000)),
           );
         }),
@@ -189,8 +272,10 @@ export function createExecutionDriver(
           ? parsed.value
           : unknown(runId);
       if (
-        (known.sessionId && snapshot.sessionId !== known.sessionId) ||
-        (known.userMessageId && snapshot.userMessageId !== known.userMessageId)
+        (checkpointed.sessionId &&
+          snapshot.sessionId !== checkpointed.sessionId) ||
+        (checkpointed.userMessageId &&
+          snapshot.userMessageId !== checkpointed.userMessageId)
       )
         snapshot = unknown(runId);
       if (
@@ -207,8 +292,24 @@ export function createExecutionDriver(
       )
         snapshot = unknown(runId);
     } catch {
-      snapshot = unknown(runId);
+      snapshot = {
+        ...unknown(runId),
+        ...(checkpointed.sessionId
+          ? { sessionId: checkpointed.sessionId }
+          : {}),
+        ...(checkpointed.userMessageId
+          ? { userMessageId: checkpointed.userMessageId }
+          : {}),
+      };
+    } finally {
+      accepting = false;
+      controller.abort();
     }
+    // Unknown responses must retain the last durable association for reconciliation.
+    if (!snapshot.sessionId && checkpointed.sessionId)
+      snapshot = { ...snapshot, sessionId: checkpointed.sessionId };
+    if (!snapshot.userMessageId && checkpointed.userMessageId)
+      snapshot = { ...snapshot, userMessageId: checkpointed.userMessageId };
     const saved = await deps.db.write(ctx, (tx) => {
       const live = tx.get<{
         identity_epoch: number;

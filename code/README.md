@@ -1,5 +1,7 @@
 # 校安智脑 · 本地实现
 
+TeleAgent 接入增量见 [T011](docs/development/tasks/T011-teleagent-m0.md) 和[分层验证](docs/verification/teleagent-m0-2026-10-24.md)：已实现固定版本独占后端适配与生产装配，真实后端合成工具链、真实桌面文本/取消分别通过；完整 M0 仍未完成。
+
 业务 v4.2 / 工程 0.2.0 / 业务 RPC 0.1.0。当前本地增量为网页入口、校园 Wazuh 代理、多账号角色权限和签名加密；[T010](docs/development/tasks/T010-web-auth.md) 是当前任务入口。
 
 本机 Bun 命令（在本目录）：

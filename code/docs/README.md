@@ -1,5 +1,7 @@
 # 文档导航
 
+- TeleAgent：[接入任务 T011](development/tasks/T011-teleagent-m0.md)、[本轮实现与分层验证](verification/teleagent-m0-2026-10-24.md)。
+
 - 当前本地任务：[T010 网页与鉴权](development/tasks/T010-web-auth.md)。
 - 本轮运行、验证及 Windows 交接：[网页与鉴权验证](verification/web-auth-2026-10-24.md)。
 - 鉴权与加密增量：[实现规则](../../design_document/docs/implementation/web-auth-2026-10-24.md)。

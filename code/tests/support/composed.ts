@@ -35,6 +35,7 @@ export async function composedFixture(
   options: {
     http?: HttpPort;
     gatewayAuthentication?: GatewayAuthentication;
+    teleagent?: Parameters<typeof composeRuntime>[0]["teleagent"];
   } = {},
 ) {
   const directory = await temporaryDirectory(),
@@ -53,6 +54,7 @@ export async function composedFixture(
     executionWire: wire,
     hostWire,
     gatewayAuthentication: options.gatewayAuthentication,
+    teleagent: options.teleagent,
     http: options.http ?? {
       request: async () => {
         network++;

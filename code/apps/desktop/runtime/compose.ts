@@ -34,9 +34,13 @@ import { createReviewPublication } from "@campussec/core/investigations/publicat
 import { createAlertService } from "@campussec/core/alerts";
 import {
   createMcpGateway,
+  createOwnedGatewayAuthentication,
   type GatewayAuthentication,
 } from "@campussec/mcp-server/gateway";
-import { createEvidenceChannels } from "@campussec/mcp-server/channels";
+import {
+  createEvidenceChannels,
+  channelSecretPurpose,
+} from "@campussec/mcp-server/channels";
 import {
   createHostAccess,
   type HostWire,
@@ -45,6 +49,10 @@ import {
   createExecutionDriver,
   type ExecutionWire,
 } from "@campussec/teleagent-bridge/execution";
+import {
+  createOwnedExecutionWire,
+  type OwnedBackendOptions,
+} from "@campussec/teleagent-bridge/execution/teleagent";
 import { PROFILE_MANIFEST } from "@campussec/investigation-profile";
 import {
   createWazuhAdapter,
@@ -80,6 +88,7 @@ export async function composeRuntime(input: {
   deliveryRetrySafety?: import("@campussec/contracts").DeliveryRetrySafetyPort;
   hostWire?: HostWire;
   executionWire?: ExecutionWire;
+  teleagent?: Omit<OwnedBackendOptions, "rootDirectory">;
   gatewayAuthentication?: GatewayAuthentication;
   notification?: import("@campussec/contracts").NotificationPort;
   backgroundEnabled?: boolean;
@@ -123,6 +132,7 @@ export async function composeRuntime(input: {
   let state: "ready" | "degraded" | "stopping" = "degraded";
   let identityLocked = false;
   const checkedAt = clock.now();
+  let ownedTeleAgent: ReturnType<typeof createOwnedExecutionWire> | undefined;
   const hostCapabilities = (): HostCapability[] =>
     [
       "signedApi",
@@ -131,13 +141,16 @@ export async function composeRuntime(input: {
       "trustedOrigin",
       "asyncDelivery",
       "deliveryReconcile",
-    ].map((name) => ({
-      name: name as HostCapability["name"],
-      state: "unverified",
-      version: "unverified",
-      checkedAt,
-      evidence: "未连接或验收真实宿主",
-    }));
+    ].map(
+      (name) =>
+        ownedTeleAgent?.capabilities().find((item) => item.name === name) ?? {
+          name: name as HostCapability["name"],
+          state: "unverified",
+          version: "unverified",
+          checkedAt,
+          evidence: "未连接或验收真实宿主",
+        },
+    );
   const cases = createCaseService({ ...storage.value, clock, ids });
   const reports = createReportService({
     ...storage.value,
@@ -170,17 +183,73 @@ export async function composeRuntime(input: {
     clock,
     wire: input.hostWire,
   });
-  const execution = createExecutionDriver({
-    db: storage.value.db,
-    clock,
-    ids,
-    wire: input.executionWire,
-  });
   const channels = createEvidenceChannels({
     db: storage.value.db,
     secrets,
     clock,
     ids,
+  });
+  const ownedAuthentication = input.teleagent
+    ? createOwnedGatewayAuthentication({ db: storage.value.db, secrets, clock })
+    : undefined;
+  const gatewayAuthentication =
+    input.gatewayAuthentication ?? ownedAuthentication?.authentication;
+  if (input.teleagent)
+    ownedTeleAgent = createOwnedExecutionWire({
+      options: {
+        ...input.teleagent,
+        rootDirectory: join(
+          input.dataDir,
+          "spaces",
+          input.spaceId,
+          "teleagent",
+        ),
+      },
+      clock,
+      ids,
+      channels,
+      async prepareChannel(ctx, channel) {
+        const started = await gateway.start(ctx);
+        if (!started.ok || !started.value.endpoint)
+          return started.ok
+            ? fail("HOST_UNAVAILABLE", "缺少证据入口")
+            : started;
+        const secret = await secrets.use(
+          channel.secretRef,
+          channelSecretPurpose(channel.id),
+          async (bytes) => Buffer.from(bytes).toString("utf8"),
+        );
+        return secret.ok
+          ? ok({ endpoint: started.value.endpoint, bearer: secret.value })
+          : secret;
+      },
+      async activateChannel(ctx, value) {
+        if (!ownedAuthentication)
+          return fail("CAPABILITY_UNAVAILABLE", "缺少独占后端认证");
+        const started = await gateway.start(ctx);
+        if (!started.ok || !started.value.endpoint)
+          return started.ok
+            ? fail("HOST_UNAVAILABLE", "缺少证据入口")
+            : started;
+        const registered = await ownedAuthentication.register({
+          ctx,
+          channelId: value.channel.id,
+          secretRef: value.channel.secretRef,
+          bindingId: value.bindingId,
+          allowedTools: value.allowedTools,
+        });
+        return registered.ok
+          ? ok({ endpoint: started.value.endpoint, bearer: registered.value })
+          : registered;
+      },
+      deactivateChannel: (bindingId) =>
+        ownedAuthentication?.unregister(bindingId),
+    });
+  const execution = createExecutionDriver({
+    db: storage.value.db,
+    clock,
+    ids,
+    wire: input.executionWire ?? ownedTeleAgent?.wire,
   });
   const delivery = createDeliveryService({
     ...storage.value,
@@ -237,7 +306,7 @@ export async function composeRuntime(input: {
     results: delivery.service,
     origins: host,
     tools,
-    authentication: input.gatewayAuthentication ?? {
+    authentication: gatewayAuthentication ?? {
       authenticate: async () => fail("UNAUTHENTICATED", "缺少可信宿主传输"),
       recheck: async () => fail("FORBIDDEN", "缺少可信宿主传输"),
     },
@@ -337,7 +406,7 @@ export async function composeRuntime(input: {
     reconcileRequests: () => requests.recover(systemCtx()),
     reconcileDeliveries: () => delivery.recover(systemCtx()),
     startGateway: async () => {
-      if (!input.gatewayAuthentication)
+      if (!gatewayAuthentication)
         return fail(
           "CAPABILITY_UNAVAILABLE",
           "宿主可信通道尚未配置，MCP 网络入口保持关闭",
@@ -406,6 +475,8 @@ export async function composeRuntime(input: {
         }
       } finally {
         await idle;
+        await ownedTeleAgent?.close();
+        ownedAuthentication?.clear();
       }
       return ok(undefined);
     },
@@ -422,6 +493,8 @@ export async function composeRuntime(input: {
         }
       } finally {
         await idle;
+        await ownedTeleAgent?.close();
+        ownedAuthentication?.clear();
         secrets.close();
         await storage.value.close();
       }

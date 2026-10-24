@@ -1,0 +1,50 @@
+{
+  "base": "177815d9c4123ac73f1a45d6e40166b20640443c",
+  "business": "v4.2",
+  "engineering": "0.2.0",
+  "wire": "0.1.0",
+  "standard_checks": {
+    "environment": "Windows x64 / Node 24.15.0 / npm 11.12.1",
+    "product": "passed",
+    "tests_passed": 273,
+    "tests_failed": 0,
+    "clean_frozen_offline_copy": "passed",
+    "clean_tests_passed": 273,
+    "design_checks": 2,
+    "node_web_http_status": 200,
+    "new_local_link_failures": 0,
+    "baseline_missing_local_links": 7
+  },
+  "backend": {
+    "version": "2.7.0",
+    "sha256": "632ae07bf98e976dc18fb0118feb9bc38be35e1c31352c06621757c55ed60184"
+  },
+  "real_backend_scripted_model": {
+    "status": "passed",
+    "production_scheduler_mcp_evidence_report_completion": true,
+    "adaptive_scripted_queries": 2,
+    "only_dedicated_mcp_tools_visible": true,
+    "observed_cancel": true,
+    "no_duplicate_submissions": true,
+    "grants_revoked": true,
+    "real_model": false,
+    "real_wazuh": false
+  },
+  "authorized_desktop": {
+    "model_tasks_submitted": 2,
+    "text_parent_and_final_verified": true,
+    "streaming_abort_observed": true,
+    "tools_called": false,
+    "idle_no_reply_visible": true,
+    "idle_no_reply_role": "user",
+    "external_result_delivery_verified": false,
+    "other_conversation_contents_read": false,
+    "global_configuration_changed": false,
+    "credentials_saved": false
+  },
+  "full_m0": "in_progress",
+  "real_model_tools": "not_run",
+  "trusted_delegation_origin": "unverified",
+  "original_conversation_external_delivery": "unverified",
+  "electron_gui": "not_run"
+}

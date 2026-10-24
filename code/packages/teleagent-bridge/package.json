@@ -4,6 +4,10 @@
   "private": true,
   "type": "module",
   "exports": {
+    "./execution/teleagent": {
+      "types": "./execution/teleagent/index.ts",
+      "default": "./dist/execution/teleagent/index.js"
+    },
     "./execution": {
       "types": "./execution/index.ts",
       "default": "./dist/execution/index.js"

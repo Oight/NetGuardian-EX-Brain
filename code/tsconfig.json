@@ -11,6 +11,9 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "paths": {
+      "@campussec/teleagent-bridge/execution/teleagent": [
+        "./packages/teleagent-bridge/execution/teleagent/index.ts"
+      ],
       "@campussec/contracts": ["./packages/contracts/src/index.ts"],
       "@campussec/storage": ["./packages/storage/src/index.ts"],
       "@campussec/testkit": ["./packages/testkit/src/index.ts"],

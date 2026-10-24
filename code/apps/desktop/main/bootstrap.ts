@@ -1,6 +1,8 @@
 import { prepareCampusConnection } from "../runtime/campus-connection.js";
 import { createAuthentication } from "./authentication.js";
 import { createAuthController } from "./auth-controller.js";
+import type { OwnedBackendOptions } from "@campussec/teleagent-bridge/execution/teleagent";
+import { readTeleAgentOptions } from "../runtime/teleagent-config.js";
 import { trustedIpcSource } from "./ipc.js";
 import { createCampusProxy } from "@campussec/wazuh-adapter";
 import {
@@ -23,6 +25,7 @@ import { composeRuntime } from "../runtime/compose.js";
 import { createIpcHandler } from "./ipc.js";
 import { createSpaceController } from "../runtime/spaces.js";
 export interface DesktopBootstrapOptions {
+  teleagent?: Omit<OwnedBackendOptions, "rootDirectory">;
   /** Explicit local directory for isolated acceptance; normal launch uses app userData. */
   dataDir?: string;
   showWindow?: boolean;
@@ -107,6 +110,7 @@ export async function bootstrapDesktop(options: DesktopBootstrapOptions = {}) {
         identityEpoch: 1,
         protection,
         databaseProtection,
+        teleagent: options.teleagent,
         backgroundEnabled: options.backgroundEnabled,
         externalPlatform: options.campusProxy ? createCampusProxy() : undefined,
         notification: {
@@ -308,10 +312,15 @@ if (
   process.argv[1] &&
   import.meta.url === pathToFileURL(process.argv[1]).href
 ) {
-  void bootstrapDesktop({
-    campusProxy: process.argv.includes("--campus-proxy"),
-  }).catch(() => {
-    dialog.showErrorBox("校安智脑无法启动", "初始化失败；已有数据保留。");
-    app.quit();
-  });
+  void readTeleAgentOptions(process.argv)
+    .then((teleagent) =>
+      bootstrapDesktop({
+        campusProxy: process.argv.includes("--campus-proxy"),
+        teleagent,
+      }),
+    )
+    .catch(() => {
+      dialog.showErrorBox("校安智脑无法启动", "初始化失败；已有数据保留。");
+      app.quit();
+    });
 }

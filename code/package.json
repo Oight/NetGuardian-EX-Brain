@@ -30,6 +30,7 @@
     "check:local:clean": "bun scripts/local/check-clean.ts",
     "test:windows:full": "node scripts/product/test-windows-full.ts",
     "check:workspaces": "node scripts/product/verify-workspaces.ts",
+    "test:teleagent": "npm run build && node scripts/product/test-teleagent.ts",
     "web": "npm run build && node scripts/product/start-web.ts",
     "web:local": "bun scripts/product/build.ts && bun scripts/product/start-web.ts",
     "web:qa": "bun scripts/product/build.ts && bun node_modules/typescript/bin/tsc -p tsconfig.test.json && bun scripts/local/web-sandbox.ts"

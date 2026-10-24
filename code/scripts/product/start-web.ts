@@ -1,12 +1,29 @@
-import { prepareCampusConnection } from "../../apps/desktop/runtime/campus-connection.ts";
+const { prepareCampusConnection } = (await import(
+  new URL(
+    "../../dist/apps/desktop/runtime/campus-connection.js",
+    import.meta.url,
+  ).href
+)) as typeof import("../../apps/desktop/runtime/campus-connection.js");
 import { mkdir } from "node:fs/promises";
 import { resolve } from "node:path";
-import { composeRuntime } from "../../apps/desktop/runtime/compose.ts";
-import { serveWorkbench } from "../../apps/desktop/runtime/web-server.ts";
-import { createAuthentication } from "../../apps/desktop/main/authentication.ts";
-import { createAuthController } from "../../apps/desktop/main/auth-controller.ts";
+const { composeRuntime } = (await import(
+  new URL("../../dist/apps/desktop/runtime/compose.js", import.meta.url).href
+)) as typeof import("../../apps/desktop/runtime/compose.js");
+const { serveWorkbench } = (await import(
+  new URL("../../dist/apps/desktop/runtime/web-server.js", import.meta.url).href
+)) as typeof import("../../apps/desktop/runtime/web-server.js");
+const { createAuthentication } = (await import(
+  new URL("../../dist/apps/desktop/main/authentication.js", import.meta.url)
+    .href
+)) as typeof import("../../apps/desktop/main/authentication.js");
+const { createAuthController } = (await import(
+  new URL("../../dist/apps/desktop/main/auth-controller.js", import.meta.url)
+    .href
+)) as typeof import("../../apps/desktop/main/auth-controller.js");
 import { createCampusProxy } from "@campussec/wazuh-adapter";
 import { fail } from "@campussec/contracts";
+import { readTeleAgentOptions } from "../../apps/desktop/runtime/teleagent-config.ts";
+const teleagent = await readTeleAgentOptions(process.argv);
 const dataDir = resolve(".local/web-runtime");
 await mkdir(dataDir, { recursive: true, mode: 0o700 });
 const proxy = process.argv.includes("--campus-proxy");
@@ -23,6 +40,7 @@ const auth = createAuthController({
       identityEpoch: 1,
       protection,
       databaseProtection,
+      teleagent,
       http: {
         request: async () =>
           fail("CAPABILITY_UNAVAILABLE", "网页仅允许受控校园代理连接"),
