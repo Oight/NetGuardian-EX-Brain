@@ -1,13 +1,71 @@
+# Dependencies and generated product output (all workspaces)
 node_modules/
 dist/
 dist-test/
+release/
+*.tsbuildinfo
+
+# Local caches, synthetic databases, browser/Electron acceptance and reports
 .cache/
 .local/
-.venv/
-__pycache__/
-*.sqlite*
-*.db*
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
 *.log
+
+# Python/uv environments and caches; keep uv.lock and .python-version tracked
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# SQLite state and its sidecars; do not hide source files such as schema.db.ts
+*.sqlite
+*.sqlite3
+*.db
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite-journal
+*.sqlite3-wal
+*.sqlite3-shm
+*.sqlite3-journal
+*.db-wal
+*.db-shm
+*.db-journal
+
+# Local secrets and credentials; public CA certificates are not blanket-ignored
 .env*
 !.env.example
-release/
+!.env.*.example
+.secrets/
+secrets/
+.aws/
+*.key
+*.p12
+*.pfx
+*.keystore
+
+# Device/agent instructions and local editor state
+AGENTS.md
+.agents/
+.codex/
+.idea/
+*.swp
+*.swo
+*~
+*.orig
+
+# Windows/macOS generated files and crash dumps
+Thumbs.db
+Desktop.ini
+desktop.ini
+.DS_Store
+*.stackdump
+*.dmp

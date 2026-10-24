@@ -5,6 +5,8 @@
   "type": "module",
   "dependencies": {
     "@campussec/contracts": "0.2.0",
-    "@campussec/storage": "0.2.0"
+    "@campussec/storage": "0.2.0",
+    "@campussec/core": "0.2.0",
+    "@campussec/wazuh-adapter": "0.2.0"
   }
 }

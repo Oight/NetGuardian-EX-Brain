@@ -4,6 +4,24 @@
 
 ## 标准 Node/npm 环境
 
+### Windows 一键全量验收
+
+在产品目录执行（本地实现为 campussec/，远端仓库对应 code/）。安装 Node.js 24.15.0 和 npm 11.12.1 后，无需先安装项目依赖：
+
+```powershell
+npm.cmd run test:windows:full
+```
+
+可直接使用 npm 的终端也可运行 `npm run test:windows:full`。该入口仅接受 Windows 上的 Node.js，拒绝 Bun、Electron 内嵌运行时及其他系统；本机 Bun/uv 设备不得执行它。
+
+命令依次执行版本检查、`npm ci --ignore-scripts`、完整产品检查、干净副本离线复验、官方 Electron 下载及 SHA256 核实、真实 Electron 双进程验收。首次需访问 npm registry 与 Electron 官方 GitHub Releases；依赖生命周期脚本始终关闭。需要可使用窗口、托盘和 Windows 系统加密服务的桌面会话。
+
+Electron 验收加载真实生产 bootstrap/preload/renderer，使用独立合成空间，通过页面创建案件、保存人工背景、验证并发冲突保留输入，再启动第二个进程回读案件和设置；同时检查沙箱、IPC、SQLite、托盘、系统保护存储、明确的调查不可用和正常退出。不连接真实 Wazuh/TeleAgent/模型，不读取个人 userData。
+
+任一步失败立即停止，后续阶段记录 skipped 并返回非零退出码。分阶段报告位于 `.local/windows-full/run-*/report.json`，Electron 细项位于 `.local/electron-acceptance/run-*/{write,reopen}.json`。报告和临时数据库不提交。
+
+“全量”指当前已实现产品的全部自动化测试及 Electron 验收；完整安装包、签名、安装卸载、真实平台接入及尚未实现模块不计为通过。此新命令在本机仅验证过编排、拒绝条件和失败传播，真实 Windows/Node/Electron 执行待开发者运行并提交报告。
+
 使用 code/.node-version 的 Node 24.15.0（engines 允许 >=24.15 <25）及 packageManager 指定的 npm 11.12.1 与现有 npm 锁文件。.npmrc 默认开启 engine-strict 并禁用依赖钩子：
 
 ```sh
@@ -45,6 +63,7 @@ npm run test:electron
 ```sh
 bun install --ignore-scripts --frozen-lockfile --cache-dir .cache/bun
 bun scripts/local/check.ts
+bun scripts/local/check-clean.ts
 ```
 
 Bun 统一检查用当前 Bun 可执行文件启动子命令，最后编译标准测试代码，不启动 Electron。其规范检查要求依赖目录未执行 Electron 安装钩子；已有完整 Electron 安装的设备使用标准 Node/npm 检查。切换环境前核对已有依赖，不为通过检查删除已安装二进制或改写锁。

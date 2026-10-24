@@ -27,8 +27,9 @@ for (const entry of await readdir("packages", { withFileTypes: true })) {
 }
 await mkdir("dist/packages/storage/migrations", { recursive: true });
 await cp(
-  "packages/storage/migrations/0001.sql",
-  "dist/packages/storage/migrations/0001.sql",
+  "packages/storage/migrations",
+  "dist/packages/storage/migrations",
+  { recursive: true },
 );
 for (const file of ["index.html", "style.css"])
   await cp(

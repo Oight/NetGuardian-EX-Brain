@@ -1,14 +1,14 @@
 # T003 · B：存储与本地业务
 
-状态：in_progress（B 线已领取，B0 已完成并合入本地 main；本轮结束，B1—B4 保持 planned、未启动）。唯一状态位置：本文件。分支入口：task/T003-b-local-domain；本轮阶段分支：task/T003-b-local-domain-b0。
+状态：checking（本地续作 B1/B2 已实现并完成 Bun/真实 SQLite 验证，尚无本轮提交或合并；原 B0 记录保留为来源历史）。唯一状态位置：本文件。
 
 分工来源：`120c81cfd4d8ed720c9cc70178edb9c6fd172a34`；本轮实际产品 base：`1d379e11916fe03cc03e5355fc6c1ee108633b6c`；执行者：Codex（用户指定 B 线），2026-10-23。B0 无产品依赖，不以现有 S02 或设计提交推定 A/B 后续阶段已放行。允许 storage、core/{alerts,cases,reports}、investigation-profile、自有测试和[本线交接目录](../workstreams/b/README.md)。本轮实际写入限本任务文件与本线交接目录。物理迁移由 B 独占，根锁/公共导出交 A。
 
 | 阶段 | 状态    | 前置实际交付        | 目标                                                                 |
 | ---- | ------- | ------------------- | -------------------------------------------------------------------- |
 | B0   | done    | 无产品依赖          | 表/事务/端口映射与合成验收材料；实现提交 88cd3f8 已快进合入本地 main |
-| B1   | planned | A1/A2、A3 对应 fake | S02 初始化/迁移/同步事务/事件                                        |
-| B2   | planned | B1、A3              | S06 案件/证据/背景/投影，真实保存与重启回读                          |
+| B1 | checking | A1/A2、A3 对应 fake | S02 初始化/迁移/同步事务/事件                                        |
+| B2 | checking | B1、A3              | S06 案件/证据/背景/投影，真实保存与重启回读                          |
 | B3   | planned | B2、A4/C2 对应接口  | S05 告警与触发；S10 配置/核查/结果包/导出                            |
 | B4   | planned | A4、C4、D3          | 三入口、留存与冲突组合验收                                           |
 
@@ -45,3 +45,11 @@ S06 不回调预算/MCP；S10 不决定任务终态、不读任务私表解释�
 合入远端 `6d033ba` 及其 A 线交接：产品基座源提交为 `64443ed`，A 的标准运行时复验依据见[T002](T002-a-foundation.md)和[接手验证](../../verification/a-handoff-2026-10-23.md)。现有代码已入库不替代阶段验收；远端将 B1 写为 checking 的接手标记不视为本机已启动 B1，用户指定的 B0 完成状态及 B1—B4 planned 保留。
 
 B0 表中的完整开发规范检查失败属于当时执行快照。远端将检查入口迁至根工作流；本次同步修正工作流原有残留冲突标记并重新核验，当前结果另见[同步记录](../../verification/sync-2026-10-23.md)，不改写 B0 历史结果。
+
+## 2026-10-24 本地续作交接
+
+用户授权跨 A/B/C/D 串行推进，实际代码基准 cc610cb6447ca70659030cc597b486a12cd8d872，依赖 A1—A3 已合入的 3ee347c / 157e956。只写 /home/eight/Project/GPT/campussec；来源仓库只读。本地目录未建立产品 Git，本轮无实现/合并 commit，不把 checking 写成 main 已验收。
+
+本轮功能、公开入口、失败与未执行项统一见[本地案件闭环验证](../../verification/local-cases-2026-10-24.md)。Windows 开发者可运行 `npm.cmd run test:windows:full`；本机未执行 Node/Electron。后续阶段按原表依赖推进，不用本轮合成材料放行真实接入。
+
+2026-10-24 Review 补记：修复公开入参规范化、背景作用域/容量与平台来源/覆盖问题；Bun 干净检查 135/0，未提交/合并，外部 Windows/Node/Electron 未执行。见[本地 Review](../../reviews/local-implementation-2026-10-24.md)。

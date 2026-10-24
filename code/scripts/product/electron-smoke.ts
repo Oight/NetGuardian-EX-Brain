@@ -22,7 +22,7 @@ for (const phase of ["write", "reopen"]) {
       env,
       stdio: "inherit",
       windowsHide: true,
-      timeout: 45000,
+      timeout: 90000,
     },
   );
   if (result.error) throw result.error;
@@ -39,9 +39,16 @@ for (const phase of ["write", "reopen"]) {
     "tray",
     "osProtection",
     "controlledShutdown",
+    "cases",
+    "revisionConflict",
+    "rendererCaseWorkflow",
+    "unavailableInvestigation",
   ])
     assert.equal(report[check], true);
-  if (phase === "reopen") assert.equal(report.restartRead, true);
+  if (phase === "reopen") {
+    assert.equal(report.restartRead, true);
+    assert.equal(report.caseRestartRead, true);
+  }
   console.log(
     `PASS: Electron ${phase}; ${JSON.stringify(report.versions)}; real production bootstrap, preload, SQLite, IPC, tray and OS protection.`,
   );

@@ -25,7 +25,9 @@
     "prepare:electron": "node scripts/product/prepare-electron.ts",
     "test:electron": "npm run build && node scripts/product/electron-smoke.ts",
     "test:local": "bun scripts/product/test.ts",
-    "check:local": "bun scripts/local/check.ts"
+    "check:local": "bun scripts/local/check.ts",
+    "check:local:clean": "bun scripts/local/check-clean.ts",
+    "test:windows:full": "node scripts/product/test-windows-full.ts"
   },
   "trustedDependencies": [],
   "dependencies": {
@@ -35,6 +37,7 @@
     "@campussec/testkit": "0.2.0",
     "typescript": "5.9.3",
     "@types/node": "24.19.2",
-    "electron": "45.0.0"
+    "electron": "45.0.0",
+    "@campussec/core": "0.2.0"
   }
 }

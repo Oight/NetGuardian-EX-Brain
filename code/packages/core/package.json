@@ -7,6 +7,10 @@
     "./requests/budgets": {
       "types": "./requests/budgets.ts",
       "default": "./dist/requests/budgets.js"
+    },
+    "./cases": {
+      "types": "./cases/index.ts",
+      "default": "./dist/cases/index.js"
     }
   },
   "dependencies": {

@@ -8,7 +8,7 @@
 campussec/
 ├── apps/desktop/
 │   ├── main/、preload/、runtime/、assets/  A：S03
-│   ├── renderer/                         D：S12，现为基座状态页
+│   ├── renderer/                         D：S12，本地案件工作台
 │   └── tests/                            A：宿主合成/恢复测试
 ├── packages/
 │   ├── contracts/{src,tests}/            A：S01，产品唯一契约出口
@@ -25,7 +25,7 @@ campussec/
 ├── tests/
 │   ├── support/                        A：真实数据库/文件集成夹具
 │   ├── tooling/                        A：工程检查的失败场景
-│   └── acceptance/                     D：用户流程，尚未实现
+│   └── acceptance/                     D：案件闭环/预算组合验收
 ├── scripts/
 │   ├── product/                        A：标准环境通用构建/检查
 │   ├── local/                          A：Bun 本机检查入口
@@ -34,7 +34,7 @@ campussec/
 └── spec/                               固定原文、校验值和来源
 ```
 
-node_modules、.local、.cache、dist、dist-test 和包内 dist 是忽略的生成物，不作为源码或交接输入。待实现模块当前只有 README，不导出成功占位接口。
+node_modules、.local、.cache、dist、dist-test 和包内 dist 是忽略的生成物，不作为源码或交接输入。cases 与 wazuh-adapter 已有真实服务；其余待实现模块仍只有 README，不导出成功占位接口。
 
 ## 公开入口与测试
 
@@ -61,3 +61,13 @@ node_modules、.local、.cache、dist、dist-test 和包内 dist 是忽略的生
 | 任务文件                                                    | 对应工作线；共享导航由串行文档任务维护 |
 
 本次 T007 是用户授权的结构整理，不追溯将旧 S02 或状态页认定越界。后续 S02 交 B、renderer 交 D；根锁和公共文件不由四线并发修改。
+
+## 2026-10-24 本地新增入口
+
+- B：`@campussec/core/cases` → createCaseService，模块真实 SQLite 测试跟随 cases/tests。
+- C：`@campussec/wazuh-adapter` → createWazuhAdapter，HTTP/权限/分页/fence 合成测试跟随 wazuh-adapter/tests。
+- D：renderer/app.ts → mountWorkbench，只消费 DesktopApi；跨模块闭环在 tests/acceptance。
+- A：scripts/product/test-windows-full.ts 是 Windows/Node/Electron 专用入口；本机仅运行 scripts/local/check.ts 与 check-clean.ts。
+- B：0002 为 S06 追加两张封存/页引用表，0001 及冻结附件保持原哈希。
+
+执行范围与未验收项见[本轮验证](../verification/local-cases-2026-10-24.md)，阶段状态仍以具体任务文件为准。

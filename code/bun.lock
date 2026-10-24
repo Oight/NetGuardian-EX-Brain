@@ -8,6 +8,7 @@
         "zod": "4.6.7",
       },
       "devDependencies": {
+        "@campussec/core": "0.2.0",
         "@campussec/testkit": "0.2.0",
         "@types/node": "24.19.2",
         "electron": "45.0.0",
@@ -19,7 +20,9 @@
       "version": "0.2.0",
       "dependencies": {
         "@campussec/contracts": "0.2.0",
+        "@campussec/core": "0.2.0",
         "@campussec/storage": "0.2.0",
+        "@campussec/wazuh-adapter": "0.2.0",
       },
     },
     "packages/contracts": {
@@ -50,6 +53,13 @@
         "@campussec/contracts": "0.2.0",
       },
     },
+    "packages/wazuh-adapter": {
+      "name": "@campussec/wazuh-adapter",
+      "version": "0.2.0",
+      "dependencies": {
+        "@campussec/contracts": "0.2.0",
+      },
+    },
   },
   "trustedDependencies": [],
   "packages": {
@@ -62,6 +72,8 @@
     "@campussec/storage": ["@campussec/storage@workspace:packages/storage"],
 
     "@campussec/testkit": ["@campussec/testkit@workspace:packages/testkit"],
+
+    "@campussec/wazuh-adapter": ["@campussec/wazuh-adapter@workspace:packages/wazuh-adapter"],
 
     "@electron-internal/extract-zip": ["@electron-internal/extract-zip@1.0.6", "", {}, "sha512-/aQLgFDdCSnwChfUwqekSmE1q2dCTzhUy5saIHBb5vyYn5LzWaKPaIz1wM0lDMCZYBoIG4svJNvAJb6vkI8BuA=="],
 
