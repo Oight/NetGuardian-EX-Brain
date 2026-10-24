@@ -39,6 +39,13 @@
         "@campussec/contracts": "0.2.0",
       },
     },
+    "packages/mcp-server": {
+      "name": "@campussec/mcp-server",
+      "version": "0.2.0",
+      "dependencies": {
+        "@campussec/contracts": "0.2.0",
+      },
+    },
     "packages/storage": {
       "name": "@campussec/storage",
       "version": "0.2.0",
@@ -68,6 +75,8 @@
     "@campussec/core": ["@campussec/core@workspace:packages/core"],
 
     "@campussec/desktop": ["@campussec/desktop@workspace:apps/desktop"],
+
+    "@campussec/mcp-server": ["@campussec/mcp-server@workspace:packages/mcp-server"],
 
     "@campussec/storage": ["@campussec/storage@workspace:packages/storage"],
 

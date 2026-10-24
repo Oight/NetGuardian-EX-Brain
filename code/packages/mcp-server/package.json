@@ -1,0 +1,15 @@
+{
+  "name": "@campussec/mcp-server",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./channels": {
+      "types": "./channels/index.ts",
+      "default": "./dist/channels/index.js"
+    }
+  },
+  "dependencies": {
+    "@campussec/contracts": "0.2.0"
+  }
+}
