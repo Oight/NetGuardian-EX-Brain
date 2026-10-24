@@ -26,11 +26,9 @@ for (const entry of await readdir("packages", { withFileTypes: true })) {
   await cp(source, join("packages", entry.name, "dist"), { recursive: true });
 }
 await mkdir("dist/packages/storage/migrations", { recursive: true });
-await cp(
-  "packages/storage/migrations",
-  "dist/packages/storage/migrations",
-  { recursive: true },
-);
+await cp("packages/storage/migrations", "dist/packages/storage/migrations", {
+  recursive: true,
+});
 for (const file of ["index.html", "style.css"])
   await cp(
     `apps/desktop/renderer/${file}`,
