@@ -246,14 +246,29 @@ export function caseOperations(deps: Dependencies) {
       if (!evidence.ok) return evidence;
       if (evidence.value.connectionId !== found.value.scope.connectionId)
         return fail("SCOPE_EXCEEDED", "材料连接与案件不一致");
-      const inbox = ['ui','system'].includes(ctx.actor.role) && !!tx.get('SELECT id FROM alerts_inbox WHERE evidence_id=? AND evidence_version=?',[ref.evidenceId,ref.version]);
-      if(inbox){
-        const agent=evidence.value.source.agentId??(evidence.value.fields['agent.id'] as string|undefined);
-        if(!agent||!found.value.scope.agentIds.includes(agent)||evidence.value.observedAt&&(evidence.value.observedAt<found.value.scope.from||evidence.value.observedAt>=found.value.scope.to))return fail('SCOPE_EXCEEDED','收件箱材料超出案件范围或缺少设备身份');
+      const inbox =
+        ["ui", "system"].includes(ctx.actor.role) &&
+        !!tx.get(
+          "SELECT id FROM alerts_inbox WHERE evidence_id=? AND evidence_version=?",
+          [ref.evidenceId, ref.version],
+        );
+      if (inbox) {
+        const agent =
+          evidence.value.source.agentId ??
+          (evidence.value.fields["agent.id"] as string | undefined);
+        if (
+          !agent ||
+          !found.value.scope.agentIds.includes(agent) ||
+          (evidence.value.observedAt &&
+            (evidence.value.observedAt < found.value.scope.from ||
+              evidence.value.observedAt >= found.value.scope.to))
+        )
+          return fail("SCOPE_EXCEEDED", "收件箱材料超出案件范围或缺少设备身份");
       }
       if (
         !linked(tx, input.caseId, ref) &&
-        !historical(tx, ctx, input.caseId, ref) && !inbox
+        !historical(tx, ctx, input.caseId, ref) &&
+        !inbox
       )
         return fail("FORBIDDEN", "材料未获案件或历史轮次授权");
     }

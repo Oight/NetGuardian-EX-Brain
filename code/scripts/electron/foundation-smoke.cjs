@@ -33,7 +33,8 @@ app.on("will-quit", () => {
   );
   const desktop = await bootstrapDesktop({
     dataDir: join(directory, "data"),
-    showWindow: false, backgroundEnabled: false,
+    showWindow: false,
+    backgroundEnabled: false,
   });
   assert.ok(desktop, "Production bootstrap must create a real window");
   const window = desktop.window;
@@ -277,7 +278,10 @@ app.on("will-quit", () => {
   });
   assert.ok(notReady.ok);
   assert.equal(notReady.value.job.state, "queued");
-  const cancelled = await invoke("requests.cancel", { requestId: notReady.value.request.id, reason: "结束隔离验收，未提交模型" });
+  const cancelled = await invoke("requests.cancel", {
+    requestId: notReady.value.request.id,
+    reason: "结束隔离验收，未提交模型",
+  });
   assert.ok(cancelled.ok);
   assert.equal(cancelled.value.job.state, "cancelled");
   assert.equal(

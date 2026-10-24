@@ -1,0 +1,6 @@
+# Keep shared formatter configuration and root workflows stable on Windows checkouts.
+/.gitattributes text eol=lf
+/.prettierrc.json text eol=lf
+/.prettierignore text eol=lf
+/.ruff.toml text eol=lf
+/.github/workflows/*.yml text eol=lf

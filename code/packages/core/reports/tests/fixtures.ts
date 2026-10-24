@@ -346,8 +346,9 @@ export async function setup(withContext = false) {
     attach,
     async count(table: string) {
       return take(
-        await f.db.read(context(), (tx) =>
-          tx.get<{ n: number }>(`SELECT COUNT(*) AS n FROM ${table}`)!,
+        await f.db.read(
+          context(),
+          (tx) => tx.get<{ n: number }>(`SELECT COUNT(*) AS n FROM ${table}`)!,
         ),
       ).n;
     },

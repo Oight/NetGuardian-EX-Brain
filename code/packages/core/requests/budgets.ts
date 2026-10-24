@@ -201,10 +201,11 @@ export function createRunBudget(deps: RunBudgetDependencies): {
         return fail("INVALID_INPUT", "来源身份无效");
       const existing = new Set(
         tx
-          .all<{ source_key: string }>(
-            "SELECT source_key FROM run_event_keys WHERE run_id=?",
-            [input.runId],
-          )
+          .all<{
+            source_key: string;
+          }>("SELECT source_key FROM run_event_keys WHERE run_id=?", [
+            input.runId,
+          ])
           .map((row) => row.source_key),
       );
       const added = [...new Set(input.sourceKeys)].filter(

@@ -23,7 +23,11 @@ export function readWorkspace(
     const filter = connectionId ? " WHERE connection_id=?" : "";
     const parameters = connectionId ? [connectionId] : [];
     const connections = tx
-      .all<{ id: string; display_name: string; generation: number }>(
+      .all<{
+        id: string;
+        display_name: string;
+        generation: number;
+      }>(
         `SELECT id,display_name,generation FROM connections${connectionId ? " WHERE id=?" : ""} ORDER BY id`,
         parameters,
       )
@@ -33,10 +37,9 @@ export function readWorkspace(
         generation: row.generation,
       }));
     const cases = tx
-      .all<Record<string, unknown>>(
-        `SELECT id,revision,title,scope_json,status,current_report_id,latest_report_id,created_at,updated_at FROM cases${filter} ORDER BY updated_at DESC,id DESC LIMIT 20`,
-        parameters,
-      )
+      .all<
+        Record<string, unknown>
+      >(`SELECT id,revision,title,scope_json,status,current_report_id,latest_report_id,created_at,updated_at FROM cases${filter} ORDER BY updated_at DESC,id DESC LIMIT 20`, parameters)
       .map((row) => ({
         id: row.id,
         spaceId: ctx.actor.spaceId,
@@ -53,10 +56,9 @@ export function readWorkspace(
       " WHERE principal_id=?" + (connectionId ? " AND connection_id=?" : "");
     const requestParameters = [ctx.actor.principalId, ...parameters];
     const requests = tx
-      .all<Record<string, unknown>>(
-        `SELECT id,origin,state,connection_id,question,requested_scope_json,effective_scope_json,seed_refs_json,case_id,job_id,origin_binding_id,auto_candidate_id,missing_fields_json,created_at,expires_at FROM investigation_requests${requestFilter} ORDER BY created_at DESC,id DESC LIMIT 20`,
-        requestParameters,
-      )
+      .all<
+        Record<string, unknown>
+      >(`SELECT id,origin,state,connection_id,question,requested_scope_json,effective_scope_json,seed_refs_json,case_id,job_id,origin_binding_id,auto_candidate_id,missing_fields_json,created_at,expires_at FROM investigation_requests${requestFilter} ORDER BY created_at DESC,id DESC LIMIT 20`, requestParameters)
       .map((row) => ({
         id: row.id,
         origin: row.origin,
@@ -82,10 +84,9 @@ export function readWorkspace(
       "('preparing','submitting','running','verifying','cancel_requested','uncertain')";
     const jobFilter = ` WHERE r.principal_id=?${connectionId ? " AND r.connection_id=?" : ""}`;
     const jobs = tx
-      .all<Record<string, unknown>>(
-        `SELECT j.id,j.request_id,j.case_id,j.run_id,j.origin,j.state,j.revision,j.created_at,j.updated_at,j.expires_at,j.recovery_hold,j.policy_id,j.policy_epoch,j.error_json FROM jobs j JOIN investigation_requests r ON r.id=j.request_id${jobFilter} AND j.state IN ${active} ORDER BY j.created_at,j.id`,
-        requestParameters,
-      )
+      .all<
+        Record<string, unknown>
+      >(`SELECT j.id,j.request_id,j.case_id,j.run_id,j.origin,j.state,j.revision,j.created_at,j.updated_at,j.expires_at,j.recovery_hold,j.policy_id,j.policy_epoch,j.error_json FROM jobs j JOIN investigation_requests r ON r.id=j.request_id${jobFilter} AND j.state IN ${active} ORDER BY j.created_at,j.id`, requestParameters)
       .map((row) => ({
         id: row.id,
         requestId: row.request_id,

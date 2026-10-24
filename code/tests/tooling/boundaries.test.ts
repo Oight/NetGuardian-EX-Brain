@@ -71,8 +71,20 @@ test("boundary checks reject infrastructure in shared fakes and privileged rende
   );
 });
 
-
-test('the public investigation tools alias maps to its declared component without granting reverse dependencies', () => {
-  assert.deepEqual(checkSource('apps/desktop/runtime/compose.ts', "import { createInvestigationTools } from '@campussec/core/investigations/tools';", spec), []);
-  assert.ok(checkSource('packages/core/reports/index.ts', "import { createInvestigationTools } from '@campussec/core/investigations/tools';", spec).length);
+test("the public investigation tools alias maps to its declared component without granting reverse dependencies", () => {
+  assert.deepEqual(
+    checkSource(
+      "apps/desktop/runtime/compose.ts",
+      "import { createInvestigationTools } from '@campussec/core/investigations/tools';",
+      spec,
+    ),
+    [],
+  );
+  assert.ok(
+    checkSource(
+      "packages/core/reports/index.ts",
+      "import { createInvestigationTools } from '@campussec/core/investigations/tools';",
+      spec,
+    ).length,
+  );
 });

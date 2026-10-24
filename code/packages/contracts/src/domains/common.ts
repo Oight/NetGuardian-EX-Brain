@@ -9,7 +9,12 @@ export const WIRE_SCHEMA_VERSION = "0.1.0" as const;
 export type Instant = string;
 
 export type Json =
-  null | boolean | number | string | Json[] | { [key: string]: Json };
+  | null
+  | boolean
+  | number
+  | string
+  | Json[]
+  | { [key: string]: Json };
 
 export type JsonObject = { [key: string]: Json };
 

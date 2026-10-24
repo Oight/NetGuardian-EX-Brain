@@ -9,3 +9,7 @@ indent_size = 2
 
 [*.py]
 indent_size = 4
+
+# Imported contracts and schema excerpts keep their original bytes.
+[docs/implementation/**]
+end_of_line = unset

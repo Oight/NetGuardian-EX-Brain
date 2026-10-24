@@ -194,7 +194,14 @@ export function capture(deps: Dependencies): CaseAtomicPort["captureInTx"] {
       if (
         value.source.platformInstanceId !== connection.platform_instance_id ||
         value.kind !== kinds[query.kind] ||
-        (!agent && !(ctx.actor.role==='system' && query.kind==='alerts' && !input.runId && !input.caseId && value.source.kind==='index_document')) ||
+        (!agent &&
+          !(
+            ctx.actor.role === "system" &&
+            query.kind === "alerts" &&
+            !input.runId &&
+            !input.caseId &&
+            value.source.kind === "index_document"
+          )) ||
         (agent !== undefined && !query.scope.agentIds.includes(agent)) ||
         (value.agentId &&
           value.source.agentId &&
@@ -252,7 +259,9 @@ export function capture(deps: Dependencies): CaseAtomicPort["captureInTx"] {
             input.connectionId,
             canonicalJson({
               ...value.source,
-              ...((value.agentId ?? value.source.agentId) ? { agentId: value.agentId ?? value.source.agentId } : {}),
+              ...((value.agentId ?? value.source.agentId)
+                ? { agentId: value.agentId ?? value.source.agentId }
+                : {}),
             }),
           ],
         );

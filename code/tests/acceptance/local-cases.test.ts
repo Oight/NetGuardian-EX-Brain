@@ -134,12 +134,19 @@ test("production composition → trusted IPC → typed client → real cases/con
     const status = await invoke("runtime.status", {});
     assert.equal(status.state, "degraded");
     const accepted = await invoke("requests.create", {
-      origin: "client_user", connectionId: connection.id, caseId: created.id,
-      question: "请调查", seedRefs: [], requestedScope: actualScope,
+      origin: "client_user",
+      connectionId: connection.id,
+      caseId: created.id,
+      question: "请调查",
+      seedRefs: [],
+      requestedScope: actualScope,
       idempotencyKey: "same-business-key",
     });
     assert.equal(accepted.job?.state, "queued");
-    const cancelled = await invoke("requests.cancel", {requestId: accepted.request.id, reason: "本地验收结束"});
+    const cancelled = await invoke("requests.cancel", {
+      requestId: accepted.request.id,
+      reason: "本地验收结束",
+    });
     assert.equal(cancelled.job?.state, "cancelled");
     assert.equal(network, 0);
   } finally {

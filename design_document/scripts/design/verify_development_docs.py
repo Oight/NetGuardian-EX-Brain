@@ -3,6 +3,7 @@
 No product code, secrets, migration sources, models or platform endpoints are read.
 The graph validates the declared design, not nonexistent source-code dependencies.
 """
+
 from __future__ import annotations
 
 import ast
@@ -25,14 +26,18 @@ def check_links() -> tuple[int, int]:
     count = 0
     for path in paths:
         source = path.read_text(encoding="utf-8")
-        assert "\ufffd" not in source, f"Replacement character: {path.relative_to(ROOT)}"
+        assert "\ufffd" not in source, (
+            f"Replacement character: {path.relative_to(ROOT)}"
+        )
         assert source.count("```") % 2 == 0, f"Unbalanced code fences: {path}"
         for target in re.findall(r"!?\[[^\]\n]*\]\(([^)\n]+)\)", source):
             if re.match(r"^(?:[A-Za-z][A-Za-z0-9+.-]*:|#)", target):
                 continue
             target = unquote(target.split("#", 1)[0])
             if target:
-                assert (path.parent / target).resolve().exists(), f"Broken local link: {path.relative_to(ROOT)} -> {target}"
+                assert (path.parent / target).resolve().exists(), (
+                    f"Broken local link: {path.relative_to(ROOT)} -> {target}"
+                )
                 count += 1
     return len(paths), count
 
@@ -80,7 +85,9 @@ def check_boundaries() -> tuple[int, int]:
         marker = re.search(r"<!-- SQL:BEGIN tables=([^ ]+) -->", source)
         if marker:
             declared = set(marker[1].split(","))
-            assert declared == set(spec["tableOwners"]["S" + path.name[:2]]), f"SQL ownership roots drift: {path.name}"
+            assert declared == set(spec["tableOwners"]["S" + path.name[:2]]), (
+                f"SQL ownership roots drift: {path.name}"
+            )
 
     # Check actual shared declarations, rather than promises in prose.
     assert "ExecutionSnapshot" not in blocks["ReportService"]
@@ -88,7 +95,9 @@ def check_boundaries() -> tuple[int, int]:
     assert "CompletionDecision" in blocks["ReportService"]
     assert "publishReview(" not in blocks["ReportService"]
     for method in ("openChannel", "bindChannel", "revoke", "acknowledgeReply"):
-        assert method not in blocks["McpGatewayPort"], f"Wide gateway API leaked: {method}"
+        assert method not in blocks["McpGatewayPort"], (
+            f"Wide gateway API leaked: {method}"
+        )
     assert "ResultPackage" not in blocks["HostDeliveryPort"]
     assert "HostMessage" in blocks["HostDeliveryPort"]
     assert "parentMatched" not in blocks["ExecutionSnapshot"]
@@ -103,25 +112,48 @@ def check_boundaries() -> tuple[int, int]:
     assert "ResultPackageReadPort" in components["reports"]["ports"]
     assert "reports" in components["delivery"]["dependsOn"]
     assert set(components["cases"]["dependsOn"]) == {"common", "storage"}
-    assert not {"requests", "tools", "execution", "delivery"} & set(components["reports"]["dependsOn"])
+    assert not {"requests", "tools", "execution", "delivery"} & set(
+        components["reports"]["dependsOn"]
+    )
     return len(components), len(tables)
 
 
 def check_workflow_and_rules() -> None:
-    expected = ("README.md", "workflow.md", "engineering-rules.md", "ownership.md", "task-template.md", "readiness.md", "github.md")
+    expected = (
+        "README.md",
+        "workflow.md",
+        "engineering-rules.md",
+        "ownership.md",
+        "task-template.md",
+        "readiness.md",
+        "github.md",
+    )
     for name in expected:
         assert (ROOT / "docs/development" / name).is_file()
-    workflow = (ROOT.parent / ".github/workflows/foundation.yml").read_text(encoding="utf-8")
-    assert not re.search(r"^(?:<{7}(?: .*)?|={7}|>{7}(?: .*)?)$", workflow, re.M), "Unresolved workflow merge markers"
-    assert "workflow_dispatch:" in workflow and "\n  push:" not in workflow and "\n  pull_request:" not in workflow
-    assert "working-directory: code" in workflow and "working-directory: design_document" in workflow
+    workflow = (ROOT.parent / ".github/workflows/foundation.yml").read_text(
+        encoding="utf-8"
+    )
+    assert not re.search(r"^(?:<{7}(?: .*)?|={7}|>{7}(?: .*)?)$", workflow, re.M), (
+        "Unresolved workflow merge markers"
+    )
+    assert (
+        "workflow_dispatch:" in workflow
+        and "\n  push:" not in workflow
+        and "\n  pull_request:" not in workflow
+    )
+    assert (
+        "working-directory: code" in workflow
+        and "working-directory: design_document" in workflow
+    )
     assert "cache-dependency-path: code/package-lock.json" in workflow
     assert "npm ci --ignore-scripts" in workflow
     assert "contents: read" in workflow and "persist-credentials: false" in workflow
     assert "pull_request_target" not in workflow and "secrets." not in workflow
     assert "--sync" not in workflow and "migration/verify_materials" not in workflow
     uses = re.findall(r"uses: ([^\s]+)", workflow)
-    assert uses and all(re.fullmatch(r"actions/[a-z-]+@[0-9a-f]{40}", value) for value in uses)
+    assert uses and all(
+        re.fullmatch(r"actions/[a-z-]+@[0-9a-f]{40}", value) for value in uses
+    )
     for script in (ROOT / "scripts/design").glob("*.py"):
         ast.parse(script.read_text(encoding="utf-8"), filename=script.name)
 
@@ -130,8 +162,12 @@ def main() -> None:
     documents, links = check_links()
     components, tables = check_boundaries()
     check_workflow_and_rules()
-    print(f"PASS: {documents} Markdown files; {links} local links; {components} declared components form a DAG; {tables} tables each have one owner; contract boundaries and workflow checks.")
-    print("Specification checks only: no product import/SQL-access enforcement, runtime schemas, tsc, Electron build, GitHub run, model or live platform validation.")
+    print(
+        f"PASS: {documents} Markdown files; {links} local links; {components} declared components form a DAG; {tables} tables each have one owner; contract boundaries and workflow checks."
+    )
+    print(
+        "Specification checks only: no product import/SQL-access enforcement, runtime schemas, tsc, Electron build, GitHub run, model or live platform validation."
+    )
 
 
 if __name__ == "__main__":

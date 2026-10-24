@@ -1,0 +1,19 @@
+# Local state and generated output
+.git/
+.idea/
+**/node_modules/
+**/.local/
+**/.cache/
+**/dist/
+**/dist-test/
+**/__pycache__/
+# Byte-preserved contracts, imported design snapshots and applied migrations
+code/spec/
+code/packages/storage/migrations/
+design_document/docs/implementation/
+design_document/docs/source-imports.json
+# Generated dependency graphs, documentation and binary assets
+**/package-lock.json
+**/bun.lock
+**/*.md
+**/*.png
