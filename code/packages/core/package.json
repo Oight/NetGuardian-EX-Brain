@@ -8,12 +8,17 @@
       "types": "./requests/budgets.ts",
       "default": "./dist/requests/budgets.js"
     },
+    "./reports": {
+      "types": "./reports/index.ts",
+      "default": "./dist/reports/index.js"
+    },
     "./cases": {
       "types": "./cases/index.ts",
       "default": "./dist/cases/index.js"
     }
   },
   "dependencies": {
-    "@campussec/contracts": "0.2.0"
+    "@campussec/contracts": "0.2.0",
+    "@campussec/investigation-profile": "0.2.0"
   }
 }

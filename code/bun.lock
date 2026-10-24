@@ -37,6 +37,14 @@
       "version": "0.2.0",
       "dependencies": {
         "@campussec/contracts": "0.2.0",
+        "@campussec/investigation-profile": "0.2.0",
+      },
+    },
+    "packages/investigation-profile": {
+      "name": "@campussec/investigation-profile",
+      "version": "0.2.0",
+      "dependencies": {
+        "@campussec/contracts": "0.2.0",
       },
     },
     "packages/mcp-server": {
@@ -75,6 +83,8 @@
     "@campussec/core": ["@campussec/core@workspace:packages/core"],
 
     "@campussec/desktop": ["@campussec/desktop@workspace:apps/desktop"],
+
+    "@campussec/investigation-profile": ["@campussec/investigation-profile@workspace:packages/investigation-profile"],
 
     "@campussec/mcp-server": ["@campussec/mcp-server@workspace:packages/mcp-server"],
 

@@ -12,6 +12,7 @@ import {
 } from "@campussec/contracts";
 import { createStorage } from "@campussec/storage";
 import { createCaseService } from "@campussec/core/cases";
+import { createReportService } from "@campussec/core/reports";
 import { createWazuhAdapter } from "@campussec/wazuh-adapter";
 import { createSecretStore, type SecretProtection } from "../main/secrets.js";
 import {
@@ -85,6 +86,7 @@ export async function composeRuntime(input: {
       checkedAt,
       evidence: "未连接或验收真实宿主",
     }));
+  const cases = createCaseService({ ...storage.value, clock, ids });
   const facade = createDesktopFacade({
     ...input,
     ...storage.value,
@@ -92,7 +94,8 @@ export async function composeRuntime(input: {
     clock,
     ids,
     services: {
-      cases: createCaseService({ ...storage.value, clock, ids }).service,
+      cases: cases.service,
+      reports: createReportService({ ...storage.value, clock, ids, cases: cases.service, casesAtomic: cases.atomic }),
       connections: createWazuhAdapter({
         db: storage.value.db,
         secrets,

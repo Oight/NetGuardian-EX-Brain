@@ -34,7 +34,7 @@ campussec/
 └── spec/                               固定原文、校验值和来源
 ```
 
-node_modules、.local、.cache、dist、dist-test 和包内 dist 是忽略的生成物，不作为源码或交接输入。cases 与 wazuh-adapter 已有真实服务；其余待实现模块仍只有 README，不导出成功占位接口。
+node_modules、.local、.cache、dist、dist-test 和包内 dist 是忽略的生成物，不作为源码或交接输入。cases、wazuh-adapter、channels、reports 与 investigation-profile 已有实现；未实现模块明确报不可用，不导出成功占位接口。
 
 ## 公开入口与测试
 
