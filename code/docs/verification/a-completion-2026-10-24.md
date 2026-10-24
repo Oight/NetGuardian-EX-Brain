@@ -1,0 +1,52 @@
+# A 线完整基座与独立预算交付验证
+
+日期：2026-10-24；执行者 Codex；本轮启动 base d1e64e5；任务分支 task/T002-a-foundation-complete。资料提供署名 Shimakaze-17900；实现与验证由 Codex 辅助。
+
+本文是本次提交范围的验证快照，不维护第二份任务状态；实时状态与最终合并依据仅见[T002](../development/tasks/T002-a-foundation.md)。
+
+## 拉取后整体核对
+
+- 基座 S01/S02/S03 源于 64443ed，上一轮 e2036fe/af31936 只覆盖部分修复与接手记录，不能代表 A1—A3 完成。
+- 新增 B0：88cd3f8、1e477ee 及整合记录已进入 d1e64e5；它交付计划/映射/合成材料，没有新增 S05/S06/S10 服务。B1—B4 未启动，现有 S02 基座可复用但不代替 B 的接手验收。
+- C0/C1—C5、D0/D1—D4 没有新增执行成果；C 各模块仍只有说明，D 仍是最小状态页。
+- A4 的请求/工具/留存/报告发布/终态装配缺少 B2、C2 及后续报告/投递端口；A5 三入口/恢复和真实平台闭环缺少更多依赖。没有将未实现接口改成成功占位。
+
+## 本轮真实代码交付
+
+| 范围 | 实现与可消费出口 |
+|---|---|
+| A1 | 固定 .node-version、.npmrc 严格引擎与禁用钩子；官方 Electron 下载+SHA256 校验、实际桌面启动命令、同生产 bootstrap 的隔离接受入口、干净源码复验脚本 |
+| A2 | 补齐 parseRpcResponse 的方法/请求关联与错误边界、parseControlToolEnvelope、parseResultPackage；43 个 Desktop 方法的合法往返/非法字段测试；公共合成 DTO 样例 |
+| A3 | 独立 SQL 交互 fake、同步 InTx fake、查询/连接读取/通知/秘密引用 fake、延迟响应控制、公开消费者用例；保留并增强 DesktopApi/HTTP/Execution/Delivery；CI 接入标准/干净检查及 Windows 真 Electron |
+| A4a | createRunBudget 经 @campussec/core/requests/budgets 导出；真实 SQL 工具/读取/平台尝试/不同来源事件计数及 fence；不依赖缺失的 CaseService/宿主驱动，不写其他所有者的表 |
+
+A3 的 SQL fake 不解析 SQL、不证明真实持久化；真实 SQLite 与回滚通过另列产品测试验证。A4a 的 readonly fence 投影仅读取主体元数据和连接 generation；只写 S07 三张预算相关表，不决定 JobState。
+
+## 实际验证
+
+环境：Windows x64 / PowerShell / Node 24.15.0 / npm 11.12.1 / TypeScript 5.9.3；Electron 45.0.0 内嵌 Node 24.22.0、Chrome 156.0.8078.48。仅本环境结论，不推定其他机器已复现。
+
+| 命令（相对 code/，除注明） | 结果与层级 |
+|---|---|
+| npm run check | 最终源码在干净副本内通过环境/类型/构建/42 个产品源码边界/契约/双锁及 87 个测试，0 失败/跳过；其中 43 个为按方法的结构往返，不是 43 个真实业务场景 |
+| npm run check:clean | 排除 node_modules/dist/dist-test/.local/.cache 的新源码副本，冻结离线安装后执行同一套产品检查；最终冻结安装与同组 87 个测试全部通过，不重复累加测试数 |
+| npm run prepare:electron | 官方 45.0.0 Windows x64 158223852 字节 zip 与已锁 npm 包官方 SHA256 一致，独立解压，不运行安装钩子 |
+| npm run test:electron | 通过；已执行真实生产 bootstrap、沙箱 preload、IPC、SQLite 设置保存/重启回读、托盘开关、Windows safeStorage 和正常退出两进程验证 |
+| 两个设计 Python 检查（design_document/） | 17 文档/137 声明/49 表；46 Markdown/224 链接/19 组件，最终收尾复核通过 |
+| python -B code/docs/development/workstreams/b/verify_b0.py（仓库根） | B0 材料 29 表/44 方法/36 后续场景与 10 个原生 DDL 探针通过；不是 B 产品服务测试 |
+| git diff --check / 路径 / 原文快照核对 | 通过；未修改 B/C/D 业务、物理迁移、冻结附件或任何真实平台；B/C/D 任务状态保持所有者记录 |
+
+## 边界与未执行项
+
+- Electron 接受测试读取/写入的是独立 .local 合成目录，不读取个人 userData；所有二进制、数据库、报告与缓存均被忽略、不提交。日志不包含真实凭据。
+- Windows 的 safeStorage 同步 API 有弃用提示，锁定版本仍可用且本次通过；后续切换异步保护接口需要独立兼容修订。本轮不据警告虚构运行失败或放宽保护。
+- 线上手动 Actions 尚未触发；本轮交付的是可运行的手动配置及本地相同命令结果，自动触发保持关闭。Linux 显示/系统保护与完整安装包未验收。
+- Wazuh、TeleAgent、真实模型、两类 MCP 的实际调查与结果回传未执行、不宣称完整 P0。A4a 不代表整个 S07 完成。
+- B0 G03 的四个 fake 请求已交付并经公开消费测试。G04 的真实 createAutoInTx 尚未实现；约束为拒绝时不留可提交副作用，否则协调器必须整体回滚，再另开事务记录拒绝理由。本轮以真实 SQLite 验证整体回滚机制，不冒称未来 S07 请求实现已满足。
+- G01（封存持久化归属/迁移）、G02（备注入口）、G05（语义核查口径）仍需相应所有者在后续业务阶段协作；不擅自改冻结契约或 B 的物理 DDL。它们不阻塞 B1/基本 B2、C1 或 D1 使用本轮公共基座。
+
+## 提交依据
+
+本轮实现提交与合并依据待提交后由后续记录补入，未合并前各交付保持 checking。
+
+本轮新增公共 fake 的类型检查曾在自定义 Result 推导处出现 TypeScript 错误，修复为按 ok:true 分支分配后复验通过；不将先前失败记录冒充成功。最终检查结果对应本轮全部代码。

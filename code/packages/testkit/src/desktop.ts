@@ -1,5 +1,5 @@
 import {
-  parseRpcRequest, parseDesktopOutput,
+  parseRpcRequest, parseRpcResponse,
   type DesktopApi, type DesktopMethodMap, type RpcRequest, type Result,
 } from '@campussec/contracts';
 
@@ -20,10 +20,8 @@ export function createScriptedDesktop() {
       if (next.method !== request.method) throw new Error(`Expected ${next.method}, received ${request.method}`);
       steps.shift();
       const result = await next.reply(parsed.value);
-      return {
-        protocolVersion: '0.1.0' as const, requestId: request.requestId,
-        result: result.ok ? parseDesktopOutput(request.method, result.value) : result,
-      };
+      const response = parseRpcResponse(request.method, request.requestId, { protocolVersion: '0.1.0', requestId: request.requestId, result });
+      return response.ok ? response.value : { protocolVersion: '0.1.0' as const, requestId: request.requestId, result: response };
     },
   };
   return {

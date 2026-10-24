@@ -275,3 +275,19 @@ export function parseDto<K extends keyof typeof dtoSchemas>(name:K,input:unknown
   if(!Object.hasOwn(dtoSchemas,name))return fail('INVALID_INPUT','未知数据类型');
   return parseWith(dtoSchemas[name] as z.ZodType<z.infer<(typeof dtoSchemas)[K]>>,input);
 }
+
+
+/** Strict response boundary with caller-owned correlation, not model-supplied identity. */
+export function parseRpcResponse<K extends keyof T.DesktopMethodMap>(method: K, requestId: T.Id, input: unknown): T.Result<T.RpcResponse<T.DesktopMethodMap[K]['output']>> {
+  const result = z.discriminatedUnion('ok', [s({ ok: z.literal(true), value: z.unknown() }), s({ ok: z.literal(false), error: appErrorSchema })]);
+  const envelope = parseWith(s({ protocolVersion: z.literal('0.1.0'), requestId: idSchema, result }), input, 4 * 1048576);
+  if (!envelope.ok) return envelope;
+  if (!idSchema.safeParse(requestId).success || envelope.value.requestId !== requestId) return fail('INVALID_INPUT', '响应与请求不匹配');
+  if (!Object.hasOwn(desktopSchemas, method)) return fail('INVALID_INPUT', '未知业务方法');
+  if (!envelope.value.result.ok) return ok({ protocolVersion: '0.1.0', requestId, result: envelope.value.result });
+  const output = parseDesktopOutput(method, envelope.value.result.value);
+  if (!output.ok) return output;
+  return ok({ protocolVersion: '0.1.0', requestId, result: output });
+}
+export const parseControlToolEnvelope = (input: unknown) => parseWith<T.ControlToolEnvelope>(controlToolEnvelopeSchema, input, 16384);
+export const parseResultPackage = (input: unknown) => parseWith<T.ResultPackage>(resultPackageSchema, input, 1048576);

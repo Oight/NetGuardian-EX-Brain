@@ -9,6 +9,10 @@ test('shared fakes require explicit scripts and can model executed requests whos
   await assert.rejects(()=>http.port.request(request),/Unscripted/);
   http.script.push(async()=>{remoteEffects++;return fail('UPSTREAM_TIMEOUT','合成响应丢失');});
   assert.equal((await http.port.request(request)).ok,false);assert.equal(remoteEffects,1);
+  http.script.assertDrained();
+  http.script.push(async () => ok({ status: 503, headers: {}, bodyText: 'synthetic-unavailable' }));
+  assert.equal(http.script.pending(), 1); assert.throws(() => http.script.assertDrained(), /Unused/);
+  await http.port.request(request); http.script.assertDrained();
   const execution=createScriptedExecution();
   execution.inspect.push(async()=>ok({runId:CASE,phase:'uncertain',verification:'unverified',observedAt:scope.to}));
   execution.abort.push(async()=>ok({runId:CASE,phase:'completed',verification:'verified',observedAt:scope.to}));

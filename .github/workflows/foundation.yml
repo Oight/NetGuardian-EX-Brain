@@ -21,11 +21,18 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
-          node-version: '24'
+          node-version-file: code/.node-version
           cache: npm
           cache-dependency-path: code/package-lock.json
-      - run: npm ci --ignore-scripts
+      - run: npm ci --ignore-scripts --cache .cache/npm
       - run: npm run check
+      - run: npm run check:clean
+      - name: Prepare verified Electron binary (Windows)
+        if: runner.os == 'Windows'
+        run: npm run prepare:electron
+      - name: Real production Electron acceptance (Windows)
+        if: runner.os == 'Windows'
+        run: npm run test:electron
   design:
     runs-on: ubuntu-latest
     defaults:

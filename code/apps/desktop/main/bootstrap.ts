@@ -22,11 +22,17 @@ async function localIdentity(directory: string) {
   }
 }
 
-/** Production entry point. This file is typechecked/built, never executed on this computer. */
-export async function bootstrapDesktop():Promise<void>{
+export interface DesktopBootstrapOptions {
+  /** Explicit local directory for isolated acceptance; normal launch uses app userData. */
+  dataDir?: string;
+  showWindow?: boolean;
+}
+
+/** The same production bootstrap is used by the real Electron acceptance runner. */
+export async function bootstrapDesktop(options: DesktopBootstrapOptions = {}){
   if(!app.requestSingleInstanceLock()){app.quit();return;}
   await app.whenReady();
-  const dataDir=join(app.getPath('userData'),'campussec');
+  const dataDir=options.dataDir ?? join(app.getPath('userData'),'campussec');
   const identity=await localIdentity(dataDir);
   let window:BrowserWindow|undefined;
   let tray:Tray|undefined;
@@ -74,7 +80,7 @@ export async function bootstrapDesktop():Promise<void>{
     event.preventDefault();
     if(trayEnabled&&tray)window?.hide();else app.quit();
   });
-  window.once('ready-to-show',()=>window?.show());
+  window.once('ready-to-show',()=>{if(options.showWindow!==false)window?.show();});
   app.on('second-instance',()=>{if(window?.isMinimized())window.restore();window?.show();window?.focus();});
   app.on('activate',()=>window?.show());
   app.on('before-quit',event=>{
@@ -97,6 +103,10 @@ export async function bootstrapDesktop():Promise<void>{
     })();
   });
   await window.loadFile(rendererPath);
+  return { window, runtime: runtime.value, close: () => app.quit() };
 }
 
-void bootstrapDesktop().catch(()=>{dialog.showErrorBox('校安智脑无法启动','初始化失败；已有数据保留。');app.quit();});
+// Importing this factory for acceptance does not launch a second application.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  void bootstrapDesktop().catch(()=>{dialog.showErrorBox('校安智脑无法启动','初始化失败；已有数据保留。');app.quit();});
+}
