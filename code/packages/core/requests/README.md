@@ -1,9 +1,7 @@
 # S07 · 请求与调度
 
-A 负责。已实现独立原子预算组件 `budgets.ts`，通过 `@campussec/core/requests/budgets` 导出 createRunBudget；返回冻结契约的 RunBudgetPort/RunBudgetAtomicPort。依赖仅为 DatabasePort、ClockPort、IdPort，不调用宿主、MCP、案件、报告或投递。
+service.ts 实现请求幂等、范围补充、队列/单活动槽、冻结准备、执行观测、取消、未知核实、重启 hold、每日持久额度以及跨 S06/S10/S11 的完成事务。budgets.ts 保留独立工具/读取/平台/事件预算，实际工具用例在 investigations/tool-runner，留存与人工发布协调在 investigations/retention.ts 和 publication.ts。
 
-它对工具/读取/平台请求/不同来源事件计数；校验身份、连接/工具代次、取消、过期和 recovery hold。工具与事件预占在调用者 WriteTx 内；网络请求额度通过独立短事务预占，已提交请求不退款，重新打开数据库不重置额度。只写 S07 的 tool_reservations、platform_attempts、run_event_keys。
+请求 TTL 与从 preparing 起的 run TTL 独立；未知执行不重新提交，自动核实最多三次，持久保存计数；只有实际观测取消才可写 cancelled。预算失败不撤销此前已消耗额度。
 
-fence 的只读聚合限于当前 analysis_runs/jobs/request 主体、space_metadata 与 connections.generation；不读取案件内容或第三方私有 Repository。预算不自行改变 JobState，取消与终态仍由未来 S07 协调器决定。
-
-请求受理/调度、跨所有者工具用例、每日自动尝试/token 派发策略、留存、发布和完成协调尚未实现；依赖 B2/C2 等实际端口。不得把预算单组件通过写成整个 S07 完成。
+生产装配、原子失败、重启和真实 HTTP 工具链的合成测试见 tests/acceptance（产品根目录）。真实 TeleAgent 接入未放行，不能将这些结果写作完整真实 S07 调查验收。

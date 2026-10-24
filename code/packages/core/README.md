@@ -1,13 +1,5 @@
 # 本地业务核心
 
-本目录按业务所有权组织。目前仅原子预算通过 `@campussec/core/requests/budgets` 提供真实公开实现；其他业务目录仍只有说明。各域新增源码与 tests 后，由 A 维护相应公开子路径和装配，不导出成功占位。
+本目录按业务所有权组织，当前入口包含 cases、reports、alerts、requests、delivery、investigations/tools、investigations/retention 与 investigations/publication。公开出口见 package.json，生产接线见 apps/desktop/runtime/compose.ts。
 
-| 路径                     | 归属    | 职责                                       |
-| ------------------------ | ------- | ------------------------------------------ |
-| alerts                   | B / S05 | 告警、收件箱、触发决策                     |
-| cases                    | B / S06 | 案件、背景、证据、投影                     |
-| requests、investigations | A / S07 | 生命周期、预算、工具、留存、发布、完成协调 |
-| reports                  | B / S10 | 草案校验、核查、结果包、导出               |
-| delivery                 | C / S11 | 订阅、outbox、worker、回执                 |
-
-S07 唯一决定任务终态；跨所有者使用窄端口和同步 InTx，不访问私有 Repository 或直接写他表。
+S07 唯一决定任务终态；跨模块写入经过同步 InTx 端口。模块实现、生产装配合成检查与真实接入验收分开记录，见[全项目核验](../../docs/verification/project-audit-2026-10-24.md)。

@@ -50,6 +50,7 @@ export function checkSource(
       : (spec.components[component]?.dependsOn ?? []);
   const error = (message: string) => errors.push(`${path}: ${message}`);
   const moduleFor = (target: string) => {
+    if (target === "@campussec/core/investigations/tools") return "tools";
     if (target.startsWith("."))
       return componentFor(
         posix.normalize(posix.join(posix.dirname(path), target)),

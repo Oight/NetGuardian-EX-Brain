@@ -1,5 +1,7 @@
 # T002 · A：工程、桌面与调度
 
+> 此文件保留此前阶段的交接快照。当前全项目核验与剩余工作以 [T008](T008-project-completion.md) 为准；旧分工不限制本轮跨模块实现。
+
 状态：in_progress。执行者：Codex；用户授权 A 线及交接修复。唯一实时位置：本文件。本轮分支：task/T002-a-foundation-complete。
 
 - 本轮实际 base：d1e64e5；既有基座提交 64443ed 已在 main，包含 S01/S02/S03 与结构整理。分工来源 120c81c。

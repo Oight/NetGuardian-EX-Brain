@@ -1,5 +1,5 @@
-# S11 · 结果投递
+# S11 · 结果订阅与投递
 
-C 负责，尚未实现。此处承载订阅、outbox、worker、回执与恢复；只注入宿主投递窄端口，自有 tests/ 跟随本目录。
+index.ts 实现订阅、不可变 ResultPackage 的 outbox、固定 deliveryKey、单 worker、发送前权限复核、可见回执、丢失响应后的核实与恢复。仅核实 absent 后可退避重试；unknown 停止自动发送并保留本地取回，重试不调用执行器。任务完成、结果和 outbox 由同一 WriteTx 提交，失败全回滚。
 
-任务完成与投递完成分别记录；投递重试不重跑调查。发送后响应丢失时核实，未知回执保持 uncertain，不当作未发送或已成功。
+生产组合测试见产品 tests/acceptance/delivery-lifecycle.test.ts。真实宿主原会话投递尚无验收。冻结接口没有 blocked 投递的显式恢复命令，当前保留结果取回路径，不冒充已具备 UI 手动重投能力。

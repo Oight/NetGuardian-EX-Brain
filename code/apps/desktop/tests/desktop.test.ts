@@ -244,9 +244,9 @@ test("runtime persists settings and reads a same-transaction workspace snapshot 
       idempotencyKey: "unavailable-investigation",
       seedRefs: [],
     });
-    assert.equal(unavailable.result.ok, false);
-    if (!unavailable.result.ok)
-      assert.equal(unavailable.result.error.code, "CAPABILITY_UNAVAILABLE");
+    assert.ok(unavailable.result.ok);
+    assert.equal(unavailable.result.value.job?.state, "queued");
+    assert.equal(unavailable.result.value.request.state, "accepted");
     await r.close();
     const reopened = await composeRuntime(input);
     assert.ok(reopened.ok);

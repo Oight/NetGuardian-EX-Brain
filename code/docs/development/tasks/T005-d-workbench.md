@@ -1,5 +1,7 @@
 # T005 · D：工作台与用户验收
 
+> 此文件保留此前阶段的交接快照。当前全项目核验与剩余工作以 [T008](T008-project-completion.md) 为准；旧分工不限制本轮跨模块实现。
+
 状态：checking（本地案件路径已通过合成浏览器与真实 SQLite 验证；完整 D1/D3 和真实 Electron 验收尚未完成，未提交/合并）。唯一状态位置：本文件。
 
 分工来源：`120c81cfd4d8ed720c9cc70178edb9c6fd172a34`；可领取产品基准：64443ed；执行者、实际启动 HEAD 与依赖验收 commit 在领取时填写。允许 renderer、tests/acceptance 和[本线交接目录](../workstreams/d/README.md)，不写 main/preload/runtime、公共 fake、根锁或业务数据库。

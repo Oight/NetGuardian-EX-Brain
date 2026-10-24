@@ -1,5 +1,7 @@
 # T004 · C：上游、宿主、MCP 与投递
 
+> 此文件保留此前阶段的交接快照。当前全项目核验与剩余工作以 [T008](T008-project-completion.md) 为准；旧分工不限制本轮跨模块实现。
+
 状态：checking（本地 C0/C1 离线材料和适配器已交付，真实平台未访问，尚无本轮提交或合并）。唯一状态位置：本文件。
 
 分工来源：`120c81cfd4d8ed720c9cc70178edb9c6fd172a34`；可领取产品基准：64443ed；执行者、实际启动 HEAD 与依赖验收 commit 在领取时填写。允许 wazuh-adapter、teleagent-bridge、mcp-server、core/delivery、自有测试和[本线交接目录](../workstreams/c/README.md)；根依赖/锁/装配交 A。

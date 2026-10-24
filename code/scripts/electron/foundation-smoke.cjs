@@ -33,7 +33,7 @@ app.on("will-quit", () => {
   );
   const desktop = await bootstrapDesktop({
     dataDir: join(directory, "data"),
-    showWindow: false,
+    showWindow: false, backgroundEnabled: false,
   });
   assert.ok(desktop, "Production bootstrap must create a real window");
   const window = desktop.window;
@@ -273,10 +273,13 @@ app.on("will-quit", () => {
     question: "合成测试，不访问真实宿主",
     requestedScope: acceptance.scope,
     seedRefs: [],
-    idempotencyKey: "electron-unavailable-investigation",
+    idempotencyKey: "electron-investigation-" + phase,
   });
-  assert.equal(notReady.ok, false);
-  assert.equal(notReady.error.code, "CAPABILITY_UNAVAILABLE");
+  assert.ok(notReady.ok);
+  assert.equal(notReady.value.job.state, "queued");
+  const cancelled = await invoke("requests.cancel", { requestId: notReady.value.request.id, reason: "结束隔离验收，未提交模型" });
+  assert.ok(cancelled.ok);
+  assert.equal(cancelled.value.job.state, "cancelled");
   assert.equal(
     safeStorage.isEncryptionAvailable(),
     true,
@@ -328,7 +331,7 @@ app.on("will-quit", () => {
         caseRestartRead: phase === "reopen",
         revisionConflict: true,
         rendererCaseWorkflow: true,
-        unavailableInvestigation: true,
+        requestLifecycle: true,
       },
       null,
       2,

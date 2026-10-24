@@ -16,11 +16,11 @@ npm.cmd run test:windows:full
 
 命令依次执行版本检查、`npm ci --ignore-scripts`、完整产品检查、干净副本离线复验、官方 Electron 下载及 SHA256 核实、真实 Electron 双进程验收。首次需访问 npm registry 与 Electron 官方 GitHub Releases；依赖生命周期脚本始终关闭。需要可使用窗口、托盘和 Windows 系统加密服务的桌面会话。
 
-Electron 验收加载真实生产 bootstrap/preload/renderer，使用独立合成空间，通过页面创建案件、保存人工背景、验证并发冲突保留输入，再启动第二个进程回读案件和设置；同时检查沙箱、IPC、SQLite、托盘、系统保护存储、明确的调查不可用和正常退出。不连接真实 Wazuh/TeleAgent/模型，不读取个人 userData。
+Electron 验收加载真实生产 bootstrap/preload/renderer，使用独立合成空间，通过页面创建案件、保存人工背景、验证并发冲突保留输入，再启动第二个进程回读案件和设置；同时检查沙箱、IPC、SQLite、托盘、系统保护存储、真实的请求排队与取消和正常退出。不连接真实 Wazuh/TeleAgent/模型，不读取个人 userData。
 
 任一步失败立即停止，后续阶段记录 skipped 并返回非零退出码。分阶段报告位于 `.local/windows-full/run-*/report.json`，Electron 细项位于 `.local/electron-acceptance/run-*/{write,reopen}.json`。报告和临时数据库不提交。
 
-“全量”指当前已实现产品的全部自动化测试及 Electron 验收；完整安装包、签名、安装卸载、真实平台接入及尚未实现模块不计为通过。此新命令在本机仅验证过编排、拒绝条件和失败传播，真实 Windows/Node/Electron 执行待开发者运行并提交报告。
+“全量”指当前已实现产品的全部自动化测试及 Electron 验收；完整安装包、签名、安装卸载、真实平台接入及尚未实现模块不计为通过。本轮已在 Windows Node 24.15.0 执行完整检查和干净副本复验。Electron 实际启动失败，不能记为通过；当前细节见[全项目核验](../verification/project-audit-2026-10-24.md)。
 
 使用 code/.node-version 的 Node 24.15.0（engines 允许 >=24.15 <25）及 packageManager 指定的 npm 11.12.1 与现有 npm 锁文件。.npmrc 默认开启 engine-strict 并禁用依赖钩子：
 
@@ -51,6 +51,7 @@ npm run test:electron
 | 类型                           | `npm run typecheck`         | `bun node_modules/typescript/bin/tsc --noEmit`   |
 | 源码边界                       | `npm run check:boundaries`  | `bun scripts/product/check-boundaries.ts`        |
 | 原文/schema/权限配置（先构建） | `npm run check:spec`        | `bun scripts/product/verify-foundation.ts`       |
+| workspace 与实际包出口       | `npm run check:workspaces`  | 构建后使用同一 Node 入口                          |
 | 锁图元数据                     | `npm run check:locks`       | `bun scripts/product/export-npm-lock.ts --check` |
 | 测试                           | `npm test`                  | `bun scripts/product/test.ts`                    |
 | 构建                           | `npm run build`             | `bun scripts/product/build.ts`                   |
@@ -83,3 +84,12 @@ check:spec 检查设计哈希、137 个声明、DTO/桌面 schema、初始迁移
 `check:clean` 用当前 npm CLI 在不含依赖/生成物的新源码副本执行冻结离线安装与同组检查，须先将 npm ci 的包下载到 .cache/npm；不把旧 dist 或祖先目录 node_modules 当作成功依据。临时副本和报告均被忽略。
 
 当前手动 CI 固定 .node-version，Linux/Windows 运行标准检查及干净复现；Windows 另跑真实 Electron 验收。是否已执行线上工作流另记，本次不自动触发或推送。详见[2026-10-24 完整交付验证](../verification/a-completion-2026-10-24.md)。
+
+
+## 当前 Electron 环境限制
+
+本轮真实测试触发 Chromium 安装目录 ACL 检查失败，并报告系统保护加密失败。未关闭沙箱或改用明文秘密存储以通过测试。请在有正常 Windows 桌面会话、用户配置文件和目录权限的终端运行 `npm.cmd run test:electron`；此操作仅验证隔离合成空间，不需要 Wazuh 或模型凭据。
+
+如果 Electron 明确报告缺少 ALL APPLICATION PACKAGES 读取权限，可由目录所有者在 code/ 下对运行时目录执行 `icacls ".local\electron-45.0.0" /grant "*S-1-15-2-1:(OI)(CI)(RX)"` 后重试。该修复在当前代理权限下被系统拒绝，未修改成功，不应宣称已修复。
+
+如已有另一处相同锁定版本的已核实 Electron，可使用 `node scripts/product/electron-smoke.ts --electron-dir <目录>`；验收仍核对实际运行版本。默认运行入口不变。真实宿主、真实 Wazuh、安装包和人工 UI 验收分别记录，不因 Node 测试通过而放行。

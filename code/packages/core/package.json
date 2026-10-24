@@ -11,9 +11,38 @@
     "./cases": {
       "types": "./cases/index.ts",
       "default": "./dist/cases/index.js"
+    },
+    "./reports": {
+      "types": "./reports/index.ts",
+      "default": "./dist/reports/index.js"
+    },
+    "./investigations/tools": {
+      "types": "./investigations/tool-runner/index.ts",
+      "default": "./dist/investigations/tool-runner/index.js"
+    },
+    "./delivery": {
+      "types": "./delivery/index.ts",
+      "default": "./dist/delivery/index.js"
+    },
+    "./requests": {
+      "types": "./requests/service.ts",
+      "default": "./dist/requests/service.js"
+    },
+    "./alerts": {
+      "types": "./alerts/index.ts",
+      "default": "./dist/alerts/index.js"
+    },
+    "./investigations/retention": {
+      "types": "./investigations/retention.ts",
+      "default": "./dist/investigations/retention.js"
+    },
+    "./investigations/publication": {
+      "types": "./investigations/publication.ts",
+      "default": "./dist/investigations/publication.js"
     }
   },
   "dependencies": {
-    "@campussec/contracts": "0.2.0"
+    "@campussec/contracts": "0.2.0",
+    "@campussec/investigation-profile": "0.2.0"
   }
 }

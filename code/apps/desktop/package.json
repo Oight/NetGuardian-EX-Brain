@@ -7,6 +7,9 @@
     "@campussec/contracts": "0.2.0",
     "@campussec/storage": "0.2.0",
     "@campussec/core": "0.2.0",
-    "@campussec/wazuh-adapter": "0.2.0"
+    "@campussec/wazuh-adapter": "0.2.0",
+    "@campussec/mcp-server": "0.2.0",
+    "@campussec/teleagent-bridge": "0.2.0",
+    "@campussec/investigation-profile": "0.2.0"
   }
 }

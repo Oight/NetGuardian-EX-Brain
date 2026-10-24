@@ -20,7 +20,7 @@
     "check:spec": "node scripts/product/verify-foundation.ts",
     "check:locks": "node scripts/product/export-npm-lock.ts --check",
     "check:renderer": "node scripts/product/verify-renderer.ts",
-    "check": "npm run check:environment && npm run typecheck && npm run build && npm run check:renderer && npm run check:boundaries && npm run check:spec && npm run check:locks && node scripts/product/test.ts",
+    "check": "npm run check:environment && npm run typecheck && npm run build && npm run check:workspaces && npm run check:renderer && npm run check:boundaries && npm run check:spec && npm run check:locks && node scripts/product/test.ts",
     "desktop": "npm run build && node scripts/product/start-desktop.ts",
     "check:clean": "node scripts/product/verify-clean.ts",
     "prepare:electron": "node scripts/product/prepare-electron.ts",
@@ -28,7 +28,8 @@
     "test:local": "bun scripts/product/test.ts",
     "check:local": "bun scripts/local/check.ts",
     "check:local:clean": "bun scripts/local/check-clean.ts",
-    "test:windows:full": "node scripts/product/test-windows-full.ts"
+    "test:windows:full": "node scripts/product/test-windows-full.ts",
+    "check:workspaces": "node scripts/product/verify-workspaces.ts"
   },
   "trustedDependencies": [],
   "dependencies": {

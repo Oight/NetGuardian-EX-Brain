@@ -1,0 +1,19 @@
+{
+  "name": "@campussec/teleagent-bridge",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./execution": {
+      "types": "./execution/index.ts",
+      "default": "./dist/execution/index.js"
+    },
+    "./host-access": {
+      "types": "./host-access/index.ts",
+      "default": "./dist/host-access/index.js"
+    }
+  },
+  "dependencies": {
+    "@campussec/contracts": "0.2.0"
+  }
+}

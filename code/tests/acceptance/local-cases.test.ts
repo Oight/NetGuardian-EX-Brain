@@ -36,6 +36,7 @@ test("production composition → trusted IPC → typed client → real cases/con
     principalId: PRINCIPAL,
     identityEpoch: 1,
     protection,
+    backgroundEnabled: false,
     clock,
     ids,
     http: {
@@ -132,18 +133,14 @@ test("production composition → trusted IPC → typed client → real cases/con
     );
     const status = await invoke("runtime.status", {});
     assert.equal(status.state, "degraded");
-    await assert.rejects(
-      invoke("requests.create", {
-        origin: "client_user",
-        connectionId: connection.id,
-        caseId: created.id,
-        question: "请调查",
-        seedRefs: [],
-        requestedScope: actualScope,
-        idempotencyKey: "same-business-key",
-      }),
-      /尚未实现或未装配/,
-    );
+    const accepted = await invoke("requests.create", {
+      origin: "client_user", connectionId: connection.id, caseId: created.id,
+      question: "请调查", seedRefs: [], requestedScope: actualScope,
+      idempotencyKey: "same-business-key",
+    });
+    assert.equal(accepted.job?.state, "queued");
+    const cancelled = await invoke("requests.cancel", {requestId: accepted.request.id, reason: "本地验收结束"});
+    assert.equal(cancelled.job?.state, "cancelled");
     assert.equal(network, 0);
   } finally {
     await runtime.close();

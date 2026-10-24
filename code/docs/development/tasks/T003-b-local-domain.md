@@ -1,5 +1,7 @@
 # T003 · B：存储与本地业务
 
+> 此文件保留此前阶段的交接快照。当前全项目核验与剩余工作以 [T008](T008-project-completion.md) 为准；旧分工不限制本轮跨模块实现。
+
 状态：checking（本地续作 B1/B2 已实现并完成 Bun/真实 SQLite 验证，尚无本轮提交或合并；原 B0 记录保留为来源历史）。唯一状态位置：本文件。
 
 分工来源：`120c81cfd4d8ed720c9cc70178edb9c6fd172a34`；本轮实际产品 base：`1d379e11916fe03cc03e5355fc6c1ee108633b6c`；执行者：Codex（用户指定 B 线），2026-10-23。B0 无产品依赖，不以现有 S02 或设计提交推定 A/B 后续阶段已放行。允许 storage、core/{alerts,cases,reports}、investigation-profile、自有测试和[本线交接目录](../workstreams/b/README.md)。本轮实际写入限本任务文件与本线交接目录。物理迁移由 B 独占，根锁/公共导出交 A。

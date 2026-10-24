@@ -4,6 +4,7 @@ import {
   dialog,
   ipcMain,
   Menu,
+  Notification,
   nativeImage,
   safeStorage,
   Tray,
@@ -54,6 +55,7 @@ export interface DesktopBootstrapOptions {
   /** Explicit local directory for isolated acceptance; normal launch uses app userData. */
   dataDir?: string;
   showWindow?: boolean;
+  backgroundEnabled?: boolean;
 }
 
 /** The same production bootstrap is used by the real Electron acceptance runner. */
@@ -117,6 +119,18 @@ export async function bootstrapDesktop(options: DesktopBootstrapOptions = {}) {
         encrypt: (text) => safeStorage.encryptString(text),
         decrypt: (bytes) => safeStorage.decryptString(Buffer.from(bytes)),
       },
+      backgroundEnabled: options.backgroundEnabled,
+      notification:{show:async(input)=>{
+        if(!Notification.isSupported())return fail('CAPABILITY_UNAVAILABLE','当前系统不支持桌面通知');
+        return new Promise(resolve=>{
+          const notification=new Notification({title:input.title,body:input.body});
+          let completed=false;
+          const done=(shown:boolean)=>{if(completed)return;completed=true;clearTimeout(timer);resolve(ok({shown}));};
+          const timer=setTimeout(()=>done(false),5000);
+          notification.once('show',()=>done(true));notification.once('failed',()=>done(false));
+          notification.on('click',()=>window?.show());notification.show();
+        });
+      }},
       setTray,
       async saveExport(value) {
         const result = await dialog.showSaveDialog({

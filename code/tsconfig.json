@@ -11,18 +11,69 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "paths": {
-      "@campussec/contracts": ["./packages/contracts/src/index.ts"],
-      "@campussec/storage": ["./packages/storage/src/index.ts"],
-      "@campussec/testkit": ["./packages/testkit/src/index.ts"],
-      "@campussec/core/cases": ["./packages/core/cases/index.ts"],
-      "@campussec/wazuh-adapter": ["./packages/wazuh-adapter/src/index.ts"],
+      "@campussec/contracts": [
+        "./packages/contracts/src/index.ts"
+      ],
+      "@campussec/storage": [
+        "./packages/storage/src/index.ts"
+      ],
+      "@campussec/testkit": [
+        "./packages/testkit/src/index.ts"
+      ],
+      "@campussec/core/cases": [
+        "./packages/core/cases/index.ts"
+      ],
+      "@campussec/wazuh-adapter": [
+        "./packages/wazuh-adapter/src/index.ts"
+      ],
       "@campussec/core/requests/budgets": [
         "./packages/core/requests/budgets.ts"
+      ],
+      "@campussec/core/reports": [
+        "./packages/core/reports/index.ts"
+      ],
+      "@campussec/core/investigations/tools": [
+        "./packages/core/investigations/tool-runner/index.ts"
+      ],
+      "@campussec/investigation-profile": [
+        "./packages/investigation-profile/index.ts"
+      ],
+      "@campussec/mcp-server/channels": [
+        "./packages/mcp-server/channels/index.ts"
+      ],
+      "@campussec/core/requests": [
+        "./packages/core/requests/service.ts"
+      ],
+      "@campussec/core/delivery": [
+        "./packages/core/delivery/index.ts"
+      ],
+      "@campussec/core/alerts": [
+        "./packages/core/alerts/index.ts"
+      ],
+      "@campussec/core/investigations/retention": [
+        "./packages/core/investigations/retention.ts"
+      ],
+      "@campussec/core/investigations/publication": [
+        "./packages/core/investigations/publication.ts"
+      ],
+      "@campussec/teleagent-bridge/host-access": [
+        "./packages/teleagent-bridge/host-access/index.ts"
+      ],
+      "@campussec/teleagent-bridge/execution": [
+        "./packages/teleagent-bridge/execution/index.ts"
+      ],
+      "@campussec/mcp-server/gateway": [
+        "./packages/mcp-server/gateway/index.ts"
       ]
     },
     "allowImportingTsExtensions": true,
-    "types": ["node"],
-    "lib": ["ES2022", "DOM"]
+    "types": [
+      "node"
+    ],
+    "lib": [
+      "ES2022",
+      "DOM"
+    ]
   },
   "include": [
     "packages/**/*.ts",

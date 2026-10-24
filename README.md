@@ -1,9 +1,10 @@
 # 校安智脑 · campussec
 
-面向高校安全运维的安全调查工作台。业务 v4.2，内部契约 0.2.0，外部信封 0.1.0。当前已有契约、存储与桌面基座；完整业务与真实调查闭环未完成。
+面向高校安全运维的安全调查工作台。业务 v4.2，内部契约 0.2.0，外部信封 0.1.0。当前已接入本地业务、调度、MCP 回环入口和结果投递，并有生产装配合成验收；真实 TeleAgent/Wazuh 与当前 Windows Electron 验收仍未全部通过。
 
+- [全项目严格核验与剩余项](code/docs/verification/project-audit-2026-10-24.md)
 - [产品入口](code/README.md)、[运行与检查](code/docs/development/commands.md)
-- [四线任务唯一入口](code/docs/development/tasks/README.md)、[结构归属](code/docs/development/structure.md)
+- [当前任务与历史分工](code/docs/development/tasks/README.md)、[结构归属](code/docs/development/structure.md)
 - [设计入口](design_document/docs/README.md)、[设计与实现阶段说明](design_document/docs/project-status.md)
 - [共享开发约定](CONTRIBUTING.md)、[手动同步与冲突处理](code/docs/development/git-sync.md)
 

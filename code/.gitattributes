@@ -3,3 +3,6 @@
 spec/** -text
 packages/storage/migrations/0001.sql -text
 *.png binary
+
+# The imported architecture snapshot contains CRLF; preserve its registered hash.
+spec/architecture.json whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

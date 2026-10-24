@@ -376,7 +376,7 @@ test("an existing v1 database upgrades additively without rewriting 0001 or losi
     const file = join(f.directory.path, "spaces", SPACE, "state.sqlite");
     const legacy = new DatabaseSync(file);
     legacy.exec(
-      "DROP TABLE case_query_page_refs; DROP TABLE case_run_manifests; DELETE FROM schema_migrations WHERE version=2;",
+      "DROP TABLE case_query_page_refs; DROP TABLE case_run_manifests; ALTER TABLE analysis_runs DROP COLUMN mapping_version; DELETE FROM schema_migrations WHERE version>=2;",
     );
     const before = legacy
       .prepare("SELECT checksum FROM schema_migrations WHERE version=1")
@@ -399,7 +399,7 @@ test("an existing v1 database upgrades additively without rewriting 0001 or losi
       assert.ok(result.ok);
       assert.deepEqual(
         result.value.versions.map((m) => m.version),
-        [1, 2],
+        [1, 2, 3],
       );
       assert.equal(result.value.versions[0]?.checksum, before.checksum);
       assert.equal(result.value.title, "合成案件");
