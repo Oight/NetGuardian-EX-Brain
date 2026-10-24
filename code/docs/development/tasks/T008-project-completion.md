@@ -22,7 +22,9 @@
 {
   "task": "T008",
   "status": "in_progress",
-  "branch": "task/project-completion-audit",
+  "branch": "main",
+  "work_branch": "task/project-completion-audit",
+  "implementation_commit": "e266421",
   "base": "28c5185",
   "implementation": "local_services_and_synthetic_flow_implemented",
   "automated_checks": "passed",
@@ -31,10 +33,10 @@
   "live_wazuh": "not_run",
   "electron": "failed_environment",
   "distribution": "not_built",
-  "merged_to_main": false
+  "merged_to_main": true
 }
 ```
 
 本轮新增或补全 S05、S07、S08 本地执行/宿主边界、S09 HTTP 网关与 schema 目录、S11 和生产装配；修复公开出口、workspace、冻结哈希、案件附案、预算/期限/取消/投递问题。代码位置、组合测试、全部结果与真实接入缺口统一见[全项目核验](../../verification/project-audit-2026-10-24.md)。不以 Node 测试通过替代真实宿主、Electron 或安装包验收。
 
-下一位 agent 从本分支继续，先复核该报告的剩余项；不要按旧四线任务表把模块整体标记为完成。禁止读取个人宿主会话或凭据来猜接口，未经当次授权不运行真实模型/平台测试。
+实现提交 e266421 已快进合入本地 main，未推送远端；整体任务仍为 in_progress。下一位 agent 从最新 main 继续，先复核该报告的剩余项；不要按旧四线任务表把模块整体标记为完成。禁止读取个人宿主会话或凭据来猜接口，未经当次授权不运行真实模型/平台测试。
