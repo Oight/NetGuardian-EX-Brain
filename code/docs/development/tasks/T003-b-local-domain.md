@@ -52,4 +52,4 @@ B0 表中的完整开发规范检查失败属于当时执行快照。远端将�
 
 本轮功能、公开入口、失败与未执行项统一见[本地案件闭环验证](../../verification/local-cases-2026-10-24.md)。Windows 开发者可运行 `npm.cmd run test:windows:full`；本机未执行 Node/Electron。后续阶段按原表依赖推进，不用本轮合成材料放行真实接入。
 
-2026-10-24 Review 补记：修复公开入参规范化、背景作用域/容量与平台来源/覆盖问题；Bun 干净检查 135/0，未提交/合并，外部 Windows/Node/Electron 未执行。见[本地 Review](../../reviews/local-implementation-2026-10-24.md)。
+2026-10-24 Review 补记：修复公开入参规范化、背景作用域/容量与平台来源/覆盖问题；Bun 干净检查 135/0，未提交/合并，外部 Windows/Node/Electron 未执行。摘要见[验证记录](../../verification/local-cases-2026-10-24.md)。

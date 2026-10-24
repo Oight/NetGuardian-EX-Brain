@@ -69,4 +69,4 @@ npm.cmd run test:windows:full
 
 ## 后续 Review 补记（2026-10-24）
 
-上文 128/0 为首轮交付的实际历史结果。随后按用户要求 review，新增 7 个回归场景复现并修复了全局背景原/新范围与容量、规范化入参、清单原生身份、固定上界覆盖和设备误标问题；最终干净副本检查更新为 **135 项通过、0 失败**。详见 [Review 与忽略规则核对](../reviews/local-implementation-2026-10-24.md)。Windows 全量入口仍等待外部实际执行，未在本机启动 Node/Electron。
+上文 128/0 为首轮交付的实际历史结果。随后按用户要求 review，新增 7 个回归场景复现并修复了全局背景原/新范围与容量、规范化入参、清单原生身份、固定上界覆盖和设备误标问题；最终干净副本检查更新为 **135 项通过、0 失败**。Review 原文已随 03f1448 删除，可从 `c70a992:code/docs/reviews/local-implementation-2026-10-24.md` 追溯。Windows 全量入口当时尚未在本机执行；后续本机验收见[通道任务记录](../development/tasks/T004-c-integrations.md)。

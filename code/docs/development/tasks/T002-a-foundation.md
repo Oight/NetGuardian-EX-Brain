@@ -73,4 +73,4 @@ Node 24.15 / Windows 下严格类型、构建、边界、契约、双锁及 28 �
 
 用户授权同时推进所需 B/C/D 路径，由同一执行者串行修改，未启动子 Agent。A4b 仍不是完整交付；本轮仅完成案件装配和已有预算的组合回滚验证，C2/B3/C4 尚未交付。Bun 下验证详见[本地报告](../../verification/local-cases-2026-10-24.md)，新 Windows 命令真实执行待外部开发者，不继承旧 Electron 成绩。无本轮实现/合并 commit。
 
-2026-10-24 Review 补记：修复公开入参规范化、背景作用域/容量与平台来源/覆盖问题；Bun 干净检查 135/0，未提交/合并，外部 Windows/Node/Electron 未执行。见[本地 Review](../../reviews/local-implementation-2026-10-24.md)。
+2026-10-24 Review 补记：修复公开入参规范化、背景作用域/容量与平台来源/覆盖问题；Bun 干净检查 135/0，未提交/合并，外部 Windows/Node/Electron 未执行。摘要见[验证记录](../../verification/local-cases-2026-10-24.md)。

@@ -27,11 +27,11 @@
 
 本轮功能、公开入口、失败与未执行项统一见[本地案件闭环验证](../../verification/local-cases-2026-10-24.md)。Windows 开发者可运行 `npm.cmd run test:windows:full`；本机未执行 Node/Electron。后续阶段按原表依赖推进，不用本轮合成材料放行真实接入。
 
-2026-10-24 Review 补记：修复公开入参规范化、背景作用域/容量与平台来源/覆盖问题；Bun 干净检查 135/0，未提交/合并，外部 Windows/Node/Electron 未执行。见[本地 Review](../../reviews/local-implementation-2026-10-24.md)。
+2026-10-24 Review 补记：修复公开入参规范化、背景作用域/容量与平台来源/覆盖问题；Bun 干净检查 135/0，未提交/合并，外部 Windows/Node/Electron 未执行。摘要见[验证记录](../../verification/local-cases-2026-10-24.md)。
 
 ## 2026-10-24：独立证据通道（按路径认领）
 
-- 状态：checking（本目录实现、锁定依赖和 Electron 内置 Node 验证完成；原分支总检查仍受基准快照哈希失配影响，未合并 main，不放行整个 C2）；本次用户授权按路径串行开发，不受原工作线限制；Codex，base `03f1448b36a2b8d38596e0fe0a490008da2a8312`，依赖 `3ee347c` / `157e956` / `c70a992` 已在 HEAD。
+- 状态：checking（独立通道及修复后的标准全量验收已通过，待合并 main；C2 其余部分仍未完成）；本次用户授权按路径串行开发，不受原工作线限制；Codex，base `03f1448b36a2b8d38596e0fe0a490008da2a8312`，依赖 `3ee347c` / `157e956` / `c70a992` 已在 HEAD。
 - 分支 `task/S09-evidence-channels`，工作目录 `D:/design_agent/campussec-channels`。范围 `code/packages/mcp-server/channels/**` 及本段；公开出口附带新增 `packages/mcp-server/package.json`、同步两份锁的 workspace 元数据。不改 gateway、契约、DDL、桌面装配。
 - 目标：EvidenceChannelPort、transport 内部认证、同步数据库授权复核、撤销/轮换及真实临时 SQLite 测试。可信会话标识由系统适配器提供，字符串本身不证明真实宿主绑定。
 - 检查：类型编译、模块及受影响测试、源码边界、锁图、`git diff --check`；依赖下载和已有冻结快照问题分别记录，未执行项不计通过。未启动网络监听或真实宿主/模型。
@@ -42,3 +42,4 @@
 - 权限开放后的正式复验：仅在忽略目录 `.local/toolchains` 安装官方 Node 24.15.0（SHA256 核实）/ npm 11.12.1；`.local/npm-isolated.cmd` 固定本地工具链和无凭据 npm 配置，从 code 执行 `.\.local\npm-isolated.cmd test`。冻结安装 22 包成功、安装钩子未运行；TypeScript 5.9.3 / Zod 4.6.7 / @types/node 24.19.2 / Electron 45.0.0 与锁一致，未改全局环境。
 - 原分支正式结果：环境、严格类型、构建、58 文件源码边界、两份锁检查及 **150/0** 测试通过；`npm run check` 在既有 contracts.ts 哈希失配处失败。另在 `.local/standard-baseline` 副本中，仅从 c70a992 恢复三份与 provenance 一致的快照字节，`check` 和 `check:clean` 均通过；未改原分支规范文件。日志在 `.local/standard-check`，不提交临时副本/缓存/运行数据。
 - Electron 正式结果：官方归档下载经 SHA256 核实（首次 Node fetch 超时，改用 Python 流式下载后由原准备脚本复核）；真实生产桌面 write/reopen 双进程验收通过。Electron 45.0.0 / 内置 Node 24.22.0 中通道测试 **15/0**，覆盖真实 SQLite 和项目秘密存储。此项不证明 S08/gateway/真实宿主绑定或 MCP 调查闭环。
+- 合并准备：按本次授权调整现有贡献/流程/目录说明为按路径认领，清理已删除 Review 的失效链接；从 c70a992 恢复三份快照原字节，TypeScript AST / JSON 数据逐项相同，未改 provenance、运行时契约或 DDL。`.gitattributes` 允许原件保留的 CRLF 通过空白检查。当前实际分支执行 `test:windows:full` 六阶段全通过，含标准 **150/0**、干净副本离线复验与真实 Electron 双进程；报告 `.local/windows-full/run-DqNyJ9/report.json`。两个设计检查及 B0 材料/10 项原生 DDL 探针通过。

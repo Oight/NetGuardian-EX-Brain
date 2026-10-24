@@ -21,7 +21,7 @@
 | C 外部接入   | S04、S08、S09、S11                | wazuh-adapter、teleagent-bridge、mcp-server、core/delivery                             |
 | D 界面与验收 | S12；用户验收场景                 | desktop/renderer、tests/acceptance                                                     |
 
-根配置、锁、公共导出、检查脚本、CI 与装配由 A 串行维护；B 维护迁移不等于拥有全部业务状态。完整目录见结构说明。
+上表为原分工参考，实际按任务路径认领；根配置、锁、公共导出、检查、CI、装配与迁移纳入当次范围并由单任务串行维护，物理迁移维护不等于拥有全部业务状态。完整目录见结构说明。
 
 ## 安装与检查
 
