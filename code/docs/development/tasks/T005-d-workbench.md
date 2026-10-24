@@ -4,17 +4,17 @@
 
 分工来源：`120c81cfd4d8ed720c9cc70178edb9c6fd172a34`；可领取产品基准：64443ed；执行者、实际启动 HEAD 与依赖验收 commit 在领取时填写。允许 renderer、tests/acceptance 和[本线交接目录](../workstreams/d/README.md)，不写 main/preload/runtime、公共 fake、根锁或业务数据库。
 
-| 阶段 | 状态     | 前置实际交付                   | 目标                                       |
-| ---- | -------- | ------------------------------ | ------------------------------------------ |
-| D0   | checking | 无产品依赖                     | 页面流程、隔离静态原型、合成案例和验收矩阵 |
-| D1   | checking | A1/A2、A3 对应 DesktopApi fake | typed client、完整工作台与明确错误状态     |
-| D2   | checking | D1、B2、A4 最小 IPC            | 真实创建案件/保存/重启回读与最小安装包     |
-| D3   | planned  | D2、B3、C3/C4、A4              | 三入口、预算/取消/恢复/导出/投递场景       |
-| D4   | planned  | A5；真实场景另需授权           | 使用说明、可复现流程、证据与剩余问题       |
+| 阶段 | 状态    | 前置实际交付                   | 目标                                       |
+| ---- | ------- | ------------------------------ | ------------------------------------------ |
+| D0 | checking | 无产品依赖                     | 页面流程、隔离静态原型、合成案例和验收矩阵 |
+| D1 | checking | A1/A2、A3 对应 DesktopApi fake | typed client、完整工作台与明确错误状态     |
+| D2 | checking | D1、B2、A4 最小 IPC            | 真实创建案件/保存/重启回读与最小安装包     |
+| D3   | planned | D2、B3、C3/C4、A4              | 三入口、预算/取消/恢复/导出/投递场景       |
+| D4   | planned | A5；真实场景另需授权           | 使用说明、可复现流程、证据与剩余问题       |
 
 ## 交接
 
-现有 [renderer](../../../apps/desktop/renderer/README.md)显示真实摘要，没有完整案件操作，不能宣布 S12/D1 完成。UI 只消费 DesktopApi，不用内部模块名代替功能；D0 不另搭正式 workspace 或公共 fake。
+现有 [renderer](../../../apps/desktop/renderer/README.md) 已整合 11 个页面入口、案件操作和现有 DesktopApi；后端未装配功能明确不可用，真实 Electron 与完整 S12 验收仍未完成。UI 只消费 DesktopApi；D0 不另搭正式 workspace 或公共 fake。
 
 按[统一命令](../commands.md)和[交接模板](../workflow.md)记录结果；真实 Electron 验证独立记录，不继承旧机器限制。
 
@@ -22,6 +22,10 @@
 
 ## 2026-10-24 本地续作交接
 
-用户授权跨 A/B/C/D 串行推进，实际代码基准 cc610cb6447ca70659030cc597b486a12cd8d872，依赖 A1—A3 已合入的 3ee347c / 157e956。只写 /home/eight/Project/GPT/campussec；来源仓库只读。本地目录未建立产品 Git，本轮无实现/合并 commit，不把 checking 写成 main 已验收。
+用户授权跨 A/B/C/D 串行推进，实际代码基准 cc610cb6447ca70659030cc597b486a12cd8d872，依赖 A1—A3 已合入的 3ee347c / 157e956。只写 campussec；来源仓库只读。本地目录未建立产品 Git，本轮无实现/合并 commit，不把 checking 写成 main 已验收。
+
+2026-10-24 前端融合续作：11 个页面入口与现有 DesktopApi 接线，16 项独立浏览器交互验收通过；必要运行入口见 renderer/README.md，后端缺项与真实 Electron 验收继续保持未完成。
+
+2026-10-24 桌面整合：对照目标 `9e7687b` 保持契约与 preload，增加产物适配/隐私检查，以及 Windows 实际窗口的全导航、URL 与尺寸验证。清理临时真实联测工具、数据和个人路径。144 项 Bun 测试、19 项独立浏览器检查及目标最新代码叠加前端的类型/构建/产物检查通过；外部桌面验收仍未执行。
 
 本轮功能、公开入口、失败与未执行项统一见[本地案件闭环验证](../../verification/local-cases-2026-10-24.md)。Windows 开发者可运行 `npm.cmd run test:windows:full`；本机未执行 Node/Electron。后续阶段按原表依赖推进，不用本轮合成材料放行真实接入。

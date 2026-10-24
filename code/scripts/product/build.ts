@@ -1,7 +1,9 @@
 import { spawnSync } from "node:child_process";
-import { cp, mkdir, readdir, stat, writeFile } from "node:fs/promises";
+import { cp, mkdir, readdir, rm, stat, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
+// Remove replaced UI modules before compilation so an old preview or page cannot enter the desktop output.
+await rm("dist/apps/desktop/renderer", { recursive: true, force: true });
 // process.execPath is Bun for local execution and Node for other members' npm scripts.
 const result = spawnSync(
   process.execPath,
@@ -26,9 +28,11 @@ for (const entry of await readdir("packages", { withFileTypes: true })) {
   await cp(source, join("packages", entry.name, "dist"), { recursive: true });
 }
 await mkdir("dist/packages/storage/migrations", { recursive: true });
-await cp("packages/storage/migrations", "dist/packages/storage/migrations", {
-  recursive: true,
-});
+await cp(
+  "packages/storage/migrations",
+  "dist/packages/storage/migrations",
+  { recursive: true },
+);
 for (const file of ["index.html", "style.css"])
   await cp(
     `apps/desktop/renderer/${file}`,

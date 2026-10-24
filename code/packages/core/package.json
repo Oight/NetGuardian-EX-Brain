@@ -4,17 +4,9 @@
   "private": true,
   "type": "module",
   "exports": {
-    "./investigations/tools": {
-      "types": "./investigations/tool-runner/index.ts",
-      "default": "./dist/investigations/tool-runner/index.js"
-    },
     "./requests/budgets": {
       "types": "./requests/budgets.ts",
       "default": "./dist/requests/budgets.js"
-    },
-    "./reports": {
-      "types": "./reports/index.ts",
-      "default": "./dist/reports/index.js"
     },
     "./cases": {
       "types": "./cases/index.ts",
@@ -22,7 +14,6 @@
     }
   },
   "dependencies": {
-    "@campussec/contracts": "0.2.0",
-    "@campussec/investigation-profile": "0.2.0"
+    "@campussec/contracts": "0.2.0"
   }
 }

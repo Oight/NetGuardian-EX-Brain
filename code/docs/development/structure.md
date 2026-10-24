@@ -1,8 +1,8 @@
 # 项目结构与修改归属
 
-原分工依据：设计仓库 `120c81cfd4d8ed720c9cc70178edb9c6fd172a34` 的 T002—T005。下文 A/B/C/D 为参考映射，实际按当次任务声明的路径认领，可跨原分工串行实现；共享文件仍保持单任务写入。权威组件依赖和表所有者仍是 [architecture.json](../../spec/architecture.json)，不改变业务基线或事务边界。
+分工依据：设计仓库 `120c81cfd4d8ed720c9cc70178edb9c6fd172a34` 的 T002—T005。权威组件依赖和表所有者仍是 [architecture.json](../../spec/architecture.json)；本页只映射产品目录，不修改业务基线。
 
-冻结附件的 sharedWritePaths 仍含旧 fixtures/shared。按新版任务将纯 fake 映射至 packages/testkit、真实集成夹具映射至 tests/support；共享文件列入当次任务范围并串行处理，不重写冻结附件。
+冻结附件的 sharedWritePaths 仍含旧 fixtures/shared。按新版任务将纯 fake 映射至 packages/testkit、真实集成夹具映射至 tests/support；共享写入仍由 A 串行处理，不重写冻结附件。
 
 ```text
 campussec/
@@ -34,7 +34,7 @@ campussec/
 └── spec/                               固定原文、校验值和来源
 ```
 
-node_modules、.local、.cache、dist、dist-test 和包内 dist 是忽略的生成物，不作为源码或交接输入。cases、wazuh-adapter、channels、reports 与 investigation-profile 已有实现；未实现模块明确报不可用，不导出成功占位接口。
+node_modules、.local、.cache、dist、dist-test 和包内 dist 是忽略的生成物，不作为源码或交接输入。cases 与 wazuh-adapter 已有真实服务；其余待实现模块仍只有 README，不导出成功占位接口。
 
 ## 公开入口与测试
 

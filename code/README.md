@@ -2,7 +2,7 @@
 
 业务基线 **v4.2**，内部工程契约 **0.2.0**，外部信封 **0.1.0**。设计资料提供并署名：**Shimakaze-17900**；实现与整理：Codex 辅助。[设计快照与来源](spec/README.md)。
 
-目前已有 S01 契约、S02 SQLite、S03 桌面宿主、独立 S07 原子预算与取证工具执行器、S06 案件/证据、S04 Wazuh 只读适配、S09 独立证据通道，以及 S10 调查配置/报告/人工核查/导出后端。案件工作台可创建案件、保存背景并重开回读；S10 已经 DesktopApi 装配。完整调查编排、告警业务、MCP 协议入口、宿主执行、回传与完整报告交互仍待后续阶段。[案件验证](docs/verification/local-cases-2026-10-24.md) · [报告任务与验证](docs/development/tasks/T003-b-local-domain.md) · [工具任务与接入](docs/development/tasks/T002-a-foundation.md)。
+目前已有 S01 契约、S02 SQLite 存储、S03 桌面宿主、独立 S07 原子预算，以及本轮新增的 S06 案件/证据/背景/封存/清理原语、S04 Wazuh 只读适配和案件工作台。可通过页面创建案件、保存背景并重开回读。完整调查编排、告警业务、报告核查/导出、MCP、宿主执行与回传仍待对应阶段；不可用能力明确报错。[本轮范围与验证](docs/verification/local-cases-2026-10-24.md)。
 
 ## 从这里开始
 
@@ -21,7 +21,7 @@
 | C 外部接入   | S04、S08、S09、S11                | wazuh-adapter、teleagent-bridge、mcp-server、core/delivery                             |
 | D 界面与验收 | S12；用户验收场景                 | desktop/renderer、tests/acceptance                                                     |
 
-上表为原分工参考，实际按任务路径认领；根配置、锁、公共导出、检查、CI、装配与迁移纳入当次范围并由单任务串行维护，物理迁移维护不等于拥有全部业务状态。完整目录见结构说明。
+根配置、锁、公共导出、检查脚本、CI 与装配由 A 串行维护；B 维护迁移不等于拥有全部业务状态。完整目录见结构说明。
 
 ## 安装与检查
 

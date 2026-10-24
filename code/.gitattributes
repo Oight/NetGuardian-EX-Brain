@@ -1,5 +1,5 @@
 * text=auto eol=lf
-# Preserve original bytes, including CRLF; do not report the preserved CR as trailing whitespace.
-spec/** -text whitespace=cr-at-eol
-packages/storage/migrations/0001.sql -text whitespace=cr-at-eol
+# Preserve checksum-verified snapshots and the initial migration byte for byte.
+spec/** -text
+packages/storage/migrations/0001.sql -text
 *.png binary
