@@ -77,7 +77,7 @@ Node 24.15 / Windows 下严格类型、构建、边界、契约、双锁及 28 �
 
 ## 2026-10-24：取证工具执行器（按路径认领）
 
-- 状态：checking，独立工具应用用例实现与自检完成，待合并；base `4b7349cebb51b5b8a89a5ac07bb0d0115f2365cb`。分支 `task/S07-investigation-tools`，工作目录 `D:/design_agent/campussec-tools`；依赖为该 base 已合并的预算、案件、S04 查询与 S10 提案端口。
+- 状态：done（仅独立工具应用用例）；实现 `db7e197cb41486ce6e8b0cb26ecd8d6722603e9b` 已于 2026-10-24 快进合入 main。base `4b7349cebb51b5b8a89a5ac07bb0d0115f2365cb`；分支 `task/S07-investigation-tools`，工作目录 `D:/design_agent/campussec-tools`；依赖为该 base 已合并的预算、案件、S04 查询与 S10 提案端口。
 - 范围 `code/packages/core/investigations/tool-runner/**`，附带 core 包出口、必要入口说明和本段。实现 invoke/发送确认、回复缓存过期窄端口；不接管请求终态、宿主、MCP 监听或调度。
 - 设计取舍：事件键统一为公开 EvidenceRef.evidenceId（种子亦同），S06 采集后同事务计数，超额整体回滚；工具/平台预占仍在各自短事务提交，不返还。PreparedProfile 不充当交付证明；当前只由工具回复 released 确认建立背景交付事实，宿主初始消息回执留待协调者接入。S04 缓存页的新增请求数为 0，通过 S07 自有精确页回执复用 S06 引用，保留首次采集快照，不读写 S06 私表。
 - 检查：锁定 Node/npm、真实 SQLite 的预算/取证/报告/缓存组合、类型/构建/边界/契约/锁、干净副本与 Electron 回归。结果完成后简记，不新增大篇幅报告。
