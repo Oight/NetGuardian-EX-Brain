@@ -87,11 +87,21 @@ export function authorize(
     : fail("FORBIDDEN", "报告主体空间不匹配");
 }
 /** S07 supplies a checked projection through its public read port. */
-export function runAnchor(deps: Pick<Dependencies, "anchors">, tx: ReadTx, ctx: CallContext, runId: string): Result<AnalysisRun> {
+export function runAnchor(
+  deps: Pick<Dependencies, "anchors">,
+  tx: ReadTx,
+  ctx: CallContext,
+  runId: string,
+): Result<AnalysisRun> {
   const value = deps.anchors.runInTx(tx, ctx, runId);
   return value.ok ? ok(value.value.run) : value;
 }
-export function contextIdentity(deps: Pick<Dependencies, "anchors">, tx: ReadTx, ctx: CallContext, context: ResultContext): Result<{hasRun: boolean}> {
+export function contextIdentity(
+  deps: Pick<Dependencies, "anchors">,
+  tx: ReadTx,
+  ctx: CallContext,
+  context: ResultContext,
+): Result<{ hasRun: boolean }> {
   return deps.anchors.contextInTx(tx, ctx, context);
 }
 export function decodeReport(row: ReportRow): {

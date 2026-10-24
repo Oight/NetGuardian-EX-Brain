@@ -303,7 +303,10 @@ export function createDesktopFacade(deps: FacadeDependencies) {
       const result = await services.alerts.markRead(ctx, input.alertIds);
       return result.ok ? ok(null) : result;
     },
-    "alerts.getPolicy": (ctx, input) => services.policies ? services.policies.getPolicy(ctx, input.connectionId) : unavailable(),
+    "alerts.getPolicy": (ctx, input) =>
+      services.policies
+        ? services.policies.getPolicy(ctx, input.connectionId)
+        : unavailable(),
     "alerts.setPolicy": (ctx, input) =>
       services.alerts ? services.alerts.setPolicy(ctx, input) : unavailable(),
     "statistics.alerts": (ctx, input) => {
@@ -358,8 +361,10 @@ export function createDesktopFacade(deps: FacadeDependencies) {
       services.requests
         ? services.requests.status(ctx, input.requestId)
         : unavailable(),
-    "investigations.history": (ctx, input) => services.history ? services.history.list(ctx, input) : unavailable(),
-    "investigations.input": (ctx, input) => services.history ? services.history.snapshot(ctx, input) : unavailable(),
+    "investigations.history": (ctx, input) =>
+      services.history ? services.history.list(ctx, input) : unavailable(),
+    "investigations.input": (ctx, input) =>
+      services.history ? services.history.snapshot(ctx, input) : unavailable(),
     "investigations.snapshot": (ctx, input) =>
       services.requests
         ? services.requests.runSnapshot(ctx, input.runId)
@@ -410,7 +415,10 @@ export function createDesktopFacade(deps: FacadeDependencies) {
       services.delivery
         ? services.delivery.getResult(ctx, input)
         : unavailable(),
-    "deliveries.recover": (ctx, input) => services.deliveryRecovery ? services.deliveryRecovery.recover(ctx, input) : unavailable(),
+    "deliveries.recover": (ctx, input) =>
+      services.deliveryRecovery
+        ? services.deliveryRecovery.recover(ctx, input)
+        : unavailable(),
     "deliveries.status": (ctx, input) =>
       services.delivery
         ? services.delivery.status(ctx, input.requestId)

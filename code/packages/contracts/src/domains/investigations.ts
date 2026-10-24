@@ -16,10 +16,7 @@ import type { AutoCandidate } from "./alerts.js";
 export type Origin = "alert_auto" | "client_user" | "teleagent_user";
 
 export type RequestState =
-  | "awaiting_scope"
-  | "accepted"
-  | "rejected"
-  | "withdrawn";
+  "awaiting_scope" | "accepted" | "rejected" | "withdrawn";
 
 export type JobState =
   | "coalescing"

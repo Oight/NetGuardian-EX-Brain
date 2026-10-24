@@ -221,9 +221,7 @@
       "input": "托盘运行、关闭窗口设置、完全退出或休眠",
       "expected": "实际驻留状态与说明一致；不把完全退出描述为仍能提供本地提醒",
       "status": "windows_pending",
-      "evidence": [
-        "scripts/electron/foundation-smoke.cjs"
-      ],
+      "evidence": ["scripts/electron/foundation-smoke.cjs"],
       "limits": "仅适配与静态语法检查；实际 Windows/Electron 托盘、窗口、休眠和退出未执行。",
       "realPlatformAcceptance": "not_executed"
     },

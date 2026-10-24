@@ -1,6 +1,9 @@
 import { createDeliveryRecovery } from "@campussec/core/delivery/recovery";
 import { createPolicyReader } from "@campussec/core/alerts/policy-reader";
-import { createInvestigationHistory, createReportAnchors } from "@campussec/core/requests/read-model";
+import {
+  createInvestigationHistory,
+  createReportAnchors,
+} from "@campussec/core/requests/read-model";
 import { join } from "node:path";
 import { randomUUID } from "node:crypto";
 import {
@@ -43,7 +46,10 @@ import {
   type ExecutionWire,
 } from "@campussec/teleagent-bridge/execution";
 import { PROFILE_MANIFEST } from "@campussec/investigation-profile";
-import { createWazuhAdapter, type AdapterDependencies } from "@campussec/wazuh-adapter";
+import {
+  createWazuhAdapter,
+  type AdapterDependencies,
+} from "@campussec/wazuh-adapter";
 import { createSecretStore, type SecretProtection } from "../main/secrets.js";
 import {
   createDesktopFacade,
@@ -62,7 +68,10 @@ export async function composeRuntime(input: {
   principalId: string;
   identityEpoch: number;
   protection: SecretProtection;
-  databaseProtection?: {encrypt(text:string):Uint8Array;decrypt(bytes:Uint8Array):string};
+  databaseProtection?: {
+    encrypt(text: string): Uint8Array;
+    decrypt(bytes: Uint8Array): string;
+  };
   clock?: ClockPort;
   ids?: IdPort;
   services?: RuntimeServices;
@@ -89,7 +98,12 @@ export async function composeRuntime(input: {
     monotonicMs: () => performance.now(),
   };
   const ids = input.ids ?? { next: () => randomUUID() };
-  const storage = await createStorage({ ...input, clock, ids,encryption:input.databaseProtection });
+  const storage = await createStorage({
+    ...input,
+    clock,
+    ids,
+    encryption: input.databaseProtection,
+  });
   if (!storage.ok) return storage;
   const secrets = createSecretStore({
     directory: join(input.dataDir, "secrets"),
@@ -255,9 +269,21 @@ export async function composeRuntime(input: {
       alerts,
       retention,
       publication,
-      deliveryRecovery: createDeliveryRecovery({...storage.value, clock, host, results, retrySafety: input.deliveryRetrySafety ?? {canRetryAbsent: async () => fail("CAPABILITY_UNAVAILABLE", "宿主未提供相同投递键安全重试保证")}}),
+      deliveryRecovery: createDeliveryRecovery({
+        ...storage.value,
+        clock,
+        host,
+        results,
+        retrySafety: input.deliveryRetrySafety ?? {
+          canRetryAbsent: async () =>
+            fail("CAPABILITY_UNAVAILABLE", "宿主未提供相同投递键安全重试保证"),
+        },
+      }),
       policies: createPolicyReader(storage.value),
-      history: createInvestigationHistory({db: storage.value.db, casesAtomic: cases.atomic}),
+      history: createInvestigationHistory({
+        db: storage.value.db,
+        casesAtomic: cases.atomic,
+      }),
       ...input.services,
     },
     // Every adapter request checks the persisted generation before and after I/O.
@@ -338,7 +364,8 @@ export async function composeRuntime(input: {
       const listed = await connections.list(systemCtx());
       if (!listed.ok) return listed;
       for (const p of listed.value) {
-        if (!p.indexerSecretRef && !input.externalPlatform?.matches(p)) continue;
+        if (!p.indexerSecretRef && !input.externalPlatform?.matches(p))
+          continue;
         const polled = await alerts.pollOnce(systemCtx(), p.id);
         if (!polled.ok) return polled;
       }

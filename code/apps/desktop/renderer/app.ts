@@ -1050,18 +1050,52 @@ export function mountWorkbench(input: {
     investigations.form(investigation.body, c.scope, id, refs, page.valid);
     const history = el("div");
     async function loadHistory(cursor?: string) {
-      const data = await invoke("investigations.history", {caseId:id, page:{limit:20, ...(cursor ? {cursor} : {})}});
+      const data = await invoke("investigations.history", {
+        caseId: id,
+        page: { limit: 20, ...(cursor ? { cursor } : {}) },
+      });
       if (!page.valid()) return;
       for (const item of data.items)
-        history.append(button(`${formatTime(item.request.createdAt)} · ${stateText(item.job?.state ?? item.request.state)} · ${item.request.question}`, () => investigations.statusDialog({request:item.request, ...(item.job ? {job:item.job} : {})}), "button secondary small-button", "requests"));
-      if (!data.items.length && !cursor) history.append(el("p", "此案件暂无调查请求", "small muted"));
+        history.append(
+          button(
+            `${formatTime(item.request.createdAt)} · ${stateText(item.job?.state ?? item.request.state)} · ${item.request.question}`,
+            () =>
+              investigations.statusDialog({
+                request: item.request,
+                ...(item.job ? { job: item.job } : {}),
+              }),
+            "button secondary small-button",
+            "requests",
+          ),
+        );
+      if (!data.items.length && !cursor)
+        history.append(el("p", "此案件暂无调查请求", "small muted"));
       if (data.nextCursor) {
         const next = data.nextCursor;
-        const more = button("继续读取历史", () => void run(more, async () => {await loadHistory(next); more.remove();}), "button secondary small-button");
+        const more = button(
+          "继续读取历史",
+          () =>
+            void run(more, async () => {
+              await loadHistory(next);
+              more.remove();
+            }),
+          "button secondary small-button",
+        );
         history.append(more);
       }
     }
-    investigation.body.append(button("读取全部调查历史", () => void run(undefined, async () => {history.replaceChildren(); await loadHistory();}), "button secondary small-button"), history);
+    investigation.body.append(
+      button(
+        "读取全部调查历史",
+        () =>
+          void run(undefined, async () => {
+            history.replaceChildren();
+            await loadHistory();
+          }),
+        "button secondary small-button",
+      ),
+      history,
+    );
     middle.append(investigation.root);
     const background = card(
         "人工业务背景",

@@ -113,7 +113,12 @@ export function checkSource(
     }
   };
   const checkSql = (text: string) => {
-    if (component === "reports" && /\b(?:FROM|JOIN)\s+["`\[]?(?:analysis_runs|investigation_requests|jobs)\b/i.test(text))
+    if (
+      component === "reports" &&
+      /\b(?:FROM|JOIN)\s+["`\[]?(?:analysis_runs|investigation_requests|jobs)\b/i.test(
+        text,
+      )
+    )
       error("S10 must use ReportAnchorReadPort for S07 data");
     for (const match of text.matchAll(
       /\b(?:INSERT\s+(?:OR\s+\w+\s+)?INTO|UPDATE|DELETE\s+FROM)\s+["`\[]?(\w+)/gi,

@@ -1,4 +1,4 @@
-import type {Durability} from "./encrypted-snapshot.js";
+import type { Durability } from "./encrypted-snapshot.js";
 import type { DatabaseSync } from "node:sqlite";
 import type { StorageDependencies } from "./types.js";
 import {
@@ -56,8 +56,8 @@ export function createDatabase(
     const operation = tail.then((): Result<T> => {
       const auth = authorize(ctx);
       if (!auth.ok) return auth;
-      let staged:ReturnType<Durability["prepare"]>|undefined;
-      let committed=false;
+      let staged: ReturnType<Durability["prepare"]> | undefined;
+      let committed = false;
       let active = true;
       const assertLive = () => {
         if (!active) throw new Error("Transaction handle expired");
@@ -109,14 +109,20 @@ export function createDatabase(
         inCallback = false;
         active = false;
         liveWrites.delete(tx);
-        if(writable&&result.ok&&durability)staged=durability.prepare();
+        if (writable && result.ok && durability) staged = durability.prepare();
         connection.exec(result.ok ? "COMMIT" : "ROLLBACK");
-        committed=result.ok;
+        committed = result.ok;
         staged?.commit();
         return result;
       } catch {
         staged?.abort();
-        if(committed&&durability){try{durability.restore();}catch{closing=true;}}
+        if (committed && durability) {
+          try {
+            durability.restore();
+          } catch {
+            closing = true;
+          }
+        }
         try {
           connection.exec("ROLLBACK");
         } catch {
@@ -153,7 +159,13 @@ export function createDatabase(
     close() {
       if (!closePromise) {
         closing = true;
-        closePromise = tail.then(() => {try{connection.close();}finally{durability?.close();}});
+        closePromise = tail.then(() => {
+          try {
+            connection.close();
+          } finally {
+            durability?.close();
+          }
+        });
       }
       return closePromise;
     },

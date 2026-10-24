@@ -1005,14 +1005,19 @@ export function createRequestService(d: RequestDependencies): {
       if (!found.ok) return found;
       // A follow-up round may use an already investigating case. Record its new
       // input revision through S06 instead of attempting an illegal self-transition.
-      const investigating = found.value.status === "investigating"
-        ? d.cases.recordChangeInTx(tx, ctx, {caseId:j.case_id,expectedRevision:found.value.revision,reason:"准备新一轮调查"})
-        : d.cases.setStatusInTx(tx, ctx, {
-        caseId: j.case_id,
-        expectedRevision: found.value.revision,
-        status: "investigating",
-        reason: "准备调查",
-      });
+      const investigating =
+        found.value.status === "investigating"
+          ? d.cases.recordChangeInTx(tx, ctx, {
+              caseId: j.case_id,
+              expectedRevision: found.value.revision,
+              reason: "准备新一轮调查",
+            })
+          : d.cases.setStatusInTx(tx, ctx, {
+              caseId: j.case_id,
+              expectedRevision: found.value.revision,
+              status: "investigating",
+              reason: "准备调查",
+            });
       if (!investigating.ok) return investigating;
       const runId = d.ids.next(),
         expiresAt = new Date(
@@ -1022,7 +1027,10 @@ export function createRequestService(d: RequestDependencies): {
         id: runId,
         jobId: j.id,
         caseId: j.case_id,
-        baseRevision: typeof investigating.value === "number" ? investigating.value : investigating.value.revision,
+        baseRevision:
+          typeof investigating.value === "number"
+            ? investigating.value
+            : investigating.value.revision,
         scope,
         connectionGeneration: connection.generation,
         identityEpoch: ctx.actor.identityEpoch,

@@ -91,7 +91,9 @@ export function createReportService(deps: Dependencies): ReportService {
 }
 
 /** Internal read port. S11 must first authorize the source subscription in the same transaction. */
-export function createResultPackageReader(deps: Pick<Dependencies, "anchors">): ResultPackageReadPort {
+export function createResultPackageReader(
+  deps: Pick<Dependencies, "anchors">,
+): ResultPackageReadPort {
   return {
     getInTx(tx, ctx, input) {
       const auth = authorize(tx, ctx, ["ui", "system", "delegation"]);

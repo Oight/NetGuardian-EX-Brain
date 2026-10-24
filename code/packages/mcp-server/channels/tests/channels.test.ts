@@ -70,14 +70,12 @@ test("construction is inert; pending grants contain only a digest and secret ref
     assert.equal(channel.state, "pending");
     assert.equal(channel.endpoint, undefined);
     const row = take(
-      await f.db.read(
-        system(),
-        (tx) =>
-          tx.get<{
-            token_digest: string;
-            binding_json: string | null;
-            role: string;
-          }>("SELECT * FROM mcp_grants")!,
+      await f.db.read(system(), (tx) =>
+        tx.get<{
+          token_digest: string;
+          binding_json: string | null;
+          role: string;
+        }>("SELECT * FROM mcp_grants")!,
       ),
     );
     assert.equal(
@@ -313,9 +311,8 @@ test("revocation persists before secret cleanup; retries cannot resurrect the sa
     take(await f.channels.revokeAll(system()));
     assert.equal(
       take(
-        await f.db.read(
-          system(),
-          (tx) => tx.get<{ state: string }>("SELECT state FROM mcp_grants")!,
+        await f.db.read(system(), (tx) =>
+          tx.get<{ state: string }>("SELECT state FROM mcp_grants")!,
         ),
       ).state,
       "revoked",
@@ -359,10 +356,8 @@ test("a newer tool epoch rotates the token and binding without reviving old cred
     );
     assert.equal(
       take(
-        await f.db.read(
-          system(),
-          (tx) =>
-            tx.get<{ n: number }>("SELECT COUNT(*) AS n FROM mcp_grants")!,
+        await f.db.read(system(), (tx) =>
+          tx.get<{ n: number }>("SELECT COUNT(*) AS n FROM mcp_grants")!,
         ),
       ).n,
       1,
@@ -417,10 +412,8 @@ test("secret creation and failed database writes leave no usable grant or orphan
     );
     assert.equal(
       take(
-        await f.db.read(
-          system(),
-          (tx) =>
-            tx.get<{ n: number }>("SELECT COUNT(*) AS n FROM mcp_grants")!,
+        await f.db.read(system(), (tx) =>
+          tx.get<{ n: number }>("SELECT COUNT(*) AS n FROM mcp_grants")!,
         ),
       ).n,
       0,
@@ -482,9 +475,8 @@ test("revoke requested while open awaits secret storage runs after creation and 
     take(await revoked);
     assert.equal(
       take(
-        await f.db.read(
-          system(),
-          (tx) => tx.get<{ state: string }>("SELECT state FROM mcp_grants")!,
+        await f.db.read(system(), (tx) =>
+          tx.get<{ state: string }>("SELECT state FROM mcp_grants")!,
         ),
       ).state,
       "revoked",
@@ -592,12 +584,10 @@ test("rotation cleanup failure preserves a revoked reference and can be retried"
       "SECRET_STORE_UNAVAILABLE",
     );
     const row = take(
-      await f.db.read(
-        system(),
-        (tx) =>
-          tx.get<{ id: string; state: string; secret_ref: string }>(
-            "SELECT * FROM mcp_grants",
-          )!,
+      await f.db.read(system(), (tx) =>
+        tx.get<{ id: string; state: string; secret_ref: string }>(
+          "SELECT * FROM mcp_grants",
+        )!,
       ),
     );
     assert.equal(row.id, old.channel.id);
@@ -644,10 +634,8 @@ test("a connection change during secret creation prevents commit and removes the
     error(await f.secrets.use(created.ref, created.purpose, async () => true));
     assert.equal(
       take(
-        await f.db.read(
-          system(),
-          (tx) =>
-            tx.get<{ n: number }>("SELECT COUNT(*) AS n FROM mcp_grants")!,
+        await f.db.read(system(), (tx) =>
+          tx.get<{ n: number }>("SELECT COUNT(*) AS n FROM mcp_grants")!,
         ),
       ).n,
       0,

@@ -4,4 +4,4 @@ export * from "./canonical.js";
 export * from "./schemas.js";
 import { DEFAULT_LIMITS } from "./types.js";
 Object.freeze(DEFAULT_LIMITS);
-export * from './auth.js';
+export * from "./auth.js";

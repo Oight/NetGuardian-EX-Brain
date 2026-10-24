@@ -127,9 +127,7 @@ export interface HostDeliveryPort {
 }
 
 export interface HostAccessPort
-  extends HostCapabilitiesPort,
-    TrustedOriginPort,
-    HostDeliveryPort {}
+  extends HostCapabilitiesPort, TrustedOriginPort, HostDeliveryPort {}
 
 export interface ExecutionPort {
   start(

@@ -162,7 +162,12 @@ export async function setup(withContext = false) {
       return ok(undefined);
     }),
   );
-  const deps = { ...f, anchors: createReportAnchors(), cases: cases.service, casesAtomic: cases.atomic },
+  const deps = {
+      ...f,
+      anchors: createReportAnchors(),
+      cases: cases.service,
+      casesAtomic: cases.atomic,
+    },
     service = createReportService(deps),
     reader = createResultPackageReader(deps);
   const resultContext: ResultContext = {
@@ -347,9 +352,8 @@ export async function setup(withContext = false) {
     attach,
     async count(table: string) {
       return take(
-        await f.db.read(
-          context(),
-          (tx) => tx.get<{ n: number }>(`SELECT COUNT(*) AS n FROM ${table}`)!,
+        await f.db.read(context(), (tx) =>
+          tx.get<{ n: number }>(`SELECT COUNT(*) AS n FROM ${table}`)!,
         ),
       ).n;
     },

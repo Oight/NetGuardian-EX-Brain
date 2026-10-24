@@ -398,21 +398,38 @@ test("concurrent admissions enforce the actual queue cap atomically without orph
   }
 });
 
-test('follow-up round on an investigating case freezes a new revision instead of attempting an illegal case self-transition',async()=>{
-  const f=await fixture();
+test("follow-up round on an investigating case freezes a new revision instead of attempting an illegal case self-transition", async () => {
+  const f = await fixture();
   try {
-    const first=take(await f.runtime.services.requests.create(f.ctx,f.request('round-one')));
+    const first = take(
+      await f.runtime.services.requests.create(f.ctx, f.request("round-one")),
+    );
     take(await f.runtime.services.requests.tick(f.system));
-    const before=take(await f.runtime.services.requests.status(f.ctx,first.request.id));
-    assert.equal(before.job?.state,'failed'); // No real execution adapter in this fixture.
-    const second=take(await f.runtime.services.requests.create(f.ctx,{...f.request('round-two'),caseId:first.request.caseId}));
+    const before = take(
+      await f.runtime.services.requests.status(f.ctx, first.request.id),
+    );
+    assert.equal(before.job?.state, "failed"); // No real execution adapter in this fixture.
+    const second = take(
+      await f.runtime.services.requests.create(f.ctx, {
+        ...f.request("round-two"),
+        caseId: first.request.caseId,
+      }),
+    );
     take(await f.runtime.services.requests.tick(f.system));
-    const after=take(await f.runtime.services.requests.status(f.ctx,second.request.id));
-    assert.equal(after.job?.state,'failed');
-    assert.notEqual(after.job?.runId,before.job?.runId);
-    const a=take(await f.runtime.services.requests.runSnapshot(f.ctx,before.job!.runId!));
-    const b=take(await f.runtime.services.requests.runSnapshot(f.ctx,after.job!.runId!));
-    assert.ok(b.run.baseRevision>a.run.baseRevision);
-    assert.equal(f.network(),0);
-  } finally {await f.close();}
+    const after = take(
+      await f.runtime.services.requests.status(f.ctx, second.request.id),
+    );
+    assert.equal(after.job?.state, "failed");
+    assert.notEqual(after.job?.runId, before.job?.runId);
+    const a = take(
+      await f.runtime.services.requests.runSnapshot(f.ctx, before.job!.runId!),
+    );
+    const b = take(
+      await f.runtime.services.requests.runSnapshot(f.ctx, after.job!.runId!),
+    );
+    assert.ok(b.run.baseRevision > a.run.baseRevision);
+    assert.equal(f.network(), 0);
+  } finally {
+    await f.close();
+  }
 });

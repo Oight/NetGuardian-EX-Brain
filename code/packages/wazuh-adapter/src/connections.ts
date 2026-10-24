@@ -23,7 +23,13 @@ export interface Dependencies {
   /** Trusted composition only. Renderer cannot choose a proxy address or bypass credentials. */
   external?: {
     matches(profile: ConnectionProfile): boolean;
-    request(input: {kind: "indexer" | "server"; segments: string[]; parameters: Record<string,string>; body?: unknown; signal: AbortSignal}): Promise<Result<Record<string,unknown>>>;
+    request(input: {
+      kind: "indexer" | "server";
+      segments: string[];
+      parameters: Record<string, string>;
+      body?: unknown;
+      signal: AbortSignal;
+    }): Promise<Result<Record<string, unknown>>>;
   };
 }
 type ProfileRow = {
@@ -336,11 +342,22 @@ export function createConnections(deps: Dependencies) {
         return withPlatformSlot(signal, async () => {
           const before = await fence();
           if (!before.ok) return before;
-          if (attempts >= 20) return fail("BUDGET_EXHAUSTED", "后台平台请求预算耗尽");
-          if (call) {const reserved = await call.beforeAttempt(); if (!reserved.ok) return reserved;}
-          const checked=await fence();if(!checked.ok)return checked;
+          if (attempts >= 20)
+            return fail("BUDGET_EXHAUSTED", "后台平台请求预算耗尽");
+          if (call) {
+            const reserved = await call.beforeAttempt();
+            if (!reserved.ok) return reserved;
+          }
+          const checked = await fence();
+          if (!checked.ok) return checked;
           attempts++;
-          const response = await deps.external!.request({kind,segments,parameters,body,signal});
+          const response = await deps.external!.request({
+            kind,
+            segments,
+            parameters,
+            body,
+            signal,
+          });
           const after = await fence();
           return after.ok ? response : after;
         });

@@ -22,8 +22,12 @@ export async function migrate(
       };
     }),
   );
-  const migrations=through===undefined?available:available.filter(m=>m.version<=through);
-  if(through!==undefined&&migrations.length!==through)throw Error("Unknown encrypted schema version");
+  const migrations =
+    through === undefined
+      ? available
+      : available.filter((m) => m.version <= through);
+  if (through !== undefined && migrations.length !== through)
+    throw Error("Unknown encrypted schema version");
   if (!migrations.length || migrations.some((m, i) => m.version !== i + 1))
     throw new Error("Invalid migration sequence");
   const tables = () =>

@@ -23,7 +23,13 @@ test("boundary checks reject report lifecycle dependencies and cross-owner SQL",
       (error) => error.includes("belongs to S07"),
     ),
   );
-  assert.ok(checkSource(path, "tx.get('SELECT initial_input_json FROM analysis_runs WHERE id=?')", spec).some(error => error.includes('ReportAnchorReadPort')));
+  assert.ok(
+    checkSource(
+      path,
+      "tx.get('SELECT initial_input_json FROM analysis_runs WHERE id=?')",
+      spec,
+    ).some((error) => error.includes("ReportAnchorReadPort")),
+  );
   assert.deepEqual(
     checkSource(
       path,

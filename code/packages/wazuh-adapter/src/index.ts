@@ -184,4 +184,4 @@ export function createWazuhAdapter(deps: Dependencies): ConnectionService {
 }
 
 export type { Dependencies as AdapterDependencies } from "./connections.js";
-export {createCampusProxy, CAMPUS_PROXY_MAPPING} from "./campus-proxy.js";
+export { createCampusProxy, CAMPUS_PROXY_MAPPING } from "./campus-proxy.js";

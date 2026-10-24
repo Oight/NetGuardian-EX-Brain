@@ -497,12 +497,10 @@ test("cleanup and reply expiry share one real transaction; stale cache cannot re
     error(await f.ack("expire"), "EXPIRED");
     assert.equal(f.platform.query.calls.length, 1);
     const stored = take(
-      await f.db.read(
-        system(),
-        (tx) =>
-          tx.get<{ reply_json: string | null }>(
-            "SELECT reply_json FROM mcp_calls WHERE call_id='expire'",
-          )!,
+      await f.db.read(system(), (tx) =>
+        tx.get<{ reply_json: string | null }>(
+          "SELECT reply_json FROM mcp_calls WHERE call_id='expire'",
+        )!,
       ),
     );
     assert.equal(stored.reply_json, null);
