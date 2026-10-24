@@ -15,4 +15,4 @@ C 线实现；公开入口 `@campussec/wazuh-adapter` 导出 `createWazuhAdapter
 | 漏洞状态                      | 403 返回 denied/not_executed；成功的权限探测也不能在行映射未核实时返回“零发现”     |
 | 统计                          | size=0、level terms、UTC 1h histogram；保留 total.relation、分片/误差与 partial    |
 
-这些限制与设计中的真实验证边界一致，不代表已经完成真实 Wazuh 的权限、严格 TLS、稳定分页或全设备覆盖验收。字段/路径与离线 M0 材料见 docs/development/workstreams/c/c0-c1-handoff.md。合成验收在 tests/adapter.test.ts；不读取真实凭据。
+这些限制与设计中的真实验证边界一致，不代表已经完成真实 Wazuh 的权限、严格 TLS、稳定分页或全设备覆盖验收。当前状态见[T004](../../docs/development/tasks/T004-c-integrations.md)。合成验收在 tests/adapter.test.ts；不读取真实凭据。

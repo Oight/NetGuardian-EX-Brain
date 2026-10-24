@@ -47,3 +47,5 @@ export function createIpcHandler(deps: {
     );
   };
 }
+
+export function trustedIpcSource(event:TrustedIpcEvent,expected:{windowId:number;documentUrl:string}){return !event.destroyed&&event.senderId===expected.windowId&&event.frameId===event.mainFrameId&&event.url===expected.documentUrl;}

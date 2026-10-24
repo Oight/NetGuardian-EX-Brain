@@ -8,7 +8,7 @@ A 维护；只从 `@campussec/testkit` 公开入口消费。src 只依赖 contra
 | B3     | createScriptedPlatformQuery、createScriptedConnectionRead、createScriptedNotification、createScriptedRequestAtomic | G03 查询/连接/通知与同步 InTx 窄端口                                |
 | C1     | createScriptedHttp、createScriptedSecrets                                                                          | HTTP 与秘密引用；只使用合成字节，用后清零借用副本                   |
 | C2/C4  | createScriptedExecution、createScriptedDelivery、deferred                                                          | uncertain、回执丢失、取消晚到、核实与过期绑定                       |
-| D1     | createScriptedDesktop、foundationSamples                                                                           | 显式的 43 个 DesktopApi 方法样例与严格输入/输出/响应关联校验        |
+| D1     | createScriptedDesktop、foundationSamples                                                                           | 显式的 47 个 DesktopApi 方法样例与严格输入/输出/响应关联校验        |
 
 `foundationSamples()` 是合成 schema 示例，不是业务成功实现；必须显式选择样例排入 fake。示例中 partial、denied、未知覆盖和 needs_review 保持区别，不能将其排进 fake 后声称真实调查已通过。
 

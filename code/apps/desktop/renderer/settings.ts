@@ -174,6 +174,8 @@ export function createSettingsViews(
         "HTTPS 入口与平台身份必须由部署环境确认；未知能力保持未核实",
       ),
       form = el("form", undefined, "form-grid");
+    const transport=select(form,"接入方式","transport",[["direct","独立 HTTPS 连接"],["campus-proxy","本机校园代理（campusguard-mui）"]]);
+    form.append(notice("本机校园代理复用已有认证，不填写或复制其凭据。设备、告警与统计范围受代理接口限制；需由启动环境启用。"));
     field(form, "连接名称", "displayName");
     field(
       form,
@@ -193,6 +195,12 @@ export function createSettingsViews(
     field(form, "告警索引模式", "alertsPattern", "wazuh-alerts-*");
     field(form, "归档索引模式（可空）", "archivesPattern", "", "text", false);
     field(form, "映射版本", "mappingVersion", "wazuh-alerts-v1");
+    transport.addEventListener("change",()=>{
+      const proxy=transport.value==="campus-proxy";
+      for(const name of ["serverBaseUrl","indexerBaseUrl"]){const input=form.elements.namedItem(name) as HTMLInputElement;input.disabled=proxy;if(proxy)input.value="";}
+      (form.elements.namedItem("alertsPattern") as HTMLInputElement).value=proxy?"wazuh-alerts-4.x-*":"wazuh-alerts-*";
+      (form.elements.namedItem("mappingVersion") as HTMLInputElement).value=proxy?"campus-mui-v1":"wazuh-alerts-v1";
+    });
     submit(form, "保存新连接", async () => {
       await invoke("connections.configure", {
         displayName: value(form, "displayName"),
@@ -301,7 +309,10 @@ export function createSettingsViews(
       "策略由告警模块执行。保存前核对接收边界与版本，页面不会自行启动告警轮询。",
     );
     const form = el("form", undefined, "form-grid");
-    ctx.connectionSelect(form);
+    const connection = ctx.connectionSelect(form);
+    let currentPolicy: TriggerPolicy | undefined;
+    let loadedConnection = "";
+    let loadGeneration = 0;
     field(
       form,
       "策略 ID（新策略使用此 UUID）",
@@ -322,12 +333,9 @@ export function createSettingsViews(
       form,
       "最低原始等级",
       "minLevel",
-      [
-        ["7", "L7 及以上"],
-        ["12", "L12 及以上"],
-      ],
+      [["", "所有原始等级"], ...Array.from({length:16}, (_, i) => [String(i), `L${i} 及以上`] as const)],
       "12",
-      true,
+      false,
     );
     field(form, "每日自动调查尝试上限", "dailyAttemptLimit", "10", "number");
     field(
@@ -347,8 +355,10 @@ export function createSettingsViews(
       "checkbox",
       false,
     ) as HTMLInputElement;
-    submit(form, "保存自动策略", async () => {
+    const savePolicy = submit(form, "保存自动策略", async () => {
+      if (loadedConnection !== connection.value) throw new Error("请先读取当前连接的策略");
       const expectedRevision = Number(value(form, "expectedRevision"));
+      const {minLevel: _previousLevel, ...otherFilters} = currentPolicy?.filter ?? {};
       const policy: TriggerPolicy = {
         id: value(form, "policyId"),
         connectionId: value(form, "connectionId"),
@@ -362,7 +372,7 @@ export function createSettingsViews(
               .filter(Boolean),
           ),
         ],
-        filter: { minLevel: Number(value(form, "minLevel")) },
+        filter: {...otherFilters, ...(value(form,"minLevel") ? {minLevel:Number(value(form,"minLevel"))} : {})},
         enabledAfterReceiveSeq: Number(value(form, "enabledAfterReceiveSeq")),
         dailyAttemptLimit: Number(value(form, "dailyAttemptLimit")),
         timeZone: value(form, "timeZone"),
@@ -381,14 +391,35 @@ export function createSettingsViews(
         );
       }
     });
-    modal.body.append(
-      notice(
-        "当前接口没有读取完整策略的方法。编辑已有策略时必须填写部署方提供的策略 ID、版本、epoch 与接收序号，不能用事件序号代替。",
-        "warning",
-      ),
-      form,
-    );
+    savePolicy.disabled = true;
+    const status = el("p", "正在读取策略…", "small muted");
+    async function loadPolicy() {
+      const generation = ++loadGeneration;
+      savePolicy.disabled = true;
+      loadedConnection = "";
+      const selected = connection.value;
+      const snapshot = await invoke("alerts.getPolicy", {connectionId: selected});
+      if (!modal.valid() || generation !== loadGeneration || selected !== connection.value) return;
+      currentPolicy = snapshot.configured ? snapshot.policy : undefined;
+      const values = {
+        policyId: currentPolicy?.id ?? crypto.randomUUID(), expectedRevision: currentPolicy?.revision ?? 0,
+        epoch: currentPolicy?.epoch ?? 1, agents: currentPolicy?.agentIds.join(", ") ?? "",
+        enabledAfterReceiveSeq: currentPolicy?.enabledAfterReceiveSeq ?? 0,
+        minLevel: currentPolicy ? currentPolicy.filter.minLevel ?? "" : 12, dailyAttemptLimit: currentPolicy?.dailyAttemptLimit ?? 10,
+        dailyTokenLimit: currentPolicy?.dailyTokenLimit ?? "", timeZone: currentPolicy?.timeZone ?? "Asia/Shanghai",
+      };
+      for (const [name, content] of Object.entries(values))
+        (form.elements.namedItem(name) as HTMLInputElement).value = String(content);
+      enabled.checked = currentPolicy?.enabled ?? false;
+      loadedConnection = selected;
+      savePolicy.disabled = false;
+      status.textContent = currentPolicy ? `已读取策略 v${currentPolicy.revision}，当前${currentPolicy.enabled ? "启用" : "关闭"}` : "当前连接尚未配置策略";
+    }
+    connection.addEventListener("change", () => void run(undefined, loadPolicy));
+    modal.body.append(status, button("重新读取策略", () => void run(undefined, loadPolicy), "button secondary small-button"), form);
+    void run(undefined, loadPolicy);
   }
+
   async function showSettings() {
     const page = begin("settings"),
       [settings, runtime] = await Promise.all([

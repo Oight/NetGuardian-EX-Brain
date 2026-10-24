@@ -19,7 +19,7 @@ const env = { ...process.env };
 delete env.ELECTRON_RUN_AS_NODE;
 const child = spawnSync(
   executable,
-  [resolve("dist/apps/desktop/main/bootstrap.js")],
+  [resolve("dist/apps/desktop/main/bootstrap.js"), ...process.argv.slice(2)],
   { stdio: "inherit", env },
 );
 if (child.error) throw child.error;

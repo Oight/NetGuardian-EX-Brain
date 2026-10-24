@@ -1,73 +1,28 @@
-# 项目结构与修改归属
+# 结构、公开入口与写入归属
 
-分工依据：设计仓库 `120c81cfd4d8ed720c9cc70178edb9c6fd172a34` 的 T002—T005。权威组件依赖和表所有者仍是 [architecture.json](../../spec/architecture.json)；本页只映射产品目录，不修改业务基线。
+产品在 code/；设计在相邻 design_document/。冻结[architecture](../../spec/architecture.json)描述工程 0.2.0 原始组件和表所有者，[维护补充](../../../design_document/docs/implementation/maintenance-2026-10-24.md)单列新增端口与表。实际状态见[四线任务](tasks/README.md)。
 
-冻结附件的 sharedWritePaths 仍含旧 fixtures/shared。按新版任务将纯 fake 映射至 packages/testkit、真实集成夹具映射至 tests/support；共享写入仍由 A 串行处理，不重写冻结附件。
+| 工作线 | 路径 | 公开入口 / 工厂 |
+|---|---|---|
+| A / S01 | packages/contracts | @campussec/contracts：类型、schema、错误、规范化 |
+| A / 共享 | packages/testkit | @campussec/testkit：纯脚本 fake、Clock/Id |
+| A / S03 | apps/desktop/main、preload、runtime | composeRuntime / 严格 Facade；renderer 仅 DesktopApi |
+| A / S07 | core/requests | core/requests/budgets → createRunBudget；core/requests/read-model → createInvestigationHistory、createReportAnchors |
+| A / S07 | core/investigations/tool-runner | core/investigations/tools → createInvestigationTools |
+| B / S02 | packages/storage | @campussec/storage → createStorage |
+| B / S05 | core/alerts | core/alerts/policy-reader → createPolicyReader |
+| B / S06 | core/cases | core/cases → createCaseService |
+| B / S10 | core/reports、investigation-profile | core/reports → createReportService、createResultPackageReader；@campussec/investigation-profile → createInvestigationProfile |
+| C / S04 | packages/wazuh-adapter | @campussec/wazuh-adapter → createWazuhAdapter |
+| C / S08 | teleagent-bridge | 尚无真实宿主/执行实现 |
+| C / S09 | mcp-server/channels | @campussec/mcp-server/channels → createEvidenceChannels、createChannelAuthenticator |
+| C / S11 | core/delivery | core/delivery/recovery → createDeliveryRecovery；worker 等待实现 |
+| D / S12 | apps/desktop/renderer | mountWorkbench；本地 ES modules / DOM |
 
-```text
-campussec/
-├── apps/desktop/
-│   ├── main/、preload/、runtime/、assets/  A：S03
-│   ├── renderer/                         D：S12，本地案件工作台
-│   └── tests/                            A：宿主合成/恢复测试
-├── packages/
-│   ├── contracts/{src,tests}/            A：S01，产品唯一契约出口
-│   ├── testkit/{src,tests}/              A：纯 fake、时钟、ID、场景
-│   ├── storage/{src,migrations,tests}/   B：S02
-│   ├── core/
-│   │   ├── requests/、investigations/    A：S07
-│   │   ├── alerts/、cases/、reports/     B：S05/S06/S10
-│   │   └── delivery/                    C：S11
-│   ├── investigation-profile/           B：S10
-│   ├── wazuh-adapter/                   C：S04
-│   ├── teleagent-bridge/                C：S08
-│   └── mcp-server/{channels,gateway}/   C：S09
-├── tests/
-│   ├── support/                        A：真实数据库/文件集成夹具
-│   ├── tooling/                        A：工程检查的失败场景
-│   └── acceptance/                     D：案件闭环/预算组合验收
-├── scripts/
-│   ├── product/                        A：标准环境通用构建/检查
-│   ├── local/                          A：Bun 本机检查入口
-│   └── assets/                         A：静态资源生成
-├── docs/{development,verification,history}/
-└── spec/                               固定原文、校验值和来源
-```
+表内 core/ 子路径均以 @campussec/ 为包前缀。跨模块通过公开出口，不导入私有 Repository；S10 使用 contracts 中的 ReportAnchorReadPort，由装配注入 S07 实现，不能直接查询 S07 表。
 
-node_modules、.local、.cache、dist、dist-test 和包内 dist 是忽略的生成物，不作为源码或交接输入。cases 与 wazuh-adapter 已有真实服务；其余待实现模块仍只有 README，不导出成功占位接口。
+模块测试跟随模块；真实临时库/文件夹具在 tests/support；跨域验收在 tests/acceptance；纯 fake 不依赖 storage。scripts/product 是标准环境通用脚本，scripts/local 是 Bun 本机工具。
 
-## 公开入口与测试
+根配置、锁、contracts/testkit、公共导出、装配和 CI 由 A 单任务串行修改；物理迁移交 B，业务表仍由各所有者修改。0001 为冻结 DDL，0002 为 S06 封存/页引用，0003 为 S11 delivery_recoveries。迁移与 spec 保留原字节。
 
-| 功能                 | 消费方式                                | 测试位置                                                                                                     |
-| -------------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| S01 类型/schema      | `@campussec/contracts`                  | [contracts/tests](../../packages/contracts/tests/contracts.test.ts)                                          |
-| S02 工厂/事务/事件   | `@campussec/storage`                    | [storage/tests](../../packages/storage/tests/storage.test.ts)                                                |
-| 共享 fake            | `@campussec/testkit`                    | [testkit/tests](../../packages/testkit/tests/fakes.test.ts)                                                  |
-| S03 装配与恢复       | 桌面目录内部装配；UI 消费 DesktopApi    | [desktop](../../apps/desktop/tests/desktop.test.ts)、[lifecycle](../../apps/desktop/tests/lifecycle.test.ts) |
-| 真实临时库/预置数据  | 仅测试导入 tests/support/storage        | 不进入公共 fake 或产品导出                                                                                   |
-| 待实现 core/接入模块 | 先交实现和公开子路径，再维护根导出/装配 | 自有模块的 tests/                                                                                            |
-
-跨模块使用公开包/子路径，不绕入 src/private Repository。testkit 只依赖 contracts，因此 B/C/D 无需等待真实 S02 才能使用 HTTP/执行/投递 fake。
-
-## 唯一写者
-
-| 内容                                                        | 本轮工作线                             |
-| ----------------------------------------------------------- | -------------------------------------- |
-| 根配置、两份锁、公共导出、脚本、contracts/testkit、CI、装配 | A，单任务串行                          |
-| storage/migrations、物理 DDL                                | B；业务状态仍归各表所有者              |
-| core 各域实现与私有测试/夹具                                | 对应 A/B/C；core/package.json 交 A     |
-| renderer、用户流程验收                                      | D                                      |
-| tests/support、跨模块接线检查                               | A，业务夹具与对应所有者协调            |
-| 任务文件                                                    | 对应工作线；共享导航由串行文档任务维护 |
-
-本次 T007 是用户授权的结构整理，不追溯将旧 S02 或状态页认定越界。后续 S02 交 B、renderer 交 D；根锁和公共文件不由四线并发修改。
-
-## 2026-10-24 本地新增入口
-
-- B：`@campussec/core/cases` → createCaseService，模块真实 SQLite 测试跟随 cases/tests。
-- C：`@campussec/wazuh-adapter` → createWazuhAdapter，HTTP/权限/分页/fence 合成测试跟随 wazuh-adapter/tests。
-- D：renderer/app.ts → mountWorkbench，只消费 DesktopApi；跨模块闭环在 tests/acceptance。
-- A：scripts/product/test-windows-full.ts 是 Windows/Node/Electron 专用入口；本机仅运行 scripts/local/check.ts 与 check-clean.ts。
-- B：0002 为 S06 追加两张封存/页引用表，0001 及冻结附件保持原哈希。
-
-执行范围与未验收项见[本轮验证](../verification/local-cases-2026-10-24.md)，阶段状态仍以具体任务文件为准。
+node_modules、dist、dist-test、.local、.cache、数据库和日志是生成物，不进入文档清单或交接输入。

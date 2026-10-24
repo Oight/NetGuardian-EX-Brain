@@ -48,6 +48,9 @@ for (const phase of ["write", "reopen"]) {
     "revisionConflict",
     "rendererCaseWorkflow",
     "requestLifecycle",
+    "authenticatedSession",
+    "encryptedSecretStore",
+    "encryptedDatabase",
   ])
     assert.equal(report[check], true);
   if (phase === "reopen") {

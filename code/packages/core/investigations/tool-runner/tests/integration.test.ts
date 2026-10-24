@@ -1,3 +1,4 @@
+import { createReportAnchors } from "@campussec/core/requests/read-model";
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import {
@@ -148,6 +149,7 @@ test("reply and idempotence survive actual SQLite close/reopen with no upstream 
       budgetAtomic: budget.atomic,
       casesAtomic: cases.atomic,
       proposals: createReportService({
+        anchors: createReportAnchors(),
         ...deps,
         cases: cases.service,
         casesAtomic: cases.atomic,

@@ -5,6 +5,8 @@ const spec = JSON.parse(
   await readFile("spec/architecture.json", "utf8"),
 ) as Architecture;
 // 0002 is an additive S06 extension resolving B0/G01; the frozen snapshot stays intact.
+const maintenance = JSON.parse(await readFile("spec/maintenance-architecture.json", "utf8")) as {tableOwners:Record<string,string[]>};
+for (const [owner, tables] of Object.entries(maintenance.tableOwners)) spec.tableOwners[owner]!.push(...tables);
 spec.tableOwners.S06!.push("case_run_manifests", "case_query_page_refs");
 const paths = (await sourceFiles(["packages", "apps"])).filter(
   (path) =>

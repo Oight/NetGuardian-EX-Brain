@@ -1,3 +1,4 @@
+import { createReportAnchors } from "@campussec/core/requests/read-model";
 import assert from "node:assert/strict";
 import {
   canonicalJson,
@@ -161,9 +162,9 @@ export async function setup(withContext = false) {
       return ok(undefined);
     }),
   );
-  const deps = { ...f, cases: cases.service, casesAtomic: cases.atomic },
+  const deps = { ...f, anchors: createReportAnchors(), cases: cases.service, casesAtomic: cases.atomic },
     service = createReportService(deps),
-    reader = createResultPackageReader(f);
+    reader = createResultPackageReader(deps);
   const resultContext: ResultContext = {
     requestId,
     jobId: run.jobId,

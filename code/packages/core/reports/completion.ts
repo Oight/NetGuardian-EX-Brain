@@ -95,7 +95,7 @@ export function completion(
     assessInTx(tx, ctx, runId) {
       const auth = authorize(tx, ctx, ["system"]);
       if (!auth.ok) return auth;
-      const run = runAnchor(tx, ctx, runId);
+      const run = runAnchor(deps, tx, ctx, runId);
       if (!run.ok) return run;
       const found = deps.casesAtomic.getInTx(tx, ctx, run.value.caseId);
       return found.ok ? ok(assessment(tx, runId)) : found;
@@ -111,11 +111,11 @@ export function completion(
       if (!context.ok) return context;
       if (!decision.ok) return decision;
       if (!asked.ok) return asked;
-      const identity = contextIdentity(tx, ctx, context.value);
+      const identity = contextIdentity(deps, tx, ctx, context.value);
       if (!identity.ok) return identity;
       if (!/^[a-f0-9]{64}$/.test(input.manifestHash))
         return fail("INVALID_INPUT", "封存摘要无效");
-      const live = runAnchor(tx, ctx, run.value.id);
+      const live = runAnchor(deps, tx, ctx, run.value.id);
       if (!live.ok) return live;
       const anchor = (v: typeof run.value) => ({
         id: v.id,
@@ -199,15 +199,11 @@ export function completion(
         decision = parseCompletionDecision(input.decision);
       if (!context.ok) return context;
       if (!decision.ok) return decision;
-      const identity = contextIdentity(tx, ctx, context.value);
+      const identity = contextIdentity(deps, tx, ctx, context.value);
       if (!identity.ok) return identity;
       if (context.value.runId || decision.value.terminalState === "succeeded")
         return fail("INVALID_INPUT", "未启动结果不能携带轮次或宣称调查成功");
-      if (
-        tx.get("SELECT id FROM analysis_runs WHERE job_id=?", [
-          context.value.jobId,
-        ])
-      )
+      if (identity.value.hasRun)
         return fail("FORBIDDEN", "已建立轮次的任务必须保留真实 runId");
       const found = deps.casesAtomic.getInTx(tx, ctx, context.value.caseId);
       if (!found.ok) return found;
@@ -235,7 +231,7 @@ export function completion(
       if (!auth.ok) return auth;
       const context = parseDto("ResultContext", input.context);
       if (!context.ok) return context;
-      const identity = contextIdentity(tx, ctx, context.value);
+      const identity = contextIdentity(deps, tx, ctx, context.value);
       if (!identity.ok) return identity;
       if (
         !Number.isSafeInteger(input.expectedResultVersion) ||

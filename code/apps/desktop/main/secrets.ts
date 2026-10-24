@@ -13,6 +13,8 @@ export interface SecretProtection {
   available(): boolean;
   encrypt(text: string): Uint8Array;
   decrypt(bytes: Uint8Array): string;
+  /** Trusted owner releases any leased key material after runtime shutdown. */
+  close?():void;
 }
 interface SecretRecord {
   spaceId: string;
@@ -52,7 +54,8 @@ export function createSecretStore(deps: {
       >;
       if (
         Object.keys(record).sort().join(",") !==
-          "owner,purpose,spaceId,value" ||
+          "owner,purpose,ref,spaceId,value,version" ||
+        record.version !== 2 || record.ref !== ref ||
         record.spaceId !== deps.spaceId ||
         typeof record.owner !== "string" ||
         !deps.authorizeOwner(record.owner) ||
@@ -112,6 +115,7 @@ export function createSecretStore(deps: {
           });
           const serialized = JSON.stringify({
             ...record,
+            version:2,ref,
             value: Buffer.from(record.value).toString("base64"),
           });
           const encrypted = deps.protection.encrypt(serialized);

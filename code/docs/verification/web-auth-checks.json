@@ -1,0 +1,72 @@
+{
+  "verifiedAt": "2026-10-24T13:15:48.272Z",
+  "implementation": "/home/eight/Project/GPT/netguardian",
+  "source": {
+    "path": "/home/eight/Project/NetGuradian/NetGuardian-EX-Brain",
+    "head": "a06b9a5e3e6abcee7ed0c82d4e5e0c8119fdb8d0",
+    "readOnly": true,
+    "gitClean": true
+  },
+  "baseline": {
+    "business": "v4.2",
+    "engineering": "0.2.0",
+    "wire": "0.1.0"
+  },
+  "toolchain": {
+    "runtime": "Bun 1.4.4",
+    "lifecycleScriptsExecuted": false,
+    "nodeExecuted": false,
+    "electronExecuted": false
+  },
+  "checks": {
+    "strictTypes": "passed",
+    "frozenContracts": "passed",
+    "architecture": "passed",
+    "publicExports": "passed",
+    "renderer": "passed",
+    "lockGraph": "passed",
+    "core": {
+      "passed": 262,
+      "failed": 0,
+      "files": 39
+    },
+    "cleanOffline": {
+      "passed": 262,
+      "failed": 0,
+      "ignoreScripts": true
+    },
+    "browserUi": {
+      "passed": 22,
+      "total": 22
+    },
+    "browserCore": {
+      "passed": 17,
+      "total": 17,
+      "upstream": "synthetic",
+      "storage": "actual encrypted SQLite snapshot"
+    }
+  },
+  "crypto": {
+    "signatures": "Ed25519",
+    "agreement": "X25519",
+    "kdf": "HKDF-SHA256",
+    "encryption": "AES-256-GCM",
+    "passwordKdf": "scrypt N=32768,r=8,p=1",
+    "databaseSnapshotMaxMiB": 64
+  },
+  "resolvedFailures": [
+    "second investigation on an investigating case",
+    "proxy dotted field mapping",
+    "web optional field serialization",
+    "separate database decryption purpose",
+    "lease test must retain its child SQLite connection"
+  ],
+  "notExecuted": [
+    "Node.js/npm runtime",
+    "Windows/Electron/OS protection/installer",
+    "real Wazuh/TeleAgent/model/original-session delivery",
+    "physical power-loss and capacity/performance acceptance",
+    "Python 3.12 business checks"
+  ],
+  "workflowCategories": 42
+}

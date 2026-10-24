@@ -12,6 +12,7 @@ import {
   absoluteWindow,
   caseStates,
   formatTime,
+  stateText,
   parseInstant,
   parseScope,
 } from "./model.js";
@@ -1047,22 +1048,20 @@ export function mountWorkbench(input: {
       "问题先限定在当前案件范围；请求受理不等于调查完成",
     );
     investigations.form(investigation.body, c.scope, id, refs, page.valid);
-    const jobs = workspace?.jobs.filter((j) => j.caseId === id) ?? [];
-    for (const job of jobs)
-      investigation.body.append(
-        button(
-          `查看任务 ${job.requestId.slice(0, 8)}`,
-          () =>
-            void run(undefined, async () => {
-              const current = await invoke("requests.status", {
-                requestId: job.requestId,
-              });
-              if (page.valid()) investigations.statusDialog(current);
-            }),
-          "button secondary small-button",
-          "requests",
-        ),
-      );
+    const history = el("div");
+    async function loadHistory(cursor?: string) {
+      const data = await invoke("investigations.history", {caseId:id, page:{limit:20, ...(cursor ? {cursor} : {})}});
+      if (!page.valid()) return;
+      for (const item of data.items)
+        history.append(button(`${formatTime(item.request.createdAt)} · ${stateText(item.job?.state ?? item.request.state)} · ${item.request.question}`, () => investigations.statusDialog({request:item.request, ...(item.job ? {job:item.job} : {})}), "button secondary small-button", "requests"));
+      if (!data.items.length && !cursor) history.append(el("p", "此案件暂无调查请求", "small muted"));
+      if (data.nextCursor) {
+        const next = data.nextCursor;
+        const more = button("继续读取历史", () => void run(more, async () => {await loadHistory(next); more.remove();}), "button secondary small-button");
+        history.append(more);
+      }
+    }
+    investigation.body.append(button("读取全部调查历史", () => void run(undefined, async () => {history.replaceChildren(); await loadHistory();}), "button secondary small-button"), history);
     middle.append(investigation.root);
     const background = card(
         "人工业务背景",

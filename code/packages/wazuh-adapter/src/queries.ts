@@ -542,6 +542,7 @@ export function createQueries(deps: Dependencies, connections: Connections) {
         )
       )
         return fail("SCOPE_EXCEEDED", "上游返回了范围外或时间不明确的事件");
+      if(Array.isArray(response.value._campusWarnings)) warnings.push(...response.value._campusWarnings.filter((v):v is string=>typeof v==='string'));
       if (
         response.value.timed_out !== false ||
         (number(object(response.value._shards).failed) ?? 1) > 0
@@ -669,6 +670,7 @@ export function createQueries(deps: Dependencies, connections: Connections) {
     )
       return fail("UPSTREAM_UNAVAILABLE", "统计桶值无效");
     const reasons = [
+      ...(Array.isArray(response.value._campusWarnings)?response.value._campusWarnings.filter((v):v is string=>typeof v==='string'):[]),
       ...(total.relation !== "eq" ? ["总数为下界"] : []),
       ...(response.value.timed_out !== false ||
       (number(field(response.value, "_shards.failed")) ?? 1) > 0

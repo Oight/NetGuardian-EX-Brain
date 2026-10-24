@@ -729,6 +729,21 @@ export const preparedProfileSchema = s({
   seedProjectionIds: z.array(idSchema).max(300),
   contextRefs: z.array(contextRef).max(100),
 });
+const policySnapshot = z.discriminatedUnion("configured", [
+  s({configured: z.literal(false)}), s({configured: z.literal(true), policy}),
+]);
+const deliveryRecoveryInput = s({
+  deliveryId: idSchema, expectedState: z.enum(["blocked", "uncertain", "retryable_failed"]),
+  expectedAttempts: integer, reason: text(2000, 1),
+});
+const investigationHistoryInput = s({caseId: idSchema, page: pageRequestSchema});
+const investigationHistorySnapshotInput = s({runId: idSchema, page: pageRequestSchema});
+const investigationHistoryItem = s({request: investigationRequestSchema, job: jobRecordSchema.optional(), run: analysisRunSchema.optional()});
+const investigationHistorySnapshot = s({
+  run: analysisRunSchema, job: jobRecordSchema, initialInput: frozenRunInputSchema,
+  preparedProfile: preparedProfileSchema.optional(), projections: z.array(evidenceProjectionSchema).max(50),
+  queries: z.array(queryView).max(50), nextCursor: bytesText(2048).optional(),
+});
 export const investigationStepSchema = s({
   phase: z.enum(["orientation", "querying", "evaluating", "stopped"]),
   summary: text(),
@@ -961,6 +976,7 @@ export const desktopSchemas = {
     s({ alertIds: z.array(idSchema).min(1).max(1000) }),
     z.null(),
   ),
+  "alerts.getPolicy": pair(s({connectionId: idSchema}), policySnapshot),
   "alerts.setPolicy": pair(s({ expectedRevision: integer, policy }), policy),
   "statistics.alerts": pair(queryScopeSchema, statistics),
   "cases.list": pair(
@@ -1132,6 +1148,9 @@ export const desktopSchemas = {
     resultPackageSchema,
   ),
   "deliveries.status": pair(requestId, z.array(deliveryRecord)),
+  "deliveries.recover": pair(deliveryRecoveryInput, deliveryRecord),
+  "investigations.history": pair(investigationHistoryInput, s({items: z.array(investigationHistoryItem).max(50), nextCursor: bytesText(2048).optional()})),
+  "investigations.input": pair(investigationHistorySnapshotInput, investigationHistorySnapshot),
 } satisfies MethodSchemas;
 
 export function parseWith<V>(
@@ -1344,6 +1363,12 @@ export const dtoSchemas = {
   RequestStatus: requestStatus,
   InboxAlert: inboxAlert,
   TriggerPolicy: policy,
+  PolicySnapshot: policySnapshot,
+  DeliveryRecoveryInput: deliveryRecoveryInput,
+  InvestigationHistoryInput: investigationHistoryInput,
+  InvestigationHistorySnapshotInput: investigationHistorySnapshotInput,
+  InvestigationHistoryItem: investigationHistoryItem,
+  InvestigationHistorySnapshot: investigationHistorySnapshot,
   HostCapability: hostCapability,
   OriginBinding: originBinding,
   PreparedProfile: preparedProfileSchema,
@@ -1460,6 +1485,12 @@ const schemaTypes: {
       RequestStatus: T.RequestStatus;
       InboxAlert: T.InboxAlert;
       TriggerPolicy: T.TriggerPolicy;
+      PolicySnapshot: T.PolicySnapshot;
+      DeliveryRecoveryInput: T.DeliveryRecoveryInput;
+      InvestigationHistoryInput: T.InvestigationHistoryInput;
+      InvestigationHistorySnapshotInput: T.InvestigationHistorySnapshotInput;
+      InvestigationHistoryItem: T.InvestigationHistoryItem;
+      InvestigationHistorySnapshot: T.InvestigationHistorySnapshot;
       HostCapability: T.HostCapability;
       OriginBinding: T.OriginBinding;
       PreparedProfile: T.PreparedProfile;

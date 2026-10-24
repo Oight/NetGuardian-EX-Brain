@@ -192,6 +192,18 @@ export function createInvestigationViews(ctx: WorkbenchContext) {
         ),
       );
     if (job?.runId) {
+      const inputPages = el("div");
+      async function loadInputs(cursor?: string) {
+        const data = await invoke("investigations.input", {runId: job!.runId!, page:{limit:50, ...(cursor ? {cursor} : {})}});
+        if (!valid()) return;
+        const {nextCursor, ...body} = data;
+        inputPages.append(disclosure("冻结输入与本轮投影", el("pre", JSON.stringify(body, null, 2), "code-block")));
+        if (nextCursor) {
+          const more = button("继续读取输入清单", () => void run(more, async () => {await loadInputs(nextCursor); more.remove();}), "button secondary small-button");
+          inputPages.append(more);
+        }
+      }
+      panel.body.append(button("查看当时调查输入", () => void run(undefined, async () => {inputPages.replaceChildren(); await loadInputs();}), "button secondary small-button"), inputPages);
       panel.body.append(
         button(
           "读取步骤与轮次",
@@ -410,8 +422,22 @@ export function createInvestigationViews(ctx: WorkbenchContext) {
               requestId: request.id,
             });
             if (!valid()) return;
-            const grid = table(["结果版本", "投递状态", "尝试次数", "回执"]);
-            for (const item of data)
+            const grid = table(["结果版本", "投递状态", "尝试次数", "回执", "恢复"]);
+            for (const item of data) {
+              const recovery = el("span", "无需恢复");
+              if (item.state === "blocked" || item.state === "uncertain" || item.state === "retryable_failed") {
+                const expectedState = item.state;
+                recovery.replaceChildren(button("核实并恢复", () => {
+                  const modal = dialog("核实投递并恢复", "宿主确认已收到时记录回执；确认安全重试时进入待投递队列。无法确认时保留原状态。");
+                  const form = el("form", undefined, "form-grid");
+                  field(form, "恢复原因", "reason", "", "textarea");
+                  submit(form, "核实并恢复", async () => {
+                    const result = await invoke("deliveries.recover", {deliveryId:item.id, expectedState, expectedAttempts:item.attempts, reason:value(form,"reason")});
+                    if (modal.valid()) {modal.close(); ctx.notify(`投递状态已更新：${stateText(result.state)}`);}
+                  });
+                  modal.body.append(form);
+                }, "button secondary small-button"));
+              }
               grid.row([
                 String(item.resultVersion),
                 state(item.state),
@@ -419,7 +445,9 @@ export function createInvestigationViews(ctx: WorkbenchContext) {
                 item.receipt
                   ? JSON.stringify(item.receipt)
                   : (item.lastError?.message ?? "尚无确认回执"),
+                recovery,
               ]);
+            }
             results.replaceChildren(
               data.length
                 ? grid.root

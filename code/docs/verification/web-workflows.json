@@ -1,0 +1,544 @@
+{
+  "source": "design_document/docs/current/security-triage-client-experiments-v4.md#D",
+  "scope": "E1 only; no real Wazuh/model/TeleAgent/Windows acceptance",
+  "categories": [
+    {
+      "category": "仅提醒模式",
+      "input": "自动调查关闭，连续送入新告警，TeleAgent 未运行",
+      "expected": "提醒与收件箱正常，没有本客户端发起的自动模型任务；手工入口独立",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "packages/core/alerts/tests/alerts.test.ts",
+        "tests/acceptance/automatic-flow.test.ts"
+      ],
+      "limits": "自动触发正向路径仅在受控完整响应中测试；校园代理的 partial 批次不放行实时自动触发。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "无告警主动调查",
+      "input": "客户端只填写设备、时间、问题；无种子告警；查询零条",
+      "expected": "正常创建请求并查询初始材料，说明覆盖与缺口，不要求造一条告警才能启动",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "tests/acceptance/request-lifecycle.test.ts",
+        "tests/acceptance/investigation-flow.test.ts",
+        "apps/desktop/renderer/tests/web-workflows.ts"
+      ],
+      "limits": "请求和合成执行链路验证；真实 Agent 行为、SSE 与宿主消息核实未执行。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "范围补充",
+      "input": "主动请求缺设备/时间、设备重名、相对时间、超过范围上限",
+      "expected": "请求留在 awaiting_scope 或返回 needs_input；解析时间与时区可见，补齐后才受理执行，不占活动名额",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "tests/acceptance/request-lifecycle.test.ts",
+        "tests/acceptance/investigation-flow.test.ts",
+        "apps/desktop/renderer/tests/web-workflows.ts"
+      ],
+      "limits": "请求和合成执行链路验证；真实 Agent 行为、SSE 与宿主消息核实未执行。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "三入口一致性",
+      "input": "相同问题与有效范围分别从告警、客户端、TeleAgent 发起",
+      "expected": "共用请求、调度、案件、证据和预算逻辑，保留不同 origin；结果与来源均可查",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "tests/acceptance/automatic-flow.test.ts",
+        "tests/acceptance/delivery-lifecycle.test.ts",
+        "packages/core/delivery/tests/recovery.test.ts"
+      ],
+      "limits": "使用受控可信来源/宿主响应；真实原对话、忙碌排队与宿主去重需 E4。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "TeleAgent 委派",
+      "input": "原对话提交请求、查看进度，独立调查会话调用取证工具",
+      "expected": "先返回任务回执，来源会话不用一直占用工具调用；子调查能执行且不等待来源结束整个会话",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "tests/acceptance/automatic-flow.test.ts",
+        "tests/acceptance/delivery-lifecycle.test.ts",
+        "packages/core/delivery/tests/recovery.test.ts"
+      ],
+      "limits": "使用受控可信来源/宿主响应；真实原对话、忙碌排队与宿主去重需 E4。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "原对话结果回传",
+      "input": "原对话空闲/忙碌、多个发起会话、调查失败/取消",
+      "expected": "向正确来源异步投递有身份的结果包；忙碌安全排队，失败或取消也有准确响应；不要求跳转才能看到基本结果",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "tests/acceptance/automatic-flow.test.ts",
+        "tests/acceptance/delivery-lifecycle.test.ts",
+        "packages/core/delivery/tests/recovery.test.ts"
+      ],
+      "limits": "使用受控可信来源/宿主响应；真实原对话、忙碌排队与宿主去重需 E4。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "请求幂等",
+      "input": "MCP 重试、同键同内容、同键不同内容、两个来源复用相同字面键",
+      "expected": "同一来源同请求不重复开任务，内容冲突被拒绝，不同主体或绑定不串任务",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "tests/acceptance/request-lifecycle.test.ts",
+        "tests/acceptance/investigation-flow.test.ts",
+        "apps/desktop/renderer/tests/web-workflows.ts"
+      ],
+      "limits": "请求和合成执行链路验证；真实 Agent 行为、SSE 与宿主消息核实未执行。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "投递恢复",
+      "input": "结果保存后退出；发送后断线；宿主接受但回执丢失",
+      "expected": "调查不重跑，投递有独立状态；支持去重时安全恢复，不确定时先核实，不反复追加",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "tests/acceptance/automatic-flow.test.ts",
+        "tests/acceptance/delivery-lifecycle.test.ts",
+        "packages/core/delivery/tests/recovery.test.ts"
+      ],
+      "limits": "使用受控可信来源/宿主响应；真实原对话、忙碌排队与宿主去重需 E4。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "回传权限",
+      "input": "伪造 session_id、指定任意回调地址、来源撤销或账号切换",
+      "expected": "不能改写目的地或取得其他对话结果；绑定失效时停止投递，结果留在原有授权空间",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "tests/acceptance/automatic-flow.test.ts",
+        "tests/acceptance/delivery-lifecycle.test.ts",
+        "packages/core/delivery/tests/recovery.test.ts"
+      ],
+      "limits": "使用受控可信来源/宿主响应；真实原对话、忙碌排队与宿主去重需 E4。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "自动首次调查",
+      "input": "开启后新增一条符合策略的实时告警；筛选不命中的告警",
+      "expected": "前者无需逐条确认就建案调查，后者仍保留提醒与未触发理由",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "packages/core/alerts/tests/alerts.test.ts",
+        "tests/acceptance/automatic-flow.test.ts"
+      ],
+      "limits": "自动触发正向路径仅在受控完整响应中测试；校园代理的 partial 批次不放行实时自动触发。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "历史与开关",
+      "input": "首次连接有历史；关闭期间收件；重新开启、补收或重启",
+      "expected": "不把历史、暂停期条目和取消任务批量补跑；只接受有效的新触发",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "packages/core/alerts/tests/alerts.test.ts",
+        "tests/acceptance/automatic-flow.test.ts"
+      ],
+      "limits": "自动触发正向路径仅在受控完整响应中测试；校园代理的 partial 批次不放行实时自动触发。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "告警风暴与合并",
+      "input": "同一候选重复读取、短时大量同类告警、多个不同候选",
+      "expected": "重读不重复通知或派发；同案有界合并；不同候选受全局并发和队列限制",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "packages/core/alerts/tests/alerts.test.ts",
+        "tests/acceptance/automatic-flow.test.ts"
+      ],
+      "limits": "自动触发正向路径仅在受控完整响应中测试；校园代理的 partial 批次不放行实时自动触发。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "关闭自动调查竞态",
+      "input": "任务排队、已经领取、已提交模型时关闭",
+      "expected": "旧代次未提交任务不再派发；已提交轮次请求中止并失效工具；提醒继续，已耗用量不抹除",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "packages/core/alerts/tests/alerts.test.ts",
+        "tests/acceptance/automatic-flow.test.ts"
+      ],
+      "limits": "自动触发正向路径仅在受控完整响应中测试；校园代理的 partial 批次不放行实时自动触发。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "主动任务与自动开关",
+      "input": "关闭自动调查后从客户端/TeleAgent 发起；主动任务运行中再切换开关",
+      "expected": "主动任务仍按用户请求执行，不受自动开关取消；共享并发、队列和总用量限制仍有效",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "packages/core/alerts/tests/alerts.test.ts",
+        "tests/acceptance/automatic-flow.test.ts"
+      ],
+      "limits": "自动触发正向路径仅在受控完整响应中测试；校园代理的 partial 批次不放行实时自动触发。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "自动预算",
+      "input": "达到每日尝试数、token 用量未知、重启、跨日、手工任务",
+      "expected": "持久额度不被重启绕过；按配置暂停自动派发；来源与用量分类明确；不宣称硬 token 费用保证",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "tests/acceptance/daily-quotas.test.ts",
+        "tests/acceptance/request-lifecycle.test.ts",
+        "tests/acceptance/budget-capture.test.ts"
+      ],
+      "limits": "额度、事务和队列为 E1；真实模型费用/宿主额度未执行。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "队列与宿主故障",
+      "input": "队列满、等待过期、宿主退出或额度耗尽",
+      "expected": "告警与未调查原因仍可见，不丢告警或无限排队；恢复不自动重放全部历史",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "tests/acceptance/daily-quotas.test.ts",
+        "tests/acceptance/request-lifecycle.test.ts",
+        "tests/acceptance/budget-capture.test.ts"
+      ],
+      "limits": "额度、事务和队列为 E1；真实模型费用/宿主额度未执行。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "同案后续告警",
+      "input": "初查运行或完成后又来同案记录",
+      "expected": "案件继续更新、旧草案显示覆盖；P0 不无限自动复查，也不隐藏此前可用结果",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "packages/core/alerts/tests/alerts.test.ts",
+        "tests/acceptance/automatic-flow.test.ts"
+      ],
+      "limits": "自动触发正向路径仅在受控完整响应中测试；校园代理的 partial 批次不放行实时自动触发。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "窗口与应用退出",
+      "input": "托盘运行、关闭窗口设置、完全退出或休眠",
+      "expected": "实际驻留状态与说明一致；不把完全退出描述为仍能提供本地提醒",
+      "status": "windows_pending",
+      "evidence": [
+        "scripts/electron/foundation-smoke.cjs"
+      ],
+      "limits": "仅适配与静态语法检查；实际 Windows/Electron 托盘、窗口、休眠和退出未执行。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "受限接入",
+      "input": "面板能用但 API 不通；只有告警权限；部分设备不可见",
+      "expected": "能力与限制准确，仍不要求服务器管理权；不越权补齐",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "packages/wazuh-adapter/tests/campus-proxy.test.ts",
+        "packages/wazuh-adapter/tests/adapter.test.ts",
+        "apps/desktop/renderer/tests/web-workflows.ts"
+      ],
+      "limits": "现有代理缺少稳定分页/部分类别，明确拒绝或保留覆盖缺口；真实原生上报、跨主机部署需 E2/E3。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "数据覆盖",
+      "input": "零匹配、403、超时、分页中断、接口不支持",
+      "expected": "分开表示；部分结果不能显示为完整“无异常”",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "packages/wazuh-adapter/tests/campus-proxy.test.ts",
+        "packages/wazuh-adapter/tests/adapter.test.ts",
+        "apps/desktop/renderer/tests/web-workflows.ts"
+      ],
+      "limits": "现有代理缺少稳定分页/部分类别，明确拒绝或保留覆盖缺口；真实原生上报、跨主机部署需 E2/E3。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "普通认证背景",
+      "input": "有告警但没有成功记录权限；已有成功但身份不一致",
+      "expected": "前者列缺口，后者不强行关联；不判“必然没有成功”",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "packages/wazuh-adapter/tests/campus-proxy.test.ts",
+        "packages/wazuh-adapter/tests/adapter.test.ts",
+        "apps/desktop/renderer/tests/web-workflows.ts"
+      ],
+      "limits": "现有代理缺少稳定分页/部分类别，明确拒绝或保留覆盖缺口；真实原生上报、跨主机部署需 E2/E3。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "清单新鲜度",
+      "input": "查询成功但扫描时间早；端口只有监听数据",
+      "expected": "显示采集时间与范围，不描述为即时全量状态",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "packages/wazuh-adapter/tests/campus-proxy.test.ts",
+        "packages/wazuh-adapter/tests/adapter.test.ts",
+        "apps/desktop/renderer/tests/web-workflows.ts"
+      ],
+      "limits": "现有代理缺少稳定分页/部分类别，明确拒绝或保留覆盖缺口；真实原生上报、跨主机部署需 E2/E3。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "FIM 边界",
+      "input": "有文件变化、无差异正文；路径未受监控",
+      "expected": "不临时读文件，不伪造正文或修改者",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "packages/wazuh-adapter/tests/campus-proxy.test.ts",
+        "packages/wazuh-adapter/tests/adapter.test.ts",
+        "apps/desktop/renderer/tests/web-workflows.ts"
+      ],
+      "limits": "现有代理缺少稳定分页/部分类别，明确拒绝或保留覆盖缺口；真实原生上报、跨主机部署需 E2/E3。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "案件组织",
+      "input": "同 IP 不同主机、同名不同域账号、人工拆案",
+      "expected": "不自动形成确定攻击链，修改可追溯",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "packages/core/cases/tests/cases.test.ts",
+        "packages/core/reports/tests/reports.test.ts",
+        "apps/desktop/renderer/tests/web-workflows.ts"
+      ],
+      "limits": "案件、背景、跟进、审核与加密导出已做合成验证；真实材料和人工结论不由测试替代。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "分页与重读",
+      "input": "固定上界多页、重叠重查、页失败后恢复",
+      "expected": "完整批次才推进完成边界；同源引用不重复附案",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "packages/wazuh-adapter/tests/campus-proxy.test.ts",
+        "packages/wazuh-adapter/tests/adapter.test.ts",
+        "apps/desktop/renderer/tests/web-workflows.ts"
+      ],
+      "limits": "现有代理缺少稳定分页/部分类别，明确拒绝或保留覆盖缺口；真实原生上报、跨主机部署需 E2/E3。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "动态平台",
+      "input": "同文档内容更新、迟到记录、源记录过期",
+      "expected": "保存取得时版本与缺口，输入集合可核对",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "packages/wazuh-adapter/tests/campus-proxy.test.ts",
+        "packages/wazuh-adapter/tests/adapter.test.ts",
+        "apps/desktop/renderer/tests/web-workflows.ts"
+      ],
+      "limits": "现有代理缺少稳定分页/部分类别，明确拒绝或保留覆盖缺口；真实原生上报、跨主机部署需 E2/E3。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "并发工具预算",
+      "input": "两次查询并发争用最后额度、超限和超大结果",
+      "expected": "原子预算有效，拒绝或明确部分覆盖，不静默截断",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "tests/acceptance/daily-quotas.test.ts",
+        "tests/acceptance/request-lifecycle.test.ts",
+        "tests/acceptance/budget-capture.test.ts"
+      ],
+      "limits": "额度、事务和队列为 E1；真实模型费用/宿主额度未执行。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "工具授权",
+      "input": "错误上下文、另一工作区、过期任务、超范围参数",
+      "expected": "无法取得当前或其他案件材料；模型给出的 ID 不充当权限",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "packages/mcp-server/gateway/tests/gateway.test.ts",
+        "packages/core/investigations/tool-runner/tests/tools.test.ts",
+        "apps/desktop/renderer/tests/browser-suite.ts"
+      ],
+      "limits": "协议、授权、引用与 DOM 仅 E1；Agent 自适应分支与研判质量未执行。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "两类 MCP 与递归",
+      "input": "调查会话请求委派、来源对话调用取证、把回传结果当作新调查指令",
+      "expected": "角色隔离生效；同一请求不重入，完成结果不自动派发下一轮",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "packages/mcp-server/gateway/tests/gateway.test.ts",
+        "packages/core/investigations/tool-runner/tests/tools.test.ts",
+        "apps/desktop/renderer/tests/browser-suite.ts"
+      ],
+      "limits": "协议、授权、引用与 DOM 仅 E1；Agent 自适应分支与研判质量未执行。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "Agent 分支",
+      "input": "身份一致的后续成功；只有不一致成功；没有成功日志权限",
+      "expected": "后续查询、解释或停止理由根据实际证据变化；不机械调用全部工具，不把缺权当作未发生",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "packages/mcp-server/gateway/tests/gateway.test.ts",
+        "packages/core/investigations/tool-runner/tests/tools.test.ts",
+        "apps/desktop/renderer/tests/browser-suite.ts"
+      ],
+      "limits": "协议、授权、引用与 DOM 仅 E1；Agent 自适应分支与研判质量未执行。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "版本竞态",
+      "input": "模型运行中人工补证或刷新；旧结果晚到",
+      "expected": "旧结果不覆盖新版本，差异和采纳状态明确",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "tests/acceptance/request-lifecycle.test.ts",
+        "tests/acceptance/investigation-flow.test.ts",
+        "apps/desktop/renderer/tests/web-workflows.ts"
+      ],
+      "limits": "请求和合成执行链路验证；真实 Agent 行为、SSE 与宿主消息核实未执行。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "提交不确定",
+      "input": "204 但未找到消息；创建或提交后断线",
+      "expected": "通过消息和错误核实，不能盲目重提或报告成功",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "tests/acceptance/request-lifecycle.test.ts",
+        "tests/acceptance/investigation-flow.test.ts",
+        "apps/desktop/renderer/tests/web-workflows.ts"
+      ],
+      "limits": "请求和合成执行链路验证；真实 Agent 行为、SSE 与宿主消息核实未执行。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "取消与恢复",
+      "input": "客户端重启、宿主退出、SSE 断开、取消未确认",
+      "expected": "映射保留；取消请求与实际终态分开；旧工具上下文关闭",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "tests/acceptance/request-lifecycle.test.ts",
+        "tests/acceptance/investigation-flow.test.ts",
+        "apps/desktop/renderer/tests/web-workflows.ts"
+      ],
+      "limits": "请求和合成执行链路验证；真实 Agent 行为、SSE 与宿主消息核实未执行。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "输出校验",
+      "input": "非法结构、越界引用、引用存在但结论不受支持",
+      "expected": "前两者程序拦截；最后一种交人工核验，不声称自动证明正确",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "packages/mcp-server/gateway/tests/gateway.test.ts",
+        "packages/core/investigations/tool-runner/tests/tools.test.ts",
+        "apps/desktop/renderer/tests/browser-suite.ts"
+      ],
+      "limits": "协议、授权、引用与 DOM 仅 E1；Agent 自适应分支与研判质量未执行。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "注入与界面",
+      "input": "日志夹带操作指令、脚本、外部图片或恶意链接",
+      "expected": "不新增工具权限，不执行内容，不自动外发或导航",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "packages/mcp-server/gateway/tests/gateway.test.ts",
+        "packages/core/investigations/tool-runner/tests/tools.test.ts",
+        "apps/desktop/renderer/tests/browser-suite.ts"
+      ],
+      "limits": "协议、授权、引用与 DOM 仅 E1；Agent 自适应分支与研判质量未执行。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "核查跟进",
+      "input": "模型报告完成、人工标已处理、没有复核证据",
+      "expected": "任务、审核、案件与处理记录分别保存，不自动认定威胁消失",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "packages/core/cases/tests/cases.test.ts",
+        "packages/core/reports/tests/reports.test.ts",
+        "apps/desktop/renderer/tests/web-workflows.ts"
+      ],
+      "limits": "案件、背景、跟进、审核与加密导出已做合成验证；真实材料和人工结论不由测试替代。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "客户端完整工作",
+      "input": "收件箱筛选建案、设备页主动调查、背景录入、步骤与引用查看、修订和导出",
+      "expected": "用户在客户端完成主要任务，无需到 TeleAgent 手工复制提示或结果；模型不可用时人工记录仍可维护",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "packages/core/cases/tests/cases.test.ts",
+        "packages/core/reports/tests/reports.test.ts",
+        "apps/desktop/renderer/tests/web-workflows.ts"
+      ],
+      "limits": "案件、背景、跟进、审核与加密导出已做合成验证；真实材料和人工结论不由测试替代。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "背景有效性",
+      "input": "未核实陈述、已核实说明、说明过期或目标/时间不一致",
+      "expected": "使用正确版本并显示来源与适用范围，不把所有说明都当成良性证明",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "packages/core/cases/tests/cases.test.ts",
+        "packages/core/reports/tests/reports.test.ts",
+        "apps/desktop/renderer/tests/web-workflows.ts"
+      ],
+      "limits": "案件、背景、跟进、审核与加密导出已做合成验证；真实材料和人工结论不由测试替代。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "交互追问",
+      "input": "活动轮次补充材料；完成后追问依据；要求新取证",
+      "expected": "新材料不暗改冻结输入；已有依据可直接定位，新取证创建可追溯的后续轮次",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "tests/acceptance/request-lifecycle.test.ts",
+        "tests/acceptance/investigation-flow.test.ts",
+        "apps/desktop/renderer/tests/web-workflows.ts"
+      ],
+      "limits": "请求和合成执行链路验证；真实 Agent 行为、SSE 与宿主消息核实未执行。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "初查时间覆盖",
+      "input": "告警发生后立即启动，请求包含未来五分钟",
+      "expected": "实际上界与未覆盖部分明确，不将尚未发生的时间记为已查无异常",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "tests/acceptance/request-lifecycle.test.ts",
+        "tests/acceptance/investigation-flow.test.ts",
+        "apps/desktop/renderer/tests/web-workflows.ts"
+      ],
+      "limits": "请求和合成执行链路验证；真实 Agent 行为、SSE 与宿主消息核实未执行。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "账号与缓存",
+      "input": "切换学校账号、撤权、退出、离线旧快照",
+      "expected": "不跨身份复用上下文；离线材料按授权配置展示并注明时间",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "apps/desktop/tests/authentication.test.ts",
+        "apps/desktop/tests/encrypted-storage.test.ts",
+        "apps/desktop/tests/web-transport.test.ts",
+        "apps/desktop/renderer/tests/web-workflows.ts"
+      ],
+      "limits": "本地账号隔离、角色和密文恢复验证；真实学校/Wazuh 账号身份变化未执行。",
+      "realPlatformAcceptance": "not_executed"
+    },
+    {
+      "category": "实际部署边界",
+      "input": "Wazuh 移到不同主机，客户端无准备目录权限",
+      "expected": "主流程仍经受限接口工作，未依赖本机全知环境",
+      "status": "synthetic_scope_only",
+      "evidence": [
+        "packages/wazuh-adapter/tests/campus-proxy.test.ts",
+        "packages/wazuh-adapter/tests/adapter.test.ts",
+        "apps/desktop/renderer/tests/web-workflows.ts"
+      ],
+      "limits": "现有代理缺少稳定分页/部分类别，明确拒绝或保留覆盖缺口；真实原生上报、跨主机部署需 E2/E3。",
+      "realPlatformAcceptance": "not_executed"
+    }
+  ]
+}

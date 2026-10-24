@@ -1,3 +1,4 @@
+import { createReportAnchors } from "@campussec/core/requests/read-model";
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
@@ -214,7 +215,7 @@ test("assessment and explicit completion are atomic, immutable and survive a dat
     await f.close();
     reopened = await createStorage(f.storeDeps);
     const storage = take(reopened),
-      reader = createResultPackageReader(storage);
+      reader = createResultPackageReader({anchors: createReportAnchors()});
     assert.deepEqual(
       take(
         take(

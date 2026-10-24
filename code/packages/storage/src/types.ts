@@ -9,6 +9,8 @@ export interface StorageDependencies {
   spaceId: string;
   principalId: string;
   identityEpoch: number;
+  /** Optional authenticated snapshot persistence; plaintext SQLite is never created in this mode. */
+  encryption?: {encrypt(text:string):Uint8Array;decrypt(bytes:Uint8Array):string};
   clock: ClockPort;
   ids: IdPort;
 }

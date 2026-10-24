@@ -78,13 +78,19 @@ assert.deepEqual(
   declarations(source).sort(),
   "Domain declarations must exactly match the original contract",
 );
-const desktop = source.statements.find(
-  (node) =>
-    ts.isInterfaceDeclaration(node) && node.name.text === "DesktopMethodMap",
-) as ts.InterfaceDeclaration;
-const methods = desktop.members
-  .map((member) => (member.name as ts.StringLiteral).text)
-  .sort();
+const maintenance = ts.createSourceFile("maintenance-contracts.ts", await readFile("spec/maintenance-contracts.ts", "utf8"), ts.ScriptTarget.Latest, true);
+const extension = ts.createSourceFile("extensions.ts", await readFile("packages/contracts/src/extensions.ts", "utf8"), ts.ScriptTarget.Latest, true);
+const maintenanceProvenance = JSON.parse(await readFile("spec/maintenance-provenance.json", "utf8"));
+for (const entry of maintenanceProvenance.files as {name:string;sha256:string}[])
+  assert.equal(hash(await readFile(`spec/${entry.name}`)), entry.sha256, `Maintenance snapshot changed: ${entry.name}`);
+assert.equal(hash(await readFile("packages/storage/migrations/0004-delivery-recovery.sql")), hash(await readFile("spec/maintenance-schema.sql")), "Maintenance migration differs from its declared DDL");
+assert.deepEqual(declarations(extension).sort(), declarations(maintenance).sort(), "Maintenance declarations must match their separate snapshot");
+const augmentation = extension.statements.filter(ts.isModuleDeclaration);
+assert.equal(augmentation.length, 1);
+assert.equal(augmentation[0]!.name.text, "./domains/desktop.js");
+assert.equal(augmentation[0]!.body?.getText(extension).replace(/\s/g, ""), "{interfaceDesktopMethodMapextendsMaintenanceDesktopMethodMap{}}", "Only additive Desktop methods may augment the frozen map");
+const interfaces = [...source.statements, ...maintenance.statements].filter(ts.isInterfaceDeclaration);
+const methods = interfaces.filter(node => ["DesktopMethodMap", "MaintenanceDesktopMethodMap"].includes(node.name.text)).flatMap(node => node.members.map(member => (member.name as ts.StringLiteral).text)).sort();
 assert.deepEqual(
   Object.keys(desktopSchemas).sort(),
   methods,
@@ -95,12 +101,12 @@ const special = new Set([
   "HttpRequest",
   "PlatformCall",
   "DesktopMethodMap",
+  "MaintenanceDesktopMethodMap",
   "EventPayloadMap",
   "RpcRequest",
   "RpcResponse",
 ]);
-const dataInterfaces = source.statements
-  .filter(ts.isInterfaceDeclaration)
+const dataInterfaces = interfaces
   .filter(
     (node) =>
       !special.has(node.name.text) &&

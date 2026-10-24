@@ -3,9 +3,10 @@ if (!process.versions.bun) throw new Error("本机检查仅允许 Bun 执行");
 const commands = [
   ["node_modules/typescript/bin/tsc", "--noEmit"],
   ["scripts/product/check-boundaries.ts"],
-  ["scripts/product/verify-foundation.ts"],
   ["scripts/product/export-npm-lock.ts", "--check"],
   ["scripts/product/build.ts"],
+  ["scripts/product/verify-workspaces.ts"],
+  ["scripts/product/verify-foundation.ts"],
   ["scripts/product/verify-renderer.ts"],
   ["scripts/product/test.ts"],
   ["node_modules/typescript/bin/tsc", "-p", "tsconfig.test.json"],

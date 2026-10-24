@@ -68,6 +68,16 @@ app.on("will-quit", () => {
       `(async()=>{for(let i=0;i<400;i++){if(${expression})return true;await new Promise(resolve=>setTimeout(resolve,25));}throw new Error('Renderer acceptance condition timed out');})()`,
     );
   }
+  // New isolated synthetic accounts only. Real developer credentials are never read.
+  const beforeLogin=await invoke("workspace.snapshot",{});
+  assert.equal(beforeLogin.ok,false);assert.equal(beforeLogin.error.code,"UNAUTHENTICATED");
+  const auth=await window.webContents.executeJavaScript(`window.campusAuth.invoke("${phase === "write" ? "setup" : "login"}",{username:"windows_acceptance",password:"Synthetic-Windows-2026!"})`);
+  assert.ok(auth.ok);assert.equal(auth.value.account.role,"admin");
+  await new Promise(resolve => {
+    window.webContents.once("did-finish-load", resolve);
+    window.reload();
+  });
+  await waitFor("!!document.querySelector('.metric')");
   // Exercise the delivered navigation under file:// and recheck trusted IPC after every page.
   await waitFor(
     "document.querySelectorAll('nav button[data-route]').length===11 && !!document.querySelector('.metric')",
@@ -309,6 +319,9 @@ app.on("will-quit", () => {
   assert.ok(recovered.ok);
   assert.equal(recovered.value, synthetic);
   assert.ok((await desktop.runtime.secrets.remove(secret.value)).ok);
+  const encryptedDatabase = await readFile(join(directory, "data", "spaces", desktop.runtime.context().actor.spaceId, "state.ngdb"));
+  assert.equal(encryptedDatabase.includes(Buffer.from("Electron 合成案件")), false);
+  assert.equal(JSON.parse(encryptedDatabase.toString()).suite, "Ed25519+X25519+HKDF-SHA256+AES-256-GCM");
   await writeFile(
     join(directory, `${phase}.json`),
     JSON.stringify(
@@ -336,6 +349,9 @@ app.on("will-quit", () => {
         revisionConflict: true,
         rendererCaseWorkflow: true,
         requestLifecycle: true,
+        authenticatedSession: true,
+        encryptedSecretStore: true,
+        encryptedDatabase: true,
       },
       null,
       2,

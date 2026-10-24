@@ -39,6 +39,18 @@
     "./investigations/publication": {
       "types": "./investigations/publication.ts",
       "default": "./dist/investigations/publication.js"
+    },
+    "./alerts/policy-reader": {
+      "types": "./alerts/policy-reader.ts",
+      "default": "./dist/alerts/policy-reader.js"
+    },
+    "./requests/read-model": {
+      "types": "./requests/read-model.ts",
+      "default": "./dist/requests/read-model.js"
+    },
+    "./delivery/recovery": {
+      "types": "./delivery/recovery.ts",
+      "default": "./dist/delivery/recovery.js"
     }
   },
   "dependencies": {

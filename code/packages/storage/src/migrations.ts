@@ -5,13 +5,14 @@ import type { StorageDependencies } from "./types.js";
 export async function migrate(
   connection: DatabaseSync,
   deps: StorageDependencies,
+  through?: number,
 ): Promise<void> {
   connection.exec("PRAGMA foreign_keys=ON; PRAGMA busy_timeout=5000;");
   const directory = new URL("../migrations/", import.meta.url);
   const names = (await readdir(directory))
     .filter((name) => /^\d{4}[-\w]*\.sql$/.test(name))
     .sort();
-  const migrations = await Promise.all(
+  const available = await Promise.all(
     names.map(async (name) => {
       const sql = await readFile(new URL(name, directory), "utf8");
       return {
@@ -21,6 +22,8 @@ export async function migrate(
       };
     }),
   );
+  const migrations=through===undefined?available:available.filter(m=>m.version<=through);
+  if(through!==undefined&&migrations.length!==through)throw Error("Unknown encrypted schema version");
   if (!migrations.length || migrations.some((m, i) => m.version !== i + 1))
     throw new Error("Invalid migration sequence");
   const tables = () =>

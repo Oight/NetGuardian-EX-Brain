@@ -8,3 +8,4 @@ export * from "./domains/mcp.js";
 export * from "./domains/reports.js";
 export * from "./domains/delivery.js";
 export * from "./domains/desktop.js";
+export * from "./extensions.js";

@@ -1,0 +1,24 @@
+{
+  "revision": "2026-10-24",
+  "baseline": {
+    "business": "v4.2",
+    "engineering": "0.2.0",
+    "wire": "0.1.0"
+  },
+  "canonical": "design_document/docs/implementation/maintenance-contracts.ts",
+  "sha256": "24bdf1fd1bfdd9fd523b40e965cfd0280c14a749d57428d0dce64a1acecc23f9",
+  "files": [
+    {
+      "name": "maintenance-contracts.ts",
+      "sha256": "24bdf1fd1bfdd9fd523b40e965cfd0280c14a749d57428d0dce64a1acecc23f9"
+    },
+    {
+      "name": "maintenance-schema.sql",
+      "sha256": "a83ecc6e775bd73f6e897e39b87b4a8080ffe49de4488dd8867b8096a2888bde"
+    },
+    {
+      "name": "maintenance-architecture.json",
+      "sha256": "58234c3e786417362ecdbdd9640b6390f9209a3f7eeb7d60001d2820ccfae4e8"
+    }
+  ]
+}

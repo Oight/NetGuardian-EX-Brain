@@ -52,7 +52,7 @@ test("scope limits normalize offsets and preserve native device identity", () =>
   assert.equal(parseInstant("2026-10-23T01:00:00").ok, false);
 });
 test("all Desktop methods have strict input/output boundaries and unknown methods/actors are rejected", () => {
-  assert.equal(Object.keys(desktopSchemas).length, 43);
+  assert.equal(Object.keys(desktopSchemas).length, 47);
   for (const [name, schemas] of Object.entries(desktopSchemas)) {
     assert.equal(
       schemas.input.safeParse({ __unexpected: true }).success,

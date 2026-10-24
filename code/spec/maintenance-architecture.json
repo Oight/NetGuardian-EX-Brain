@@ -1,0 +1,25 @@
+{
+  "revision": "2026-10-24",
+  "baseline": "0.2.0",
+  "ports": {
+    "alerts": [
+      "AlertPolicyReadPort"
+    ],
+    "requests": [
+      "InvestigationHistoryPort",
+      "ReportAnchorReadPort"
+    ],
+    "delivery": [
+      "DeliveryRecoveryPort",
+      "DeliveryRetrySafetyPort"
+    ]
+  },
+  "tableOwners": {
+    "S11": [
+      "delivery_recoveries"
+    ]
+  },
+  "readBoundary": {
+    "S10": "ReportAnchorReadPort only; no direct S07 SQL"
+  }
+}

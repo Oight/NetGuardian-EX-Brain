@@ -24,7 +24,7 @@ import {
   storageFixture,
   seedCase as seed,
 } from "../../../tests/support/storage.js";
-test("49 baseline tables plus two additive S06 tables survive close/reopen with WAL, FK and migration checks", async () => {
+test("49 baseline tables plus S06 and S11 additive tables survive close/reopen with WAL, FK and migration checks", async () => {
   const f = await storageFixture();
   try {
     const saved = await f.db.write(context(), (tx) => {
@@ -40,7 +40,7 @@ test("49 baseline tables plus two additive S06 tables survive close/reopen with 
       ),
     );
     assert.ok(tables.ok);
-    assert.equal(tables.value?.count, 51);
+    assert.equal(tables.value?.count, 52);
     const mode = await f.db.read(context(), (tx) =>
       tx.get<{
         journal_mode: string;
@@ -346,7 +346,7 @@ test("migration checksum conflicts preserve the existing database and reject sta
           count: number;
         }
       ).count,
-      52,
+      53,
     );
     assert.equal(
       (
@@ -376,7 +376,7 @@ test("an existing v1 database upgrades additively without rewriting 0001 or losi
     const file = join(f.directory.path, "spaces", SPACE, "state.sqlite");
     const legacy = new DatabaseSync(file);
     legacy.exec(
-      "DROP TABLE case_query_page_refs; DROP TABLE case_run_manifests; ALTER TABLE analysis_runs DROP COLUMN mapping_version; DELETE FROM schema_migrations WHERE version>=2;",
+      "DROP TABLE delivery_recoveries; DROP TABLE case_query_page_refs; DROP TABLE case_run_manifests; ALTER TABLE analysis_runs DROP COLUMN mapping_version; DELETE FROM schema_migrations WHERE version>=2;",
     );
     const before = legacy
       .prepare("SELECT checksum FROM schema_migrations WHERE version=1")
@@ -399,7 +399,7 @@ test("an existing v1 database upgrades additively without rewriting 0001 or losi
       assert.ok(result.ok);
       assert.deepEqual(
         result.value.versions.map((m) => m.version),
-        [1, 2, 3],
+        [1, 2, 3, 4],
       );
       assert.equal(result.value.versions[0]?.checksum, before.checksum);
       assert.equal(result.value.title, "合成案件");

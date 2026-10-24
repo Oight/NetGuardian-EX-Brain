@@ -20,6 +20,7 @@ import {
   type ReadTx,
   type ReportCandidate,
   type ReportRecord,
+  type ReportAnchorReadPort,
   type Result,
   type ResultContext,
   type ResultPackage,
@@ -34,6 +35,7 @@ export interface Dependencies {
   ids: IdPort;
   cases: CaseReadPort;
   casesAtomic: CaseAtomicPort;
+  anchors: ReportAnchorReadPort;
 }
 export interface ReportRow {
   id: string;
@@ -84,80 +86,13 @@ export function authorize(
     ? ok(undefined)
     : fail("FORBIDDEN", "报告主体空间不匹配");
 }
-/** Immutable run identity/input projection only. S10 never reads job state, execution facts or cancellation state. */
-export function runAnchor(
-  tx: ReadTx,
-  ctx: CallContext,
-  runId: string,
-): Result<AnalysisRun> {
-  const auth = authorize(tx, ctx, ["ui", "system", "evidence"]);
-  if (!auth.ok) return auth;
-  if (!idSchema.safeParse(runId).success)
-    return fail("INVALID_INPUT", "轮次标识无效");
-  if (
-    (ctx.actor.runId && ctx.actor.runId !== runId) ||
-    (ctx.actor.role === "evidence" && ctx.actor.runId !== runId)
-  )
-    return fail("FORBIDDEN", "报告轮次未授权");
-  const row = tx.get<{
-    id: string;
-    job_id: string;
-    case_id: string;
-    base_revision: number;
-    scope_json: string;
-    connection_generation: number;
-    identity_epoch: number;
-    profile_version: string;
-    tool_epoch: number;
-    expires_at: string;
-    manifest_hash: string | null;
-  }>(
-    "SELECT id,job_id,case_id,base_revision,scope_json,connection_generation,identity_epoch,profile_version,tool_epoch,expires_at,manifest_hash FROM analysis_runs WHERE id=?",
-    [runId],
-  );
-  if (!row) return fail("NOT_FOUND", "报告轮次不存在");
-  if (row.identity_epoch !== ctx.actor.identityEpoch)
-    return fail("IDENTITY_CHANGED", "报告身份已改变");
-  try {
-    return parseDto("AnalysisRun", {
-      id: row.id,
-      jobId: row.job_id,
-      caseId: row.case_id,
-      baseRevision: row.base_revision,
-      scope: JSON.parse(row.scope_json),
-      connectionGeneration: row.connection_generation,
-      identityEpoch: row.identity_epoch,
-      profileVersion: row.profile_version,
-      toolEpoch: row.tool_epoch,
-      expiresAt: row.expires_at,
-      ...(row.manifest_hash ? { manifestHash: row.manifest_hash } : {}),
-    });
-  } catch {
-    return fail("VALIDATION_FAILED", "轮次冻结元数据损坏");
-  }
+/** S07 supplies a checked projection through its public read port. */
+export function runAnchor(deps: Pick<Dependencies, "anchors">, tx: ReadTx, ctx: CallContext, runId: string): Result<AnalysisRun> {
+  const value = deps.anchors.runInTx(tx, ctx, runId);
+  return value.ok ? ok(value.value.run) : value;
 }
-/** Request identity projection, not request/job state. The coordinator retains all terminal-state decisions. */
-export function contextIdentity(
-  tx: ReadTx,
-  ctx: CallContext,
-  context: ResultContext,
-): Result<void> {
-  const row = tx.get<{
-    principal_id: string;
-    job_id: string | null;
-    case_id: string | null;
-    connection_id: string;
-  }>(
-    "SELECT principal_id,job_id,case_id,connection_id FROM investigation_requests WHERE id=?",
-    [context.requestId],
-  );
-  return row &&
-    row.principal_id === ctx.actor.principalId &&
-    row.job_id === context.jobId &&
-    row.case_id === context.caseId &&
-    row.connection_id === context.scope.connectionId
-    ? ok(undefined)
-    : fail("FORBIDDEN", "结果请求关联未获授权");
+export function contextIdentity(deps: Pick<Dependencies, "anchors">, tx: ReadTx, ctx: CallContext, context: ResultContext): Result<{hasRun: boolean}> {
+  return deps.anchors.contextInTx(tx, ctx, context);
 }
 export function decodeReport(row: ReportRow): {
   record: ReportRecord;

@@ -69,3 +69,9 @@ desktop.ini
 .DS_Store
 *.stackdump
 *.dmp
+
+# Encrypted account state and user exports remain runtime data
+*.ngdb
+*.ngdb.lock
+*.ngdb.*.tmp
+*.ngenc

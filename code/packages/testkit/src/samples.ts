@@ -367,6 +367,7 @@ export function foundationSamples() {
       output: { items: [] },
     },
     "alerts.markRead": { input: { alertIds: [CASE] }, output: null },
+    "alerts.getPolicy": {input: {connectionId: CONNECTION}, output: {configured: true, policy}},
     "alerts.setPolicy": {
       input: { expectedRevision: 0, policy },
       output: policy,
@@ -503,6 +504,12 @@ export function foundationSamples() {
     },
     "results.get": { input: { requestId: CASE }, output: result },
     "deliveries.status": { input: { requestId: CASE }, output: [] },
+    "deliveries.recover": {
+      input: {deliveryId: CASE, expectedState: "blocked", expectedAttempts: 1, reason: "用户核实后恢复"},
+      output: {id: CASE, originBindingId: CASE, requestId: CASE, resultVersion: 1, deliveryKey: "a".repeat(64), state: "blocked", attempts: 1, result},
+    },
+    "investigations.history": {input: {caseId: CASE, page: pageInput}, output: {items: [{request, job, run}]}},
+    "investigations.input": {input: {runId: CASE, page: pageInput}, output: {run, job, initialInput: {question: "调查问题", scope, seedRefs: [], contexts: [], capabilities: []}, projections: [], queries: []}},
   } satisfies {
     [K in keyof DesktopMethodMap]: {
       input: DesktopMethodMap[K]["input"];

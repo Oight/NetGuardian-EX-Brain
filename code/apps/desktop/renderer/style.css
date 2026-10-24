@@ -1611,3 +1611,10 @@ progress::-moz-progress-bar {
     scroll-behavior: auto !important;
   }
 }
+
+/* The same account shell wraps the loopback browser and sandboxed Electron renderer. */
+.auth-page{min-height:85vh;display:grid;place-items:center;padding:32px 16px}
+.auth-card{width:min(460px,100%);padding:32px;border:1px solid var(--border,#dce3ed);border-radius:18px;background:var(--surface,#fff);box-shadow:0 20px 60px #172a4610}
+.auth-card h1{font-size:28px;margin:12px 0}.auth-error{color:#ba304a;white-space:pre-wrap}
+.account-bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 24px;border-bottom:1px solid var(--border,#dce3ed);background:var(--surface,#fff)}
+.account-bar .button{padding:6px 10px;font-size:12px}.auth-card input{width:100%}

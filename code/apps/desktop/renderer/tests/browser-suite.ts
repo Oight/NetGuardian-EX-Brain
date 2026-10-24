@@ -967,6 +967,64 @@ test("390px 窄屏导航、模态框和深色主题", async () => {
   frame.width = "1280";
 });
 
+test("策略重新打开后回读权威配置，保留过滤条件与 CAS 版本", async fixture => {
+  const policy={id:id(70),connectionId:id(1),revision:41,epoch:9,enabled:true,agentIds:["001","002"],filter:{minLevel:5,ruleIds:["200"],ruleGroups:["synthetic"]},enabledAfterReceiveSeq:219,dailyAttemptLimit:37,dailyTokenLimit:1200,timeZone:"Asia/Shanghai"};
+  fixture.set("alerts.getPolicy",()=>({configured:true,policy}));
+  fixture.set("alerts.setPolicy",input=>({...input.policy,revision:42}));
+  await click("工作空间设置"); await click("自动调查策略");
+  const modal=dom().querySelector("dialog")!;
+  await until(()=>modal.textContent!.includes("已读取策略 v41"),"持久策略回读");
+  assert((modal.querySelector('[name=expectedRevision]') as HTMLInputElement).value==='41',"应使用持久 revision");
+  assert((modal.querySelector('[name=minLevel]') as HTMLSelectElement).value==='5',"任意合法等级应可回读");
+  assert((modal.querySelector('[name=enabled]') as HTMLInputElement).checked,"启用状态不能猜默认值");
+  assert((modal.querySelector('[name=dailyAttemptLimit]') as HTMLInputElement).value==='37',"预算应来自持久策略");
+  fill("dailyAttemptLimit","38",modal); await click("保存自动策略",modal);
+  await until(()=>fixture.calls.some(c=>c.method==='alerts.setPolicy'),"策略保存");
+  const saved=fixture.calls.find(c=>c.method==='alerts.setPolicy') as RpcRequest<'alerts.setPolicy'>;
+  assert(saved.payload.expectedRevision===41 && saved.payload.policy.id===policy.id,"保存应保留身份和 CAS");
+  assert(saved.payload.policy.filter.ruleIds?.[0]==='200' && saved.payload.policy.filter.ruleGroups?.[0]==='synthetic',"未展示过滤条件不能丢失");
+});
+
+function historyExample() {
+ const request={id:id(50),origin:'client_user' as const,state:'accepted' as const,connectionId:id(1),question:'没有报告的历史失败轮次',seedRefs:[],missingFields:[],caseId:id(2),jobId:id(51),effectiveScope:scope,createdAt:at,expiresAt:at};
+ const job={id:id(51),requestId:request.id,caseId:id(2),runId:id(10),origin:'client_user' as const,state:'failed' as const,revision:3,createdAt:at,updatedAt:at,expiresAt:at,recoveryHold:false};
+ const run={id:id(10),jobId:job.id,caseId:id(2),baseRevision:2,scope,connectionGeneration:1,identityEpoch:1,profileVersion:'v1',toolEpoch:1,expiresAt:at};
+ return {request,job,run};
+}
+test("案件枚举摘要之外的无报告历史，分页回看冻结背景和过期投影",async fixture=>{
+ const item=historyExample();
+ fixture.set('investigations.history',input=>input.page.cursor ? {items:[{request:{...item.request,id:id(52),question:'较早取消的请求',jobId:undefined}}]} : {items:[item],nextCursor:'history-next'});
+ fixture.set('investigations.input',input=>({run:item.run,job:item.job,initialInput:{question:item.request.question,scope,seedRefs:[],contexts:[{...context,text:'调查当时的冻结背景'}],capabilities:[]},projections:[{id:id(8),runId:item.run.id,ref:{evidenceId:evidence.id,version:1},content:{},contentHash:'a'.repeat(64),state:'released',preparedAt:at,availability:'expired'}],queries:[],...(input.page.cursor ? {} : {nextCursor:'input-next'})}));
+ await click(record.title);await until(()=>!!dom().querySelector('[name=text]'),'案件');
+ await click('读取全部调查历史');
+ await until(()=>dom().body.textContent!.includes(item.request.question),'历史失败轮次');
+ await click('继续读取历史');
+ await until(()=>dom().body.textContent!.includes('较早取消的请求'),'第二页历史');
+ assert(fixture.calls.some(c=>c.method==='investigations.history' && (c as RpcRequest<'investigations.history'>).payload.page.cursor==='history-next'),'应传递服务游标');
+ const historyButton=Array.from(dom().querySelectorAll<HTMLButtonElement>('button')).find(b=>b.textContent?.includes(item.request.question))!;historyButton.click();
+ await until(()=>!!dom().querySelector('dialog'),'历史详情');const modal=dom().querySelector('dialog')!;
+ await click('查看当时调查输入',modal);await until(()=>modal.textContent!.includes('调查当时的冻结背景'),'冻结背景');
+ assert(modal.textContent!.includes('expired'),'过期投影不能用当前材料替换');
+ await click('继续读取输入清单',modal);
+ assert(fixture.calls.some(c=>c.method==='investigations.input' && (c as RpcRequest<'investigations.input'>).payload.page.cursor==='input-next'),'输入清单使用独立服务游标');
+});
+test("投递恢复必须显式填写原因，使用投递状态 CAS 且不重跑调查",async fixture=>{
+ const {request,job}=historyExample();
+ const result={schemaVersion:'0.1.0',requestId:request.id,jobId:job.id,caseId:record.id,runId:job.runId,resultVersion:1,terminalState:'failed',review:'unreviewed',summary:'未能完成调查',mainEvidence:[],gaps:['没有报告'],followups:[],scope};
+ const delivery={id:id(71),originBindingId:id(72),requestId:request.id,runId:job.runId,resultVersion:1,deliveryKey:'a'.repeat(64),state:'blocked',attempts:3,result};
+ fixture.set('workspace.snapshot',()=>({eventSeq:0,generatedAt:at,connections:[{id:id(1),displayName:'合成平台',generation:1}],cases:[record],requests:[request],jobs:[job],totals:{cases:1,queued:0,active:0}}));
+ fixture.set('requests.status',()=>({request,job}));fixture.set('deliveries.status',()=>[delivery]);fixture.set('deliveries.recover',()=>({...delivery,state:'pending'}));
+ await click('调查任务');await until(()=>!!Array.from(dom().querySelectorAll('button')).find(b=>b.textContent==='查看进展'),'请求');await click('查看进展');
+ const parent=dom().querySelector('dialog')!;await click('读取投递状态',parent);
+ assert(!fixture.calls.some(c=>c.method==='deliveries.recover'),'读取不能自动恢复');
+ await click('核实并恢复',parent);const modal=Array.from(dom().querySelectorAll('dialog')).at(-1)!;
+ fill('reason','用户核实原对话后申请恢复',modal);await click('核实并恢复',modal);
+ await until(()=>fixture.calls.some(c=>c.method==='deliveries.recover'),'显式投递恢复');
+ const call=fixture.calls.find(c=>c.method==='deliveries.recover') as RpcRequest<'deliveries.recover'>;
+ assert(call.payload.expectedState==='blocked' && call.payload.expectedAttempts===3 && call.payload.deliveryId===delivery.id,'投递恢复应保留独立并发前提');
+ assert(!fixture.calls.some(c=>['requests.create','requests.resume','requests.reconcile'].includes(c.method)),'恢复不重跑调查');
+});
+
 async function start() {
   await new Promise<void>((resolve) => {
     if (frame.contentDocument?.readyState === "complete") resolve();

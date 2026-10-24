@@ -3,11 +3,11 @@ import assert from "node:assert/strict";
 import { writeFile, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ok } from "@campussec/contracts";
-import { CASE } from "@campussec/testkit";
+import { CASE, CONNECTION } from "@campussec/testkit";
 import { composeRuntime } from "../../../../apps/desktop/runtime/compose.js";
 import { setup, take } from "./fixtures.js";
 
-test("production composition exposes persisted reports, manual review and system export through strict DesktopApi", async () => {
+test("production composition exposes persisted reports, maintenance reads, manual review and export through strict DesktopApi", async () => {
   const f = await setup();
   let runtime: Awaited<ReturnType<typeof composeRuntime>> | undefined;
   try {
@@ -44,6 +44,15 @@ test("production composition exposes persisted reports, manual review and system
       payload: { caseId: CASE },
     });
     assert.equal(take(response.result)[0]!.id, report.id);
+    const policy = await value.facade.invoke(ctx, {protocolVersion:"0.1.0", requestId:f.ids.next(), method:"alerts.getPolicy", payload:{connectionId:CONNECTION}});
+    assert.deepEqual(take(policy.result), {configured:false});
+    const history = await value.facade.invoke(ctx, {protocolVersion:"0.1.0", requestId:f.ids.next(), method:"investigations.history", payload:{caseId:CASE,page:{limit:20}}});
+    assert.equal(take(history.result).items[0]!.run!.id, f.run.id);
+    const inputs = await value.facade.invoke(ctx, {protocolVersion:"0.1.0", requestId:f.ids.next(), method:"investigations.input", payload:{runId:f.run.id,page:{limit:50}}});
+    assert.deepEqual(take(inputs.result).initialInput, f.initialInput);
+    const recover = await value.facade.invoke(ctx, {protocolVersion:"0.1.0", requestId:f.ids.next(), method:"deliveries.recover", payload:{deliveryId:f.ids.next(),expectedState:"blocked",expectedAttempts:3,reason:"未装配宿主时拒绝恢复"}});
+    assert.equal(recover.result.ok, false);
+    if (!recover.result.ok) assert.equal(recover.result.error.code, "NOT_FOUND");
     const reviewed = await value.facade.invoke(ctx, {
       protocolVersion: "0.1.0",
       requestId: f.ids.next(),

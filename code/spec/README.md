@@ -1,9 +1,7 @@
-# 设计快照与来源
+# 冻结基线与维护附件
 
-此处保留 contracts.ts、schema.sql、architecture.json、contract-vectors.json 原文；[provenance.json](provenance.json)登记原 commit、提供者和逐文件 SHA-256。它们不是产品运行时依赖，产品类型唯一从 packages/contracts 导出。
+contracts.ts、schema.sql、architecture.json、contract-vectors.json 保持工程 0.2.0 原始字节；[provenance.json](provenance.json)的原哈希不改写。产品类型统一从 packages/contracts 导出，这里不是运行时来源。
 
-核对设计仓库 `120c81cfd4d8ed720c9cc70178edb9c6fd172a34`：四份附件与初始 c8f152e 完全相同，不改写快照或迁移校验值。新增四线分工见[结构](../docs/development/structure.md)和[任务](../docs/development/tasks/README.md)。
+本次从可信设计附件恢复了三份漂移快照，并将新增接口单列为 maintenance-contracts.ts；0003 审计 DDL 为 maintenance-schema.sql，增量所有权为 maintenance-architecture.json。[maintenance-provenance.json](maintenance-provenance.json)单独记录这些附件的哈希，原基线校验继续执行。
 
-来源仓库：[NetGuardian-EX-Brain](https://github.com/Oight/NetGuardian-EX-Brain)。四线原任务位于该提交 docs/development/tasks/T002—T005；本项目不修改来源，不复制其任务执行成绩。
-
-类型/DDL 变化须明确版本、消费者、兼容影响和迁移，再由所有者协调同步。不能为通过检查改快照哈希；.gitattributes 保留快照与初始迁移的原始字节，防止跨平台换行转换破坏校验。
+产品扩展声明只增补 DesktopMethodMap，原 domains 声明与基线 AST 严格一致。verify-foundation 同时验证新附件、产品增量声明、47 个 Desktop 方法的 schema 与迁移。规范说明见[维护补充](../../design_document/docs/implementation/maintenance-2026-10-24.md)。

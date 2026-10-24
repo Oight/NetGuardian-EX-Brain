@@ -1,3 +1,4 @@
+import {openEncryptedSnapshot,restoreSnapshot,type Durability} from "./encrypted-snapshot.js";
 import { DatabaseSync } from "node:sqlite";
 import {
   fail,
@@ -25,10 +26,15 @@ export async function createStorage(
   )
     return fail("INVALID_INPUT", "主体空间参数无效");
   let connection: DatabaseSync | undefined;
+  let encrypted:ReturnType<typeof openEncryptedSnapshot>|undefined;
+  let durability:Durability|undefined;
   try {
-    connection = new DatabaseSync(await prepareSpacePath(deps));
+    const path=await prepareSpacePath(deps);
+    if(deps.encryption){encrypted=openEncryptedSnapshot(path,deps.encryption);connection=new DatabaseSync(":memory:");connection.exec("PRAGMA temp_store=MEMORY");await migrate(connection,deps,encrypted.snapshot?.schemaVersion);if(encrypted.snapshot)restoreSnapshot(connection,encrypted.snapshot);}
+    else connection=new DatabaseSync(path);
     await migrate(connection, deps);
-    const controller = createDatabase(connection, deps);
+    if(encrypted)durability=encrypted.attach(connection);
+    const controller = createDatabase(connection, deps,durability);
     const events = createEvents({
       ...deps,
       db: controller.db,
@@ -42,6 +48,7 @@ export async function createStorage(
     } catch {
       /* Preserve the existing database. */
     }
+    try{encrypted?.close();}catch{/* Preserve the original failure. */}
     return { ok: false, error: internalError("STORAGE_UNAVAILABLE") };
   }
 }

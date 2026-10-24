@@ -1,0 +1,152 @@
+{
+  "date": "2026-10-24",
+  "removed": [
+    {
+      "path": "code/docs/development/tasks/T007-project-structure.md",
+      "sha256": "beb6ce0a356ad296a8e08c28fa72a80de2a50ea3b9e5f79998f3edcb35ee3d24",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    },
+    {
+      "path": "code/docs/development/workstreams/a/README.md",
+      "sha256": "1cfe93a502ca3b8c31bc087883140dfccdeb0e7efbfc852de283f9fb207dcf3a",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    },
+    {
+      "path": "code/docs/development/workstreams/b/b0-acceptance.md",
+      "sha256": "49f1e063600ae797b363e89ee4954190ae8444d72ba7d378cf4e493f5bd5fac2",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    },
+    {
+      "path": "code/docs/development/workstreams/b/b0-boundaries.md",
+      "sha256": "e9938769b7223d3c492757265f6a1605d195087a036fcad48fd4fe60c168fc91",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    },
+    {
+      "path": "code/docs/development/workstreams/b/b0-plan.md",
+      "sha256": "8ee4d8fe2b4d128387e30832ba23c411148a84b62c4d12f8b300244c4fdd030d",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    },
+    {
+      "path": "code/docs/development/workstreams/c/README.md",
+      "sha256": "3e57b36c8fe5a09ef27a99725cdc788f4464b6e1a8e16a165d4b92804546cb40",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    },
+    {
+      "path": "code/docs/development/workstreams/c/c0-c1-handoff.md",
+      "sha256": "4b12c0ab0f03a6c4130f66e5ff4bde8d73a75d3bc9ca434ab2a4b2da3cdd7ee0",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    },
+    {
+      "path": "code/docs/development/workstreams/d/README.md",
+      "sha256": "b9a7ed3a5d4a3f733b8b2e36f4922e894cf968878e7925b7389be4f09f352010",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    },
+    {
+      "path": "code/docs/development/workstreams/d/local-cases-acceptance.md",
+      "sha256": "3400c23343acb13bdf43474388414c58726e8ff5050499c3b018da6a9ba77c78",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    },
+    {
+      "path": "code/docs/history/foundation-initial-task.md",
+      "sha256": "feb66ad2fc95a0dab2d76734ec29a1021228bfc35e6a73b4e83a6b1292998475",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    },
+    {
+      "path": "code/docs/reviews/local-implementation-2026-10-24.md",
+      "sha256": "51a0d4cce6212cb5e9f1e1deb3a896e1a8a061ceec5b367ccfcf2c79eac81656",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    },
+    {
+      "path": "code/docs/reviews/netguardian-2026-10-24.md",
+      "sha256": "a8f5951d97218d6176f70f9987941ba2466bc1b218ff68194ad0f7b2b53b3bdc",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    },
+    {
+      "path": "code/docs/verification/a-completion-2026-10-24.md",
+      "sha256": "ee14911da52ecc03fd52dcba352ac8e3bcc71505e5d33bfd59a4edcbb98be8f6",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    },
+    {
+      "path": "code/docs/verification/a-handoff-2026-10-23.md",
+      "sha256": "96d3c2ed98aabc8217696119415c06ae3bb5ad7789ab94477e131883c9ff551d",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    },
+    {
+      "path": "code/docs/verification/foundation-2026-10-23.md",
+      "sha256": "c67254c524a46bddc58df5bb3f9390c79e1fb52521d29fb6511970d2bf1abff2",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    },
+    {
+      "path": "code/docs/verification/local-cases-2026-10-24.md",
+      "sha256": "955db26f9903b78a42b4f3cc27601f18e2568910047b91ce0869dbc12541dccc",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    },
+    {
+      "path": "code/docs/verification/structure-2026-10-23.md",
+      "sha256": "c9a0f11dd2e5777ccc2f82d77f3d3beff556076b61e71f30892b7a13797a0ae0",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    },
+    {
+      "path": "code/docs/verification/sync-2026-10-23.md",
+      "sha256": "71b72a5e6ff47e53265e79fa2e654420adf79e65eb7d399e3e48a3b619265361",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    },
+    {
+      "path": "design_document/docs/development/remote-sync.md",
+      "sha256": "a5e421f49529cc8762e593a607803b56018b415dbb2bc031146a7e26681fa917",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    },
+    {
+      "path": "design_document/docs/development/repository-setup.md",
+      "sha256": "710410c0cf7921b3a6c550ed7d94700a6b30745b95a6be73f1756744c02cb35a",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    },
+    {
+      "path": "design_document/docs/development/repository-verification.md",
+      "sha256": "7021dd24c3c68888d60aa6f2880a84734434d4a70d5f609412031acbf9403d40",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    },
+    {
+      "path": "design_document/docs/development/tasks/T000-github-bootstrap.md",
+      "sha256": "015106ff5ffab8727b70a0ee950fdb5e41d6e8f2cd011dc7f8d69619fd142d58",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    },
+    {
+      "path": "design_document/docs/development/tasks/T001-docs-portability.md",
+      "sha256": "1247b7c89ad44b4becbf21d1c84d11fd7e8984134f954c7600e722109341b50b",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    },
+    {
+      "path": "design_document/docs/development/tasks/T002-a-foundation.md",
+      "sha256": "64d1a3b6e530159690d7cde94e5d35227f707d0cabd5c0b00c604a9423deba20",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    },
+    {
+      "path": "design_document/docs/development/tasks/T003-b-local-domain.md",
+      "sha256": "077c9275e5b5e6deab11dd6ac5d5c88314af5218364502b78ea7b000f9b4b43c",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    },
+    {
+      "path": "design_document/docs/development/tasks/T004-c-integrations.md",
+      "sha256": "aab1636cbcc8a1055076ec52b1801470203bb96052b3ec0ba457bf27d5fb4044",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    },
+    {
+      "path": "design_document/docs/development/tasks/T005-d-workbench.md",
+      "sha256": "d78a6d29b220bca9a21e5e562d0df204999e87dadebc006a149c28314a31c613",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    },
+    {
+      "path": "design_document/docs/development/tasks/T006-doc-links.md",
+      "sha256": "f0908de102329fe9d0daa52879e07e0b9486c8b0b213f780b3891c692065008a",
+      "reason": "已被当前代码、任务或统一验证记录替代的历史执行/交接副本；原件保留在只读设计来源。"
+    }
+  ],
+  "moved": [
+    {
+      "from": "design_document/docs/current/wazuh-capability-assessment-2026-10-21.md",
+      "to": "design_document/docs/research/wazuh-capability-assessment-2026-10-21.md"
+    }
+  ],
+  "preserved": "v4.2 baseline, experiment plan, original frozen attachments, useful dated research and unapproved proposals"
+}

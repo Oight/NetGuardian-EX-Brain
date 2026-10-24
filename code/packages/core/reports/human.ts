@@ -83,7 +83,7 @@ export function human(
             candidate.question !== original.record.candidate.question
           )
             return fail("FORBIDDEN", "人工修订不能替换案件、轮次或调查问题");
-          const run = runAnchor(tx, ctx, candidate.runId);
+          const run = runAnchor(deps, tx, ctx, candidate.runId);
           if (!run.ok) return run;
           const view = deps.casesAtomic.inspectRunInTx(tx, ctx, run.value);
           if (!view.ok) return view;

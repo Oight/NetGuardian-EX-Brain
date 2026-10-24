@@ -1,0 +1,387 @@
+[
+  {
+    "path": "CONTRIBUTING.md",
+    "sha256": "3c04139a609bd40e5805f7e0ebb829defc0d0beb37d78665c7ba80107c4da8dc",
+    "bytes": 1096
+  },
+  {
+    "path": "README.md",
+    "sha256": "c7ec8bedde40721e1ed9bc1866bb9b828f90cb6f30cc8e26b02d761d579c9313",
+    "bytes": 1102
+  },
+  {
+    "path": "code/CONTRIBUTING.md",
+    "sha256": "aa5aeda1a4ae8bd76326123fb95921eec881b337fe921f8fe8ce885b7591e6bb",
+    "bytes": 560
+  },
+  {
+    "path": "code/README.md",
+    "sha256": "c219d650adf7cd9195149dfa044a702a3802d60d9a43968ceeadeb5123451667",
+    "bytes": 1154
+  },
+  {
+    "path": "code/apps/desktop/renderer/README.md",
+    "sha256": "ce90d0f77e9f32b824ba03c70d52a66a0b566bd0ea35f06f8f86b763521b927f",
+    "bytes": 934
+  },
+  {
+    "path": "code/docs/README.md",
+    "sha256": "a18e6574c33db5e60419127a0365ffdf420e921b658577a6212a365fd7def0a3",
+    "bytes": 683
+  },
+  {
+    "path": "code/docs/development/commands.md",
+    "sha256": "4680aaba19c978186a18f8b5c85b987f786d34bb20bb3a9185ebc482256a59f3",
+    "bytes": 2838
+  },
+  {
+    "path": "code/docs/development/git-sync.md",
+    "sha256": "d1e9fc5662c768d939cf607e5d091558a7fda560e2780b8546ad27bf76aea478",
+    "bytes": 1371
+  },
+  {
+    "path": "code/docs/development/structure.md",
+    "sha256": "df4a143b967d49ccd94a6252b0f7b4c288ccfabe2f04e18345d46f6bbfdb8730",
+    "bytes": 2659
+  },
+  {
+    "path": "code/docs/development/tasks/README.md",
+    "sha256": "6b47a8c04bd2f26de368729bd3cfa5624b285626dd3aa70b3f3a3b51c7fcf6db",
+    "bytes": 927
+  },
+  {
+    "path": "code/docs/development/tasks/T002-a-foundation.md",
+    "sha256": "6e325ea167403a40277233442bcfd0079cdef7d7ce33db488bbf8b255d1d02c7",
+    "bytes": 1158
+  },
+  {
+    "path": "code/docs/development/tasks/T003-b-local-domain.md",
+    "sha256": "873daa7465c51d5910619286009414b949dec586588e071d51b65eaf9ad7e484",
+    "bytes": 1193
+  },
+  {
+    "path": "code/docs/development/tasks/T004-c-integrations.md",
+    "sha256": "1c02f9992251dca1c8dc292e7844363903e8f14377fad935f68495cd96bd6bc4",
+    "bytes": 1181
+  },
+  {
+    "path": "code/docs/development/tasks/T005-d-workbench.md",
+    "sha256": "7b617e501cd45cd04e5cb2cd8d4082d383a554dd744a5a1e2034c230803950d4",
+    "bytes": 958
+  },
+  {
+    "path": "code/docs/development/workflow.md",
+    "sha256": "188d7d9c8873a2250e33ea28efd5f3b2517e5f6e0bf99e72b4ba5f2b55e201c1",
+    "bytes": 1847
+  },
+  {
+    "path": "code/docs/development/workstreams/b/README.md",
+    "sha256": "ba939e05ee4b9ffd04e528169a203cdb76f5bd213fc36e8e284c628985a243f2",
+    "bytes": 922
+  },
+  {
+    "path": "code/docs/verification/maintenance-2026-10-24.md",
+    "sha256": "6f38aaa5de49eefee485d7ba6d536c0e6e2f82318b58d08955ddd3dab3f30b2f",
+    "bytes": 4258
+  },
+  {
+    "path": "code/packages/contracts/README.md",
+    "sha256": "7089f578902eef8ef7d00894dcf9cfb32c224d801258fe8da14cc037a71f64af",
+    "bytes": 947
+  },
+  {
+    "path": "code/packages/core/README.md",
+    "sha256": "02674f404ad1cabf225b64e948fd3ac77b39b230c5e5377b6e8223c7a03a84ef",
+    "bytes": 451
+  },
+  {
+    "path": "code/packages/core/alerts/README.md",
+    "sha256": "ebd7c8c107d8e890f0e1547f00f1880074e5f6c0d3fb3dc74981c7b1f21a7f57",
+    "bytes": 459
+  },
+  {
+    "path": "code/packages/core/cases/README.md",
+    "sha256": "6a905dec653fe42706c9af6223223ec22ef9c29dcae00afa33549bc866b2624e",
+    "bytes": 2298
+  },
+  {
+    "path": "code/packages/core/delivery/README.md",
+    "sha256": "af2e46afdf278681bf3835b83d46c72eed1f4779088d29fcf72e00df47a048cd",
+    "bytes": 986
+  },
+  {
+    "path": "code/packages/core/investigations/README.md",
+    "sha256": "4cb2df5ce3bdee0a8117deb5272f6b4924076f88ea3b996374dc8e0c6c4c10a3",
+    "bytes": 516
+  },
+  {
+    "path": "code/packages/core/reports/README.md",
+    "sha256": "04f6edf6b5909df43b8bb4be9cb2e02c4a462509c0f9fb9f4bafca05083403a1",
+    "bytes": 841
+  },
+  {
+    "path": "code/packages/core/requests/README.md",
+    "sha256": "a3084a9b86850ddafcff33fe61f4044f305def118860c5fc70c5744cad5a410f",
+    "bytes": 793
+  },
+  {
+    "path": "code/packages/investigation-profile/README.md",
+    "sha256": "1dd2963793834708992e54ec3bda44d68ec49f81ac1480b8c808ec5a7c7b3fc5",
+    "bytes": 483
+  },
+  {
+    "path": "code/packages/mcp-server/README.md",
+    "sha256": "3087b2ff0cffb2d4296148562273b667639b7b993af54934f110d33d22e09ecb",
+    "bytes": 376
+  },
+  {
+    "path": "code/packages/mcp-server/channels/README.md",
+    "sha256": "3d9a8a4c1390cc692235f47216abc1b4371988bae9bec8c622671b961f04476e",
+    "bytes": 589
+  },
+  {
+    "path": "code/packages/mcp-server/gateway/README.md",
+    "sha256": "87e180c68e717c7b59deec4a163a3d7af19e005ad375d0388bfc4ee3261d224a",
+    "bytes": 201
+  },
+  {
+    "path": "code/packages/storage/README.md",
+    "sha256": "f6b50fdf93f2dd5c179176fafe03b29725cfe13ab0e5714e56c149331511d4fd",
+    "bytes": 594
+  },
+  {
+    "path": "code/packages/teleagent-bridge/README.md",
+    "sha256": "7d4e96f6d6421136ac60a4ee0b4e7499ef4a0095de625209bc3cea13cde33fb2",
+    "bytes": 344
+  },
+  {
+    "path": "code/packages/teleagent-bridge/execution/README.md",
+    "sha256": "2ebfa9d5954a556d2e6aa3300b0f51641c30b4ddabeab38d076594c88ca6db92",
+    "bytes": 173
+  },
+  {
+    "path": "code/packages/teleagent-bridge/host-access/README.md",
+    "sha256": "cc72b618baf04f1a2b46e1f1b2d37c7c4cf44e2609026ac5ef1f9336af86a345",
+    "bytes": 219
+  },
+  {
+    "path": "code/packages/testkit/README.md",
+    "sha256": "d13bde938f41cf1b58c9280f0797b867a951ceb66dce38e1dcfff075db69d80d",
+    "bytes": 3382
+  },
+  {
+    "path": "code/packages/wazuh-adapter/README.md",
+    "sha256": "dce3636073752d0ccd9765317ccb573518651de54754e2c68f87e7a05138dcfb",
+    "bytes": 2265
+  },
+  {
+    "path": "code/scripts/README.md",
+    "sha256": "b90ce2033024c0204dfc488895fdb102370af601fbf6c47e223fc0b3d3d4ba9a",
+    "bytes": 742
+  },
+  {
+    "path": "code/spec/README.md",
+    "sha256": "ab1c6f086c6fe79633053e383403f300e0f257d92e9dd13dc98dbc408a42db0a",
+    "bytes": 912
+  },
+  {
+    "path": "code/tests/README.md",
+    "sha256": "200cd8639f53fb3699768df7cf3c63c8f594c3baaf60bff305b1665e6840fbe6",
+    "bytes": 653
+  },
+  {
+    "path": "code/tests/acceptance/README.md",
+    "sha256": "e5d6835041b83eaf6fa091222192f9598071ce9f880b0d97e46803ef4edecff0",
+    "bytes": 478
+  },
+  {
+    "path": "code/tests/support/README.md",
+    "sha256": "7901b73a0a525d2adb1ca6911ee8c8d92c332066b9fc3030d2cd546fac523ef4",
+    "bytes": 327
+  },
+  {
+    "path": "design_document/CONTRIBUTING.md",
+    "sha256": "feae9389d8cbebacc6b6204bc3578dd92f9ffa347230af865a4a3d976609c720",
+    "bytes": 663
+  },
+  {
+    "path": "design_document/README.md",
+    "sha256": "260ee5909e6556c203e2980128988e2ba414388bea39110a66fba2d006255d7f",
+    "bytes": 1032
+  },
+  {
+    "path": "design_document/docs/README.md",
+    "sha256": "615ca0f3eebd13d5045866fe97996fa527a491a8c8aa064fe68be98abf7d79fd",
+    "bytes": 1660
+  },
+  {
+    "path": "design_document/docs/current/security-triage-client-design-v4.md",
+    "sha256": "c04468d53f7550ee067dd0547116edc1e6f54c707fec02b32bb664e835fd551b",
+    "bytes": 73775
+  },
+  {
+    "path": "design_document/docs/current/security-triage-client-experiments-v4.md",
+    "sha256": "d0ee7e9732322f0ee848aa31b2c3e99b9f6d06a251e301970a4afc55227e4919",
+    "bytes": 24290
+  },
+  {
+    "path": "design_document/docs/development/README.md",
+    "sha256": "0b7d470e99ecc950c1cd2e2a00472ab1830465555d08e5567aa424e5f941fb01",
+    "bytes": 895
+  },
+  {
+    "path": "design_document/docs/development/engineering-rules.md",
+    "sha256": "732990a4087bf940d22d863717fdf5a99b40d57e2e6aa7342b2f5ed881e16f47",
+    "bytes": 2903
+  },
+  {
+    "path": "design_document/docs/development/github.md",
+    "sha256": "e88ac08952cc9c6f7e20676e1331c2f97e9bc0edb42da45e92e9aaed116244f4",
+    "bytes": 690
+  },
+  {
+    "path": "design_document/docs/development/ownership.md",
+    "sha256": "2f917003db1078fadf5011185b4ba3a71c112a9cf3dd0f582c927059104a654b",
+    "bytes": 3613
+  },
+  {
+    "path": "design_document/docs/development/readiness.md",
+    "sha256": "832e598530f70ab269067d2a37ca7f5a1b0219640cf754588771f1fd066eb7cf",
+    "bytes": 1007
+  },
+  {
+    "path": "design_document/docs/development/task-template.md",
+    "sha256": "65778483acfbd6e3f8be0d025a2a95d3521b401c795bd0bbc220ef8ce9f46747",
+    "bytes": 1910
+  },
+  {
+    "path": "design_document/docs/development/tasks/README.md",
+    "sha256": "8d8eab16e5370ce43fd8972f17f3cffb99f3ead1b15d4d9fbb1dbb0dc0d71c37",
+    "bytes": 247
+  },
+  {
+    "path": "design_document/docs/development/workflow.md",
+    "sha256": "8d7396a3585e2cd4941ba8c89c639f01f69a47694beb3b6f934358beb93ef82b",
+    "bytes": 3151
+  },
+  {
+    "path": "design_document/docs/implementation/01-contracts.md",
+    "sha256": "253e971db4366ce488d5e3672a4c6bae3cdf3353611698de39c44da4a33601de",
+    "bytes": 47704
+  },
+  {
+    "path": "design_document/docs/implementation/02-storage.md",
+    "sha256": "dd7b664ede78d50cd0ff16fc6a39d5a8b4cae5ec8734650e819ea95aead1c32a",
+    "bytes": 30640
+  },
+  {
+    "path": "design_document/docs/implementation/03-desktop-runtime.md",
+    "sha256": "d07f2213a8ddbc43b3da7cdbd2864fba08f49f29669dfcd77320585cb5ac8d78",
+    "bytes": 54801
+  },
+  {
+    "path": "design_document/docs/implementation/04-wazuh.md",
+    "sha256": "9fe220ac86c6b74f71a805f4379ed1fef1a1c8f072b73c6fb99319378494860f",
+    "bytes": 18678
+  },
+  {
+    "path": "design_document/docs/implementation/05-alerts.md",
+    "sha256": "a43c3cffe55de827146b085cda853b403803632d6e74a98bd33637527faafdee",
+    "bytes": 28821
+  },
+  {
+    "path": "design_document/docs/implementation/06-cases-evidence.md",
+    "sha256": "a89b32e3b10d5853930c0484bdae9ce71b6fd6e4e7f559bfad66853b3f9dd8a6",
+    "bytes": 29878
+  },
+  {
+    "path": "design_document/docs/implementation/07-requests-scheduler.md",
+    "sha256": "cf3a9f417cee8c797792a4c747a8abf44b77d4ca5bffe674d3d0d3cb7d5b95b8",
+    "bytes": 45484
+  },
+  {
+    "path": "design_document/docs/implementation/08-teleagent.md",
+    "sha256": "126d5f072bc249f886ae9a0c2251dba2de0ac37cf1da4e17da43aa0b6b6580eb",
+    "bytes": 21510
+  },
+  {
+    "path": "design_document/docs/implementation/09-mcp.md",
+    "sha256": "71896caf7c9a7947ee9de57c5cd75dd2cc4adc9bcd7f0f80719b122f9f5661ea",
+    "bytes": 28731
+  },
+  {
+    "path": "design_document/docs/implementation/10-investigation-reports.md",
+    "sha256": "38f7090c8c74228fe014cac39fed7cdffbe8103cec8fb0710490a8c6b71bdef4",
+    "bytes": 31408
+  },
+  {
+    "path": "design_document/docs/implementation/11-delivery.md",
+    "sha256": "47f2e827d69b04eb6e98d7ece2924ced984103a2aab02604354e43d22b07c582",
+    "bytes": 21087
+  },
+  {
+    "path": "design_document/docs/implementation/12-workbench.md",
+    "sha256": "b0cd2472b89772b4cf4eb01b1ffb267ed824806152b89b36d85aacf4afa8ea5c",
+    "bytes": 26908
+  },
+  {
+    "path": "design_document/docs/implementation/README.md",
+    "sha256": "6880e1721e4d3474189889a2dd840181b22f51bbfeff5addd65b3fec00e041f3",
+    "bytes": 4547
+  },
+  {
+    "path": "design_document/docs/implementation/boundaries.md",
+    "sha256": "9126548c724a19dc90d279911444d926956f257f797937cf68174d8239e281c7",
+    "bytes": 5616
+  },
+  {
+    "path": "design_document/docs/implementation/changes-0.2.0.md",
+    "sha256": "639229080ce0e6cb99d939e9c4b7d3c71d107568cc0f993612c366f40841c7ff",
+    "bytes": 3850
+  },
+  {
+    "path": "design_document/docs/implementation/integration.md",
+    "sha256": "19e03afc7b0b970545f5d35990879bea925bdd9a0a54dc239af47d6c08b022ad",
+    "bytes": 6052
+  },
+  {
+    "path": "design_document/docs/implementation/maintenance-2026-10-24.md",
+    "sha256": "256828a698730775616da245731fe756d903fa3ecaf5e525114b2c5834aedc54",
+    "bytes": 4971
+  },
+  {
+    "path": "design_document/docs/implementation/verification.md",
+    "sha256": "e662f1bf0acf738ca2f0ea34236859bc703ab0e8762b02e850affad693511342",
+    "bytes": 669
+  },
+  {
+    "path": "design_document/docs/project-status.md",
+    "sha256": "788579ce48a2d93afe13a2b3d3db307432dafc040e6eb4756fcab6ac5cc25073",
+    "bytes": 596
+  },
+  {
+    "path": "design_document/docs/proposals/security-triage-client-detail-proposal.md",
+    "sha256": "b6e0156a67f703b8a6715272d5fd76ec40feb042b86fa1a345d6608a14e729e7",
+    "bytes": 31628
+  },
+  {
+    "path": "design_document/docs/proposals/wazuh-upstream-access-checklist-2026-10-22.md",
+    "sha256": "1bf74488cfd0069f88a1c04a5fd22b879746c6074104406b8111a5ae806cd1c1",
+    "bytes": 28252
+  },
+  {
+    "path": "design_document/docs/reference-index.md",
+    "sha256": "b7cb3f14f26472807681f8294afe30c496fd87100ee194b8d2d2d2c335b68b36",
+    "bytes": 9616
+  },
+  {
+    "path": "design_document/docs/research/wazuh-capability-assessment-2026-10-21.md",
+    "sha256": "76930c0550146aece4fbe234b173c0f1a7b9eb512a974b6edbb7ba96a8cdf19b",
+    "bytes": 17973
+  },
+  {
+    "path": "design_document/docs/version-history.md",
+    "sha256": "b9d78162fc321bbeb85aeb3bc815baacf1eae29fc533691697c09e4ab29d7735",
+    "bytes": 3246
+  }
+]
