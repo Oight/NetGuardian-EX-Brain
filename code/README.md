@@ -2,7 +2,7 @@
 
 业务基线 **v4.2**，内部工程契约 **0.2.0**，外部信封 **0.1.0**。设计资料提供并署名：**Shimakaze-17900**；实现与整理：Codex 辅助。[设计快照与来源](spec/README.md)。
 
-目前已有 S01 契约、S02 SQLite、S03 桌面宿主、独立 S07 原子预算、S06 案件/证据、S04 Wazuh 只读适配、S09 独立证据通道，以及 S10 调查配置/报告/人工核查/导出后端。案件工作台可创建案件、保存背景并重开回读；S10 已经 DesktopApi 装配。完整调查编排、告警业务、MCP 协议入口、宿主执行、回传与完整报告交互仍待后续阶段。[案件验证](docs/verification/local-cases-2026-10-24.md) · [报告任务与验证](docs/development/tasks/T003-b-local-domain.md)。
+目前已有 S01 契约、S02 SQLite、S03 桌面宿主、独立 S07 原子预算与取证工具执行器、S06 案件/证据、S04 Wazuh 只读适配、S09 独立证据通道，以及 S10 调查配置/报告/人工核查/导出后端。案件工作台可创建案件、保存背景并重开回读；S10 已经 DesktopApi 装配。完整调查编排、告警业务、MCP 协议入口、宿主执行、回传与完整报告交互仍待后续阶段。[案件验证](docs/verification/local-cases-2026-10-24.md) · [报告任务与验证](docs/development/tasks/T003-b-local-domain.md) · [工具任务与接入](docs/development/tasks/T002-a-foundation.md)。
 
 ## 从这里开始
 

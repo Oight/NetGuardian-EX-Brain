@@ -4,6 +4,10 @@
   "private": true,
   "type": "module",
   "exports": {
+    "./investigations/tools": {
+      "types": "./investigations/tool-runner/index.ts",
+      "default": "./dist/investigations/tool-runner/index.js"
+    },
     "./requests/budgets": {
       "types": "./requests/budgets.ts",
       "default": "./dist/requests/budgets.js"

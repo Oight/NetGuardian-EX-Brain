@@ -1,6 +1,6 @@
 # 本地业务核心
 
-本目录按业务所有权组织。目前仅原子预算通过 `@campussec/core/requests/budgets` 提供真实公开实现；其他业务目录仍只有说明。各域新增源码与 tests 后，由 A 维护相应公开子路径和装配，不导出成功占位。
+本目录按业务所有权组织。已实现公开入口：`@campussec/core/requests/budgets`、`@campussec/core/cases`、`@campussec/core/reports` 和 `@campussec/core/investigations/tools`。调查工具层尚未接请求生命周期与 MCP 协议入口；alerts、delivery 及其他调查协调用例仍待实现。按任务路径维护公开子路径和装配，不导出成功占位。
 
 | 路径                     | 归属    | 职责                                       |
 | ------------------------ | ------- | ------------------------------------------ |
