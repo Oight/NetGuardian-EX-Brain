@@ -8,67 +8,36 @@
       "module": "S01",
       "path": "packages/contracts",
       "dependsOn": [],
-      "ports": [
-        "CallContext",
-        "Result",
-        "DEFAULT_LIMITS"
-      ]
+      "ports": ["CallContext", "Result", "DEFAULT_LIMITS"]
     },
     "storage": {
       "module": "S02",
       "path": "packages/storage",
-      "dependsOn": [
-        "common"
-      ],
-      "ports": [
-        "DatabasePort",
-        "EventPort"
-      ]
+      "dependsOn": ["common"],
+      "ports": ["DatabasePort", "EventPort"]
     },
     "secrets": {
       "module": "S03",
       "path": "apps/desktop/main/secrets",
-      "dependsOn": [
-        "common"
-      ],
-      "ports": [
-        "SecretPort"
-      ]
+      "dependsOn": ["common"],
+      "ports": ["SecretPort"]
     },
     "wazuh": {
       "module": "S04",
       "path": "packages/wazuh-adapter",
-      "dependsOn": [
-        "common",
-        "storage",
-        "secrets"
-      ],
-      "ports": [
-        "ConnectionService",
-        "PlatformQueryPort",
-        "ConnectionReadPort"
-      ]
+      "dependsOn": ["common", "storage", "secrets"],
+      "ports": ["ConnectionService", "PlatformQueryPort", "ConnectionReadPort"]
     },
     "cases": {
       "module": "S06",
       "path": "packages/core/cases",
-      "dependsOn": [
-        "common",
-        "storage"
-      ],
-      "ports": [
-        "CaseService",
-        "CaseAtomicPort"
-      ]
+      "dependsOn": ["common", "storage"],
+      "ports": ["CaseService", "CaseAtomicPort"]
     },
     "channels": {
       "module": "S09",
       "path": "packages/mcp-server/channels",
-      "dependsOn": [
-        "common",
-        "storage",
-        "secrets"
-      ],
+      "dependsOn": ["common", "storage", "secrets"],
       "ports": [
         "EvidenceChannelPort",
         "EvidenceChannelControlPort",
@@ -78,39 +47,19 @@
     "host": {
       "module": "S08",
       "path": "packages/teleagent-bridge/host-access",
-      "dependsOn": [
-        "common",
-        "storage",
-        "secrets"
-      ],
-      "ports": [
-        "HostCapabilitiesPort",
-        "TrustedOriginPort",
-        "HostDeliveryPort"
-      ]
+      "dependsOn": ["common", "storage", "secrets"],
+      "ports": ["HostCapabilitiesPort", "TrustedOriginPort", "HostDeliveryPort"]
     },
     "execution": {
       "module": "S08",
       "path": "packages/teleagent-bridge/execution",
-      "dependsOn": [
-        "common",
-        "storage",
-        "secrets",
-        "host",
-        "channels"
-      ],
-      "ports": [
-        "ExecutionPort"
-      ]
+      "dependsOn": ["common", "storage", "secrets", "host", "channels"],
+      "ports": ["ExecutionPort"]
     },
     "reports": {
       "module": "S10",
       "path": "packages/core/reports",
-      "dependsOn": [
-        "common",
-        "storage",
-        "cases"
-      ],
+      "dependsOn": ["common", "storage", "cases"],
       "ports": [
         "ReportService",
         "InvestigationProfilePort",
@@ -122,44 +71,20 @@
     "delivery": {
       "module": "S11",
       "path": "packages/core/delivery",
-      "dependsOn": [
-        "common",
-        "storage",
-        "host",
-        "reports"
-      ],
-      "ports": [
-        "DeliveryService",
-        "SubscriptionAtomicPort"
-      ]
+      "dependsOn": ["common", "storage", "host", "reports"],
+      "ports": ["DeliveryService", "SubscriptionAtomicPort"]
     },
     "budget": {
       "module": "S07",
       "path": "packages/core/requests/budgets",
-      "dependsOn": [
-        "common",
-        "storage"
-      ],
-      "ports": [
-        "RunBudgetPort",
-        "RunBudgetAtomicPort"
-      ]
+      "dependsOn": ["common", "storage"],
+      "ports": ["RunBudgetPort", "RunBudgetAtomicPort"]
     },
     "tools": {
       "module": "S07",
       "path": "packages/core/investigations/tool-runner",
-      "dependsOn": [
-        "common",
-        "storage",
-        "budget",
-        "cases",
-        "wazuh",
-        "reports"
-      ],
-      "ports": [
-        "InvestigationToolPort",
-        "ToolReplyAtomicPort"
-      ]
+      "dependsOn": ["common", "storage", "budget", "cases", "wazuh", "reports"],
+      "ports": ["InvestigationToolPort", "ToolReplyAtomicPort"]
     },
     "requests": {
       "module": "S07",
@@ -185,45 +110,20 @@
     "retention": {
       "module": "S07",
       "path": "packages/core/investigations/retention",
-      "dependsOn": [
-        "common",
-        "storage",
-        "cases",
-        "budget",
-        "tools"
-      ],
-      "ports": [
-        "RetentionService"
-      ]
+      "dependsOn": ["common", "storage", "cases", "budget", "tools"],
+      "ports": ["RetentionService"]
     },
     "publication": {
       "module": "S07",
       "path": "packages/core/investigations/publication",
-      "dependsOn": [
-        "common",
-        "storage",
-        "requests",
-        "reports",
-        "delivery"
-      ],
-      "ports": [
-        "ReviewPublicationPort"
-      ]
+      "dependsOn": ["common", "storage", "requests", "reports", "delivery"],
+      "ports": ["ReviewPublicationPort"]
     },
     "alerts": {
       "module": "S05",
       "path": "packages/core/alerts",
-      "dependsOn": [
-        "common",
-        "storage",
-        "wazuh",
-        "cases",
-        "requests"
-      ],
-      "ports": [
-        "AlertService",
-        "NotificationPort"
-      ]
+      "dependsOn": ["common", "storage", "wazuh", "cases", "requests"],
+      "ports": ["AlertService", "NotificationPort"]
     },
     "gateway": {
       "module": "S09",
@@ -237,9 +137,7 @@
         "tools",
         "delivery"
       ],
-      "ports": [
-        "McpGatewayPort"
-      ]
+      "ports": ["McpGatewayPort"]
     },
     "runtime": {
       "module": "S03",
@@ -263,19 +161,13 @@
         "alerts",
         "gateway"
       ],
-      "ports": [
-        "DesktopApi"
-      ]
+      "ports": ["DesktopApi"]
     },
     "ui": {
       "module": "S12",
       "path": "apps/desktop/renderer",
-      "dependsOn": [
-        "common"
-      ],
-      "ports": [
-        "DesktopApi"
-      ]
+      "dependsOn": ["common"],
+      "ports": ["DesktopApi"]
     }
   },
   "tableOwners": {
@@ -285,13 +177,8 @@
       "domain_events",
       "diagnostic_events"
     ],
-    "S03": [
-      "runtime_settings"
-    ],
-    "S04": [
-      "connections",
-      "capabilities"
-    ],
+    "S03": ["runtime_settings"],
+    "S04": ["connections", "capabilities"],
     "S05": [
       "alerts_inbox",
       "watch_checkpoints",
@@ -330,13 +217,8 @@
       "mcp_calls",
       "investigation_steps"
     ],
-    "S08": [
-      "execution_attempts",
-      "origin_bindings"
-    ],
-    "S09": [
-      "mcp_grants"
-    ],
+    "S08": ["execution_attempts", "origin_bindings"],
+    "S09": ["mcp_grants"],
     "S10": [
       "report_drafts",
       "reviews",
@@ -344,10 +226,7 @@
       "response_notes",
       "result_packages"
     ],
-    "S11": [
-      "result_subscriptions",
-      "result_deliveries"
-    ]
+    "S11": ["result_subscriptions", "result_deliveries"]
   },
   "sharedWritePaths": [
     "packages/contracts",

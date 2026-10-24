@@ -141,9 +141,10 @@ export function human(
         if (!found.ok) return found;
         return ok(
           tx
-            .all<
-              Record<string, unknown>
-            >("SELECT * FROM followups WHERE case_id=? ORDER BY due_at IS NULL,due_at,id", [caseId])
+            .all<Record<string, unknown>>(
+              "SELECT * FROM followups WHERE case_id=? ORDER BY due_at IS NULL,due_at,id",
+              [caseId],
+            )
             .map(followup),
         );
       });

@@ -49,9 +49,10 @@ export function exportCase(deps: Dependencies): ReportService["export"] {
         return fail("REVISION_CONFLICT", "导出前案件版本已改变");
       const redactedPaths: string[] = [];
       const responseNotes = tx
-        .all<
-          Record<string, unknown>
-        >("SELECT * FROM response_notes WHERE case_id=? ORDER BY created_at,id", [input.caseId])
+        .all<Record<string, unknown>>(
+          "SELECT * FROM response_notes WHERE case_id=? ORDER BY created_at,id",
+          [input.caseId],
+        )
         .map((row) => ({
           id: row.id,
           followupId: row.followup_id,
@@ -70,9 +71,10 @@ export function exportCase(deps: Dependencies): ReportService["export"] {
           [input.caseId],
         ),
         followups: tx
-          .all<
-            Record<string, unknown>
-          >("SELECT * FROM followups WHERE case_id=? ORDER BY due_at IS NULL,due_at,id", [input.caseId])
+          .all<Record<string, unknown>>(
+            "SELECT * FROM followups WHERE case_id=? ORDER BY due_at IS NULL,due_at,id",
+            [input.caseId],
+          )
           .map(followup),
         responseNotes,
         exportedAt: deps.clock.now(),

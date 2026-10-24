@@ -269,12 +269,10 @@ test("invalid success rolls back; cancellation comes only from CompletionDecisio
     assert.deepEqual(cancelled.mainEvidence, []);
     assert.equal(
       take(
-        await f.db.read(
-          context(),
-          (tx) =>
-            tx.get<{ state: string }>("SELECT state FROM jobs WHERE id=?", [
-              f.run.jobId,
-            ])!,
+        await f.db.read(context(), (tx) =>
+          tx.get<{ state: string }>("SELECT state FROM jobs WHERE id=?", [
+            f.run.jobId,
+          ])!,
         ),
       ).state,
       "running",
@@ -372,9 +370,8 @@ test("human revision preserves old text, uses CAS and saves review without publi
       "REVISION_CONFLICT",
     );
     const actor = take(
-      await f.db.read(
-        context(),
-        (tx) => tx.get<{ author_id: string }>("SELECT author_id FROM reviews")!,
+      await f.db.read(context(), (tx) =>
+        tx.get<{ author_id: string }>("SELECT author_id FROM reviews")!,
       ),
     );
     assert.equal(actor.author_id, PRINCIPAL);
@@ -447,12 +444,10 @@ test("human followups use revision CAS; evidence associations never become obser
       await f.service.putFollowup(context(), { item, expectedRevision: 0 }),
     );
     const note = take(
-      await f.db.read(
-        context(),
-        (tx) =>
-          tx.get<{ source: string; author_id: string }>(
-            "SELECT source,author_id FROM response_notes",
-          )!,
+      await f.db.read(context(), (tx) =>
+        tx.get<{ source: string; author_id: string }>(
+          "SELECT source,author_id FROM response_notes",
+        )!,
       ),
     );
     assert.equal(note.source, "human_statement");

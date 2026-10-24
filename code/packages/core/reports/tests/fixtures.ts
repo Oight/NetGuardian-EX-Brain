@@ -260,14 +260,12 @@ export async function setup(withContext = false) {
       caseId: CASE,
       runId: run.id,
       question: "调查问题",
-      facts: projections
-        .slice(0, 1)
-        .map((p) => ({
-          text: "观察到事件",
-          evidenceRefs: [{ ...p.ref, projectionId: p.id }],
-          queryIds: [queryId],
-          contextRefs: [],
-        })),
+      facts: projections.slice(0, 1).map((p) => ({
+        text: "观察到事件",
+        evidenceRefs: [{ ...p.ref, projectionId: p.id }],
+        queryIds: [queryId],
+        contextRefs: [],
+      })),
       analysis: [],
       conflicts: [],
       gaps: [],
@@ -348,9 +346,8 @@ export async function setup(withContext = false) {
     attach,
     async count(table: string) {
       return take(
-        await f.db.read(
-          context(),
-          (tx) => tx.get<{ n: number }>(`SELECT COUNT(*) AS n FROM ${table}`)!,
+        await f.db.read(context(), (tx) =>
+          tx.get<{ n: number }>(`SELECT COUNT(*) AS n FROM ${table}`)!,
         ),
       ).n;
     },

@@ -95,7 +95,13 @@ export async function composeRuntime(input: {
     ids,
     services: {
       cases: cases.service,
-      reports: createReportService({ ...storage.value, clock, ids, cases: cases.service, casesAtomic: cases.atomic }),
+      reports: createReportService({
+        ...storage.value,
+        clock,
+        ids,
+        cases: cases.service,
+        casesAtomic: cases.atomic,
+      }),
       connections: createWazuhAdapter({
         db: storage.value.db,
         secrets,

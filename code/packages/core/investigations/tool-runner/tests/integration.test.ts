@@ -196,13 +196,11 @@ test("initial seed identities use the same budget key as later versions of that 
     assert.equal(first.records.length, 1);
     assert.equal(first.budget.distinctEvents, 1);
     const locator = take(
-      await f.db.read(
-        system(),
-        (tx) =>
-          tx.get<{ locator_json: string }>(
-            "SELECT locator_json FROM evidence_sources WHERE evidence_id=?",
-            [captured.refs[0]!.evidenceId],
-          )!,
+      await f.db.read(system(), (tx) =>
+        tx.get<{ locator_json: string }>(
+          "SELECT locator_json FROM evidence_sources WHERE evidence_id=?",
+          [captured.refs[0]!.evidenceId],
+        )!,
       ),
     );
     const source = JSON.parse(locator.locator_json);
