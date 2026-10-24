@@ -56,9 +56,7 @@
   "scopes": {
     "single": {
       "connectionId": "70000000-0000-4000-8000-000000000003",
-      "agentIds": [
-        "001"
-      ],
+      "agentIds": ["001"],
       "from": "2026-10-23T00:30:00.000Z",
       "to": "2026-10-23T01:00:00.000Z",
       "timeZone": "Asia/Shanghai"
@@ -72,9 +70,7 @@
       "baseRevision": 2,
       "scope": {
         "connectionId": "70000000-0000-4000-8000-000000000003",
-        "agentIds": [
-          "001"
-        ],
+        "agentIds": ["001"],
         "from": "2026-10-23T00:30:00.000Z",
         "to": "2026-10-23T01:00:00.000Z",
         "timeZone": "Asia/Shanghai"
@@ -94,9 +90,7 @@
       "title": "Synthetic campus case",
       "scope": {
         "connectionId": "70000000-0000-4000-8000-000000000003",
-        "agentIds": [
-          "001"
-        ],
+        "agentIds": ["001"],
         "from": "2026-10-23T00:30:00.000Z",
         "to": "2026-10-23T01:00:00.000Z",
         "timeZone": "Asia/Shanghai"
@@ -111,9 +105,7 @@
       "kind": "authentication",
       "scope": {
         "connectionId": "70000000-0000-4000-8000-000000000003",
-        "agentIds": [
-          "001"
-        ],
+        "agentIds": ["001"],
         "from": "2026-10-23T00:30:00.000Z",
         "to": "2026-10-23T01:00:00.000Z",
         "timeZone": "Asia/Shanghai"
@@ -127,9 +119,7 @@
       "kind": "alerts",
       "scope": {
         "connectionId": "70000000-0000-4000-8000-000000000003",
-        "agentIds": [
-          "001"
-        ],
+        "agentIds": ["001"],
         "from": "2026-10-23T00:30:00.000Z",
         "to": "2026-10-23T01:00:00.000Z",
         "timeZone": "Asia/Shanghai"
@@ -211,9 +201,7 @@
         "rule": {
           "id": "100001",
           "level": 7,
-          "groups": [
-            "authentication"
-          ]
+          "groups": ["authentication"]
         }
       }
     }
@@ -252,30 +240,22 @@
       "coverage": {
         "requestedScope": {
           "connectionId": "70000000-0000-4000-8000-000000000003",
-          "agentIds": [
-            "001"
-          ],
+          "agentIds": ["001"],
           "from": "2026-10-23T00:30:00.000Z",
           "to": "2026-10-23T01:00:00.000Z",
           "timeZone": "Asia/Shanghai"
         },
         "effectiveScope": {
           "connectionId": "70000000-0000-4000-8000-000000000003",
-          "agentIds": [
-            "001"
-          ],
+          "agentIds": ["001"],
           "from": "2026-10-23T00:30:00.000Z",
           "to": "2026-10-23T01:00:00.000Z",
           "timeZone": "Asia/Shanghai"
         },
         "queryCompleteness": "partial",
         "collectionCoverage": "unknown",
-        "sourceTypes": [
-          "synthetic_archives"
-        ],
-        "reasons": [
-          "remaining_pages"
-        ],
+        "sourceTypes": ["synthetic_archives"],
+        "reasons": ["remaining_pages"],
         "retrievedAt": "2026-10-23T01:00:00.000Z",
         "returned": 1,
         "total": {
@@ -284,9 +264,7 @@
         }
       },
       "nextCursor": "synthetic-opaque-page-1",
-      "warnings": [
-        "Synthetic page; collection coverage remains unknown"
-      ],
+      "warnings": ["Synthetic page; collection coverage remains unknown"],
       "platformAttempts": 1
     },
     "empty": {
@@ -298,27 +276,21 @@
       "coverage": {
         "requestedScope": {
           "connectionId": "70000000-0000-4000-8000-000000000003",
-          "agentIds": [
-            "001"
-          ],
+          "agentIds": ["001"],
           "from": "2026-10-23T00:30:00.000Z",
           "to": "2026-10-23T01:00:00.000Z",
           "timeZone": "Asia/Shanghai"
         },
         "effectiveScope": {
           "connectionId": "70000000-0000-4000-8000-000000000003",
-          "agentIds": [
-            "001"
-          ],
+          "agentIds": ["001"],
           "from": "2026-10-23T00:30:00.000Z",
           "to": "2026-10-23T01:00:00.000Z",
           "timeZone": "Asia/Shanghai"
         },
         "queryCompleteness": "complete",
         "collectionCoverage": "unknown",
-        "sourceTypes": [
-          "synthetic_archives"
-        ],
+        "sourceTypes": ["synthetic_archives"],
         "reasons": [],
         "retrievedAt": "2026-10-23T01:00:00.000Z",
         "returned": 0,
@@ -339,36 +311,26 @@
       "coverage": {
         "requestedScope": {
           "connectionId": "70000000-0000-4000-8000-000000000003",
-          "agentIds": [
-            "001"
-          ],
+          "agentIds": ["001"],
           "from": "2026-10-23T00:30:00.000Z",
           "to": "2026-10-23T01:00:00.000Z",
           "timeZone": "Asia/Shanghai"
         },
         "effectiveScope": {
           "connectionId": "70000000-0000-4000-8000-000000000003",
-          "agentIds": [
-            "001"
-          ],
+          "agentIds": ["001"],
           "from": "2026-10-23T00:30:00.000Z",
           "to": "2026-10-23T01:00:00.000Z",
           "timeZone": "Asia/Shanghai"
         },
         "queryCompleteness": "not_executed",
         "collectionCoverage": "unknown",
-        "sourceTypes": [
-          "synthetic_archives"
-        ],
-        "reasons": [
-          "upstream_denied"
-        ],
+        "sourceTypes": ["synthetic_archives"],
+        "reasons": ["upstream_denied"],
         "retrievedAt": "2026-10-23T01:00:00.000Z",
         "returned": 0
       },
-      "warnings": [
-        "Synthetic permission denied"
-      ],
+      "warnings": ["Synthetic permission denied"],
       "platformAttempts": 1
     },
     "alerts": {
@@ -401,9 +363,7 @@
             "rule": {
               "id": "100001",
               "level": 7,
-              "groups": [
-                "authentication"
-              ]
+              "groups": ["authentication"]
             }
           }
         }
@@ -411,30 +371,22 @@
       "coverage": {
         "requestedScope": {
           "connectionId": "70000000-0000-4000-8000-000000000003",
-          "agentIds": [
-            "001"
-          ],
+          "agentIds": ["001"],
           "from": "2026-10-23T00:30:00.000Z",
           "to": "2026-10-23T01:00:00.000Z",
           "timeZone": "Asia/Shanghai"
         },
         "effectiveScope": {
           "connectionId": "70000000-0000-4000-8000-000000000003",
-          "agentIds": [
-            "001"
-          ],
+          "agentIds": ["001"],
           "from": "2026-10-23T00:30:00.000Z",
           "to": "2026-10-23T01:00:00.000Z",
           "timeZone": "Asia/Shanghai"
         },
         "queryCompleteness": "partial",
         "collectionCoverage": "unknown",
-        "sourceTypes": [
-          "synthetic_alerts"
-        ],
-        "reasons": [
-          "remaining_pages"
-        ],
+        "sourceTypes": ["synthetic_alerts"],
+        "reasons": ["remaining_pages"],
         "retrievedAt": "2026-10-23T01:00:00.000Z",
         "returned": 1,
         "total": {
@@ -443,9 +395,7 @@
         }
       },
       "nextCursor": "synthetic-opaque-page-1",
-      "warnings": [
-        "Synthetic page; collection coverage remains unknown"
-      ],
+      "warnings": ["Synthetic page; collection coverage remains unknown"],
       "platformAttempts": 1
     },
     "alertsDenied": {
@@ -457,36 +407,26 @@
       "coverage": {
         "requestedScope": {
           "connectionId": "70000000-0000-4000-8000-000000000003",
-          "agentIds": [
-            "001"
-          ],
+          "agentIds": ["001"],
           "from": "2026-10-23T00:30:00.000Z",
           "to": "2026-10-23T01:00:00.000Z",
           "timeZone": "Asia/Shanghai"
         },
         "effectiveScope": {
           "connectionId": "70000000-0000-4000-8000-000000000003",
-          "agentIds": [
-            "001"
-          ],
+          "agentIds": ["001"],
           "from": "2026-10-23T00:30:00.000Z",
           "to": "2026-10-23T01:00:00.000Z",
           "timeZone": "Asia/Shanghai"
         },
         "queryCompleteness": "not_executed",
         "collectionCoverage": "unknown",
-        "sourceTypes": [
-          "synthetic_alerts"
-        ],
-        "reasons": [
-          "upstream_denied"
-        ],
+        "sourceTypes": ["synthetic_alerts"],
+        "reasons": ["upstream_denied"],
         "retrievedAt": "2026-10-23T01:00:00.000Z",
         "returned": 0
       },
-      "warnings": [
-        "Synthetic permission denied"
-      ],
+      "warnings": ["Synthetic permission denied"],
       "platformAttempts": 1
     }
   },
@@ -540,9 +480,7 @@
       "id": "70000000-0000-4000-8000-000000000018",
       "caseId": "70000000-0000-4000-8000-000000000005",
       "connectionId": "70000000-0000-4000-8000-000000000003",
-      "agentIds": [
-        "001"
-      ],
+      "agentIds": ["001"],
       "version": 1,
       "text": "Synthetic maintenance claim; the operator has not verified it.",
       "from": "2026-10-23T00:30:00.000Z",
@@ -559,9 +497,7 @@
         "caseId": "70000000-0000-4000-8000-000000000005",
         "scope": {
           "connectionId": "70000000-0000-4000-8000-000000000003",
-          "agentIds": [
-            "001"
-          ],
+          "agentIds": ["001"],
           "from": "2026-10-23T00:30:00.000Z",
           "to": "2026-10-23T01:00:00.000Z",
           "timeZone": "Asia/Shanghai"
@@ -611,30 +547,22 @@
             "coverage": {
               "requestedScope": {
                 "connectionId": "70000000-0000-4000-8000-000000000003",
-                "agentIds": [
-                  "001"
-                ],
+                "agentIds": ["001"],
                 "from": "2026-10-23T00:30:00.000Z",
                 "to": "2026-10-23T01:00:00.000Z",
                 "timeZone": "Asia/Shanghai"
               },
               "effectiveScope": {
                 "connectionId": "70000000-0000-4000-8000-000000000003",
-                "agentIds": [
-                  "001"
-                ],
+                "agentIds": ["001"],
                 "from": "2026-10-23T00:30:00.000Z",
                 "to": "2026-10-23T01:00:00.000Z",
                 "timeZone": "Asia/Shanghai"
               },
               "queryCompleteness": "partial",
               "collectionCoverage": "unknown",
-              "sourceTypes": [
-                "synthetic_archives"
-              ],
-              "reasons": [
-                "remaining_pages"
-              ],
+              "sourceTypes": ["synthetic_archives"],
+              "reasons": ["remaining_pages"],
               "retrievedAt": "2026-10-23T01:00:00.000Z",
               "returned": 1,
               "total": {
@@ -648,27 +576,21 @@
             "coverage": {
               "requestedScope": {
                 "connectionId": "70000000-0000-4000-8000-000000000003",
-                "agentIds": [
-                  "001"
-                ],
+                "agentIds": ["001"],
                 "from": "2026-10-23T00:30:00.000Z",
                 "to": "2026-10-23T01:00:00.000Z",
                 "timeZone": "Asia/Shanghai"
               },
               "effectiveScope": {
                 "connectionId": "70000000-0000-4000-8000-000000000003",
-                "agentIds": [
-                  "001"
-                ],
+                "agentIds": ["001"],
                 "from": "2026-10-23T00:30:00.000Z",
                 "to": "2026-10-23T01:00:00.000Z",
                 "timeZone": "Asia/Shanghai"
               },
               "queryCompleteness": "complete",
               "collectionCoverage": "unknown",
-              "sourceTypes": [
-                "synthetic_archives"
-              ],
+              "sourceTypes": ["synthetic_archives"],
               "reasons": [],
               "retrievedAt": "2026-10-23T01:00:00.000Z",
               "returned": 0,
@@ -683,30 +605,22 @@
             "coverage": {
               "requestedScope": {
                 "connectionId": "70000000-0000-4000-8000-000000000003",
-                "agentIds": [
-                  "001"
-                ],
+                "agentIds": ["001"],
                 "from": "2026-10-23T00:30:00.000Z",
                 "to": "2026-10-23T01:00:00.000Z",
                 "timeZone": "Asia/Shanghai"
               },
               "effectiveScope": {
                 "connectionId": "70000000-0000-4000-8000-000000000003",
-                "agentIds": [
-                  "001"
-                ],
+                "agentIds": ["001"],
                 "from": "2026-10-23T00:30:00.000Z",
                 "to": "2026-10-23T01:00:00.000Z",
                 "timeZone": "Asia/Shanghai"
               },
               "queryCompleteness": "not_executed",
               "collectionCoverage": "unknown",
-              "sourceTypes": [
-                "synthetic_archives"
-              ],
-              "reasons": [
-                "upstream_denied"
-              ],
+              "sourceTypes": ["synthetic_archives"],
+              "reasons": ["upstream_denied"],
               "retrievedAt": "2026-10-23T01:00:00.000Z",
               "returned": 0
             }
@@ -723,9 +637,7 @@
             "id": "70000000-0000-4000-8000-000000000018",
             "caseId": "70000000-0000-4000-8000-000000000005",
             "connectionId": "70000000-0000-4000-8000-000000000003",
-            "agentIds": [
-              "001"
-            ],
+            "agentIds": ["001"],
             "version": 1,
             "text": "Synthetic maintenance claim; the operator has not verified it.",
             "from": "2026-10-23T00:30:00.000Z",
@@ -743,9 +655,7 @@
       "question": "Does the synthetic authentication activity require follow-up?",
       "scope": {
         "connectionId": "70000000-0000-4000-8000-000000000003",
-        "agentIds": [
-          "001"
-        ],
+        "agentIds": ["001"],
         "from": "2026-10-23T00:30:00.000Z",
         "to": "2026-10-23T01:00:00.000Z",
         "timeZone": "Asia/Shanghai"
@@ -770,17 +680,13 @@
               "projectionId": "70000000-0000-4000-8000-000000000016"
             }
           ],
-          "queryIds": [
-            "70000000-0000-4000-8000-000000000011"
-          ],
+          "queryIds": ["70000000-0000-4000-8000-000000000011"],
           "contextRefs": []
         }
       ],
       "analysis": [],
       "conflicts": [],
-      "gaps": [
-        "Query is partial; collection coverage is unknown."
-      ],
+      "gaps": ["Query is partial; collection coverage is unknown."],
       "classification": "insufficient_evidence",
       "stopReason": "evidence_unavailable",
       "followups": [
@@ -805,17 +711,13 @@
               "projectionId": "70000000-0000-4000-8000-000000000017"
             }
           ],
-          "queryIds": [
-            "70000000-0000-4000-8000-000000000011"
-          ],
+          "queryIds": ["70000000-0000-4000-8000-000000000011"],
           "contextRefs": []
         }
       ],
       "analysis": [],
       "conflicts": [],
-      "gaps": [
-        "Query is partial; collection coverage is unknown."
-      ],
+      "gaps": ["Query is partial; collection coverage is unknown."],
       "classification": "insufficient_evidence",
       "stopReason": "evidence_unavailable",
       "followups": [
@@ -840,17 +742,13 @@
               "projectionId": "70000000-0000-4000-8000-000000000016"
             }
           ],
-          "queryIds": [
-            "70000000-0000-4000-8000-000000000011"
-          ],
+          "queryIds": ["70000000-0000-4000-8000-000000000011"],
           "contextRefs": []
         }
       ],
       "analysis": [],
       "conflicts": [],
-      "gaps": [
-        "Query is partial; collection coverage is unknown."
-      ],
+      "gaps": ["Query is partial; collection coverage is unknown."],
       "classification": "insufficient_evidence",
       "stopReason": "evidence_unavailable",
       "followups": [
@@ -875,17 +773,13 @@
               "projectionId": "70000000-0000-4000-8000-000000000016"
             }
           ],
-          "queryIds": [
-            "70000000-0000-4000-8000-000000000011"
-          ],
+          "queryIds": ["70000000-0000-4000-8000-000000000011"],
           "contextRefs": []
         }
       ],
       "analysis": [],
       "conflicts": [],
-      "gaps": [
-        "Query is partial; collection coverage is unknown."
-      ],
+      "gaps": ["Query is partial; collection coverage is unknown."],
       "classification": "insufficient_evidence",
       "stopReason": "evidence_unavailable",
       "followups": [
@@ -910,9 +804,7 @@
               "projectionId": "70000000-0000-4000-8000-000000000016"
             }
           ],
-          "queryIds": [
-            "70000000-0000-4000-8000-000000000011"
-          ],
+          "queryIds": ["70000000-0000-4000-8000-000000000011"],
           "contextRefs": []
         }
       ],
@@ -937,17 +829,13 @@
         {
           "text": "No matching records were returned by the complete synthetic query; collection coverage is unknown.",
           "evidenceRefs": [],
-          "queryIds": [
-            "70000000-0000-4000-8000-000000000012"
-          ],
+          "queryIds": ["70000000-0000-4000-8000-000000000012"],
           "contextRefs": []
         }
       ],
       "analysis": [],
       "conflicts": [],
-      "gaps": [
-        "Collection coverage remains unknown."
-      ],
+      "gaps": ["Collection coverage remains unknown."],
       "classification": "insufficient_evidence",
       "stopReason": "evidence_unavailable",
       "followups": [
@@ -967,9 +855,7 @@
       "runId": "70000000-0000-4000-8000-000000000009",
       "scope": {
         "connectionId": "70000000-0000-4000-8000-000000000003",
-        "agentIds": [
-          "001"
-        ],
+        "agentIds": ["001"],
         "from": "2026-10-23T00:30:00.000Z",
         "to": "2026-10-23T01:00:00.000Z",
         "timeZone": "Asia/Shanghai"
@@ -981,9 +867,7 @@
       "caseId": "70000000-0000-4000-8000-000000000005",
       "scope": {
         "connectionId": "70000000-0000-4000-8000-000000000003",
-        "agentIds": [
-          "001"
-        ],
+        "agentIds": ["001"],
         "from": "2026-10-23T00:30:00.000Z",
         "to": "2026-10-23T01:00:00.000Z",
         "timeZone": "Asia/Shanghai"
@@ -1014,9 +898,7 @@
       "runId": "70000000-0000-4000-8000-000000000009",
       "scope": {
         "connectionId": "70000000-0000-4000-8000-000000000003",
-        "agentIds": [
-          "001"
-        ],
+        "agentIds": ["001"],
         "from": "2026-10-23T00:30:00.000Z",
         "to": "2026-10-23T01:00:00.000Z",
         "timeZone": "Asia/Shanghai"
@@ -1036,15 +918,11 @@
               "projectionId": "70000000-0000-4000-8000-000000000016"
             }
           ],
-          "queryIds": [
-            "70000000-0000-4000-8000-000000000011"
-          ],
+          "queryIds": ["70000000-0000-4000-8000-000000000011"],
           "contextRefs": []
         }
       ],
-      "gaps": [
-        "Query is partial; collection coverage is unknown."
-      ],
+      "gaps": ["Query is partial; collection coverage is unknown."],
       "followups": [
         {
           "question": "Was this activity authorized?",
@@ -1060,9 +938,7 @@
       "caseId": "70000000-0000-4000-8000-000000000005",
       "scope": {
         "connectionId": "70000000-0000-4000-8000-000000000003",
-        "agentIds": [
-          "001"
-        ],
+        "agentIds": ["001"],
         "from": "2026-10-23T00:30:00.000Z",
         "to": "2026-10-23T01:00:00.000Z",
         "timeZone": "Asia/Shanghai"
@@ -1072,9 +948,7 @@
       "review": "unreviewed",
       "summary": "Cancelled before an investigation run was created.",
       "mainEvidence": [],
-      "gaps": [
-        "Investigation was not started."
-      ],
+      "gaps": ["Investigation was not started."],
       "followups": [],
       "error": {
         "code": "CANCELLED",
@@ -1090,9 +964,7 @@
       "revision": 1,
       "epoch": 1,
       "enabled": true,
-      "agentIds": [
-        "001"
-      ],
+      "agentIds": ["001"],
       "filter": {},
       "enabledAfterReceiveSeq": 10,
       "dailyAttemptLimit": 10,

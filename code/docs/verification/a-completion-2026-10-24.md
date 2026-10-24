@@ -13,12 +13,12 @@
 
 ## 本轮真实代码交付
 
-| 范围 | 实现与可消费出口 |
-|---|---|
-| A1 | 固定 .node-version、.npmrc 严格引擎与禁用钩子；官方 Electron 下载+SHA256 校验、实际桌面启动命令、同生产 bootstrap 的隔离接受入口、干净源码复验脚本 |
-| A2 | 补齐 parseRpcResponse 的方法/请求关联与错误边界、parseControlToolEnvelope、parseResultPackage；43 个 Desktop 方法的合法往返/非法字段测试；公共合成 DTO 样例 |
-| A3 | 独立 SQL 交互 fake、同步 InTx fake、查询/连接读取/通知/秘密引用 fake、延迟响应控制、公开消费者用例；保留并增强 DesktopApi/HTTP/Execution/Delivery；CI 接入标准/干净检查及 Windows 真 Electron |
-| A4a | createRunBudget 经 @campussec/core/requests/budgets 导出；真实 SQL 工具/读取/平台尝试/不同来源事件计数及 fence；不依赖缺失的 CaseService/宿主驱动，不写其他所有者的表 |
+| 范围 | 实现与可消费出口                                                                                                                                                                              |
+| ---- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| A1   | 固定 .node-version、.npmrc 严格引擎与禁用钩子；官方 Electron 下载+SHA256 校验、实际桌面启动命令、同生产 bootstrap 的隔离接受入口、干净源码复验脚本                                            |
+| A2   | 补齐 parseRpcResponse 的方法/请求关联与错误边界、parseControlToolEnvelope、parseResultPackage；43 个 Desktop 方法的合法往返/非法字段测试；公共合成 DTO 样例                                   |
+| A3   | 独立 SQL 交互 fake、同步 InTx fake、查询/连接读取/通知/秘密引用 fake、延迟响应控制、公开消费者用例；保留并增强 DesktopApi/HTTP/Execution/Delivery；CI 接入标准/干净检查及 Windows 真 Electron |
+| A4a  | createRunBudget 经 @campussec/core/requests/budgets 导出；真实 SQL 工具/读取/平台尝试/不同来源事件计数及 fence；不依赖缺失的 CaseService/宿主驱动，不写其他所有者的表                         |
 
 A3 的 SQL fake 不解析 SQL、不证明真实持久化；真实 SQLite 与回滚通过另列产品测试验证。A4a 的 readonly fence 投影仅读取主体元数据和连接 generation；只写 S07 三张预算相关表，不决定 JobState。
 
@@ -26,15 +26,15 @@ A3 的 SQL fake 不解析 SQL、不证明真实持久化；真实 SQLite 与回�
 
 环境：Windows x64 / PowerShell / Node 24.15.0 / npm 11.12.1 / TypeScript 5.9.3；Electron 45.0.0 内嵌 Node 24.22.0、Chrome 156.0.8078.48。仅本环境结论，不推定其他机器已复现。
 
-| 命令（相对 code/，除注明） | 结果与层级 |
-|---|---|
-| npm run check | 最终源码在干净副本内通过环境/类型/构建/42 个产品源码边界/契约/双锁及 87 个测试，0 失败/跳过；其中 43 个为按方法的结构往返，不是 43 个真实业务场景 |
-| npm run check:clean | 排除 node_modules/dist/dist-test/.local/.cache 的新源码副本，冻结离线安装后执行同一套产品检查；最终冻结安装与同组 87 个测试全部通过，不重复累加测试数 |
-| npm run prepare:electron | 官方 45.0.0 Windows x64 158223852 字节 zip 与已锁 npm 包官方 SHA256 一致，独立解压，不运行安装钩子 |
-| npm run test:electron | 通过；已执行真实生产 bootstrap、沙箱 preload、IPC、SQLite 设置保存/重启回读、托盘开关、Windows safeStorage 和正常退出两进程验证 |
-| 两个设计 Python 检查（design_document/） | 17 文档/137 声明/49 表；46 Markdown/224 链接/19 组件，最终收尾复核通过 |
-| python -B code/docs/development/workstreams/b/verify_b0.py（仓库根） | B0 材料 29 表/44 方法/36 后续场景与 10 个原生 DDL 探针通过；不是 B 产品服务测试 |
-| git diff --check / 路径 / 原文快照核对 | 通过；未修改 B/C/D 业务、物理迁移、冻结附件或任何真实平台；B/C/D 任务状态保持所有者记录 |
+| 命令（相对 code/，除注明）                                           | 结果与层级                                                                                                                                            |
+| -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| npm run check                                                        | 最终源码在干净副本内通过环境/类型/构建/42 个产品源码边界/契约/双锁及 87 个测试，0 失败/跳过；其中 43 个为按方法的结构往返，不是 43 个真实业务场景     |
+| npm run check:clean                                                  | 排除 node_modules/dist/dist-test/.local/.cache 的新源码副本，冻结离线安装后执行同一套产品检查；最终冻结安装与同组 87 个测试全部通过，不重复累加测试数 |
+| npm run prepare:electron                                             | 官方 45.0.0 Windows x64 158223852 字节 zip 与已锁 npm 包官方 SHA256 一致，独立解压，不运行安装钩子                                                    |
+| npm run test:electron                                                | 通过；已执行真实生产 bootstrap、沙箱 preload、IPC、SQLite 设置保存/重启回读、托盘开关、Windows safeStorage 和正常退出两进程验证                       |
+| 两个设计 Python 检查（design_document/）                             | 17 文档/137 声明/49 表；46 Markdown/224 链接/19 组件，最终收尾复核通过                                                                                |
+| python -B code/docs/development/workstreams/b/verify_b0.py（仓库根） | B0 材料 29 表/44 方法/36 后续场景与 10 个原生 DDL 探针通过；不是 B 产品服务测试                                                                       |
+| git diff --check / 路径 / 原文快照核对                               | 通过；未修改 B/C/D 业务、物理迁移、冻结附件或任何真实平台；B/C/D 任务状态保持所有者记录                                                               |
 
 ## 边界与未执行项
 

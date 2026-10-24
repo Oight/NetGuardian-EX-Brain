@@ -1,21 +1,47 @@
 <!doctype html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; frame-src 'none'">
-  <title>校安智脑 · 工程基座</title>
-  <link rel="stylesheet" href="./style.css">
-</head>
-<body>
-  <main>
-    <header><span class="eyebrow">CAMPUSSEC · FOUNDATION</span><h1>校安智脑</h1><p>案件与证据留在本地，调查能力按验证结果逐步接入。</p></header>
-    <section aria-labelledby="status-title"><h2 id="status-title">工作区状态</h2><p id="status" role="status">正在读取本地主体空间…</p><div id="totals"></div></section>
-    <section><h2>最近案件</h2><ul id="cases"></ul><p id="empty">读取中…</p></section>
-    <section><h2>运行设置</h2><label><input id="tray" type="checkbox">关闭窗口后驻留托盘</label><p class="note">完全退出后，本地提醒与结果回传停止。</p></section>
-    <section><h2>接入进度</h2><p>当前仅提供 S01／S02／S03 工程基座。Wazuh、调查、MCP 与结果回传尚未装配；完整调查工作台等待后续模块。</p><ul id="capabilities"></ul></section>
-    <p id="error" role="alert"></p>
-  </main>
-  <script type="module" src="./view.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; frame-src 'none'"
+    />
+    <title>校安智脑 · 工程基座</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <span class="eyebrow">CAMPUSSEC · FOUNDATION</span>
+        <h1>校安智脑</h1>
+        <p>案件与证据留在本地，调查能力按验证结果逐步接入。</p>
+      </header>
+      <section aria-labelledby="status-title">
+        <h2 id="status-title">工作区状态</h2>
+        <p id="status" role="status">正在读取本地主体空间…</p>
+        <div id="totals"></div>
+      </section>
+      <section>
+        <h2>最近案件</h2>
+        <ul id="cases"></ul>
+        <p id="empty">读取中…</p>
+      </section>
+      <section>
+        <h2>运行设置</h2>
+        <label><input id="tray" type="checkbox" />关闭窗口后驻留托盘</label>
+        <p class="note">完全退出后，本地提醒与结果回传停止。</p>
+      </section>
+      <section>
+        <h2>接入进度</h2>
+        <p>
+          当前仅提供 S01／S02／S03 工程基座。Wazuh、调查、MCP
+          与结果回传尚未装配；完整调查工作台等待后续模块。
+        </p>
+        <ul id="capabilities"></ul>
+      </section>
+      <p id="error" role="alert"></p>
+    </main>
+    <script type="module" src="./view.js"></script>
+  </body>
 </html>

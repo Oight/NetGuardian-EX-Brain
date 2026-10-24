@@ -3,6 +3,13 @@
   "version": "0.2.0",
   "private": true,
   "type": "module",
-  "exports": { "./requests/budgets": { "types": "./requests/budgets.ts", "default": "./dist/requests/budgets.js" } },
-  "dependencies": { "@campussec/contracts": "0.2.0" }
+  "exports": {
+    "./requests/budgets": {
+      "types": "./requests/budgets.ts",
+      "default": "./dist/requests/budgets.js"
+    }
+  },
+  "dependencies": {
+    "@campussec/contracts": "0.2.0"
+  }
 }

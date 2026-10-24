@@ -19,6 +19,19 @@
     "types": ["node"],
     "lib": ["ES2022", "DOM"]
   },
-  "include": ["packages/**/*.ts", "apps/**/*.ts", "apps/**/*.cts", "tests/**/*.ts", "scripts/**/*.ts"],
-  "exclude": ["node_modules", "dist", "dist-test", "packages/*/dist", ".local", ".cache"]
+  "include": [
+    "packages/**/*.ts",
+    "apps/**/*.ts",
+    "apps/**/*.cts",
+    "tests/**/*.ts",
+    "scripts/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "dist-test",
+    "packages/*/dist",
+    ".local",
+    ".cache"
+  ]
 }

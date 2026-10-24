@@ -14,12 +14,12 @@
 
 ## 四条工作线
 
-| 工作线 | 业务归属 | 主要目录 |
-|---|---|---|
+| 工作线       | 业务归属                          | 主要目录                                                                               |
+| ------------ | --------------------------------- | -------------------------------------------------------------------------------------- |
 | A 工程与调度 | S01、S03、S07；公共工程与 testkit | contracts、testkit、core/requests、core/investigations、desktop/main、preload、runtime |
-| B 本地业务 | S02、S05、S06、S10；物理 DDL/迁移 | storage、core/alerts、core/cases、core/reports、investigation-profile |
-| C 外部接入 | S04、S08、S09、S11 | wazuh-adapter、teleagent-bridge、mcp-server、core/delivery |
-| D 界面与验收 | S12；用户验收场景 | desktop/renderer、tests/acceptance |
+| B 本地业务   | S02、S05、S06、S10；物理 DDL/迁移 | storage、core/alerts、core/cases、core/reports、investigation-profile                  |
+| C 外部接入   | S04、S08、S09、S11                | wazuh-adapter、teleagent-bridge、mcp-server、core/delivery                             |
+| D 界面与验收 | S12；用户验收场景                 | desktop/renderer、tests/acceptance                                                     |
 
 根配置、锁、公共导出、检查脚本、CI 与装配由 A 串行维护；B 维护迁移不等于拥有全部业务状态。完整目录见结构说明。
 

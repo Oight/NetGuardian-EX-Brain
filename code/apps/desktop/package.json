@@ -3,5 +3,8 @@
   "version": "0.2.0",
   "private": true,
   "type": "module",
-  "dependencies": { "@campussec/contracts": "0.2.0", "@campussec/storage": "0.2.0" }
+  "dependencies": {
+    "@campussec/contracts": "0.2.0",
+    "@campussec/storage": "0.2.0"
+  }
 }

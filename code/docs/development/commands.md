@@ -27,16 +27,16 @@ npm run test:electron
 
 总检查先构建再加载包，支持没有 dist 的干净检出。单独执行 check:spec 前先构建，避免缺少包导出产物。
 
-| 检查 | 标准环境 | 可选 Bun 环境 |
-|---|---|---|
-| 环境门槛 | `npm run check:environment` | 标准环境另测 |
-| 类型 | `npm run typecheck` | `bun node_modules/typescript/bin/tsc --noEmit` |
-| 源码边界 | `npm run check:boundaries` | `bun scripts/product/check-boundaries.ts` |
-| 原文/schema/权限配置（先构建） | `npm run check:spec` | `bun scripts/product/verify-foundation.ts` |
-| 锁图元数据 | `npm run check:locks` | `bun scripts/product/export-npm-lock.ts --check` |
-| 测试 | `npm test` | `bun scripts/product/test.ts` |
-| 构建 | `npm run build` | `bun scripts/product/build.ts` |
-| 全部检查 | `npm run check` | `bun scripts/local/check.ts` |
+| 检查                           | 标准环境                    | 可选 Bun 环境                                    |
+| ------------------------------ | --------------------------- | ------------------------------------------------ |
+| 环境门槛                       | `npm run check:environment` | 标准环境另测                                     |
+| 类型                           | `npm run typecheck`         | `bun node_modules/typescript/bin/tsc --noEmit`   |
+| 源码边界                       | `npm run check:boundaries`  | `bun scripts/product/check-boundaries.ts`        |
+| 原文/schema/权限配置（先构建） | `npm run check:spec`        | `bun scripts/product/verify-foundation.ts`       |
+| 锁图元数据                     | `npm run check:locks`       | `bun scripts/product/export-npm-lock.ts --check` |
+| 测试                           | `npm test`                  | `bun scripts/product/test.ts`                    |
+| 构建                           | `npm run build`             | `bun scripts/product/build.ts`                   |
+| 全部检查                       | `npm run check`             | `bun scripts/local/check.ts`                     |
 
 ## 可选 Bun 检查环境
 
@@ -60,7 +60,6 @@ check:boundaries 扫描全部现有产品源码，检查声明组件依赖、公
 check:spec 检查设计哈希、137 个声明、DTO/桌面 schema、初始迁移和桌面权限配置。原文快照不被产品脚本写入。设计检查、产品检查和线上 CI 分别记录通过、失败或未执行，不能互相替代。
 
 根 `.github/workflows/foundation.yml` 仅 workflow_dispatch 手动触发；产品任务在 code/、设计任务在 design_document/ 执行，标准矩阵为 Linux/Windows。线上运行结果另记。A 线已有[标准运行时接手验证](../verification/a-handoff-2026-10-23.md)，不推定所有成员或 Electron 已复现。
-
 
 `check:clean` 用当前 npm CLI 在不含依赖/生成物的新源码副本执行冻结离线安装与同组检查，须先将 npm ci 的包下载到 .cache/npm；不把旧 dist 或祖先目录 node_modules 当作成功依据。临时副本和报告均被忽略。
 

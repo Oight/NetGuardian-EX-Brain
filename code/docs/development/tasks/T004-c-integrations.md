@@ -4,14 +4,14 @@
 
 分工来源：`120c81cfd4d8ed720c9cc70178edb9c6fd172a34`；可领取产品基准：64443ed；执行者、实际启动 HEAD 与依赖验收 commit 在领取时填写。允许 wazuh-adapter、teleagent-bridge、mcp-server、core/delivery、自有测试和[本线交接目录](../workstreams/c/README.md)；根依赖/锁/装配交 A。
 
-| 阶段 | 状态 | 前置实际交付 | 目标 |
-|---|---|---|---|
-| C0 | ready | 无产品依赖 | 离线 M0、查询映射、合成夹具、角色矩阵 |
-| C1 | planned | A1/A2、A3 对应 HTTP fake | S04 认证/分页/能力/受限查询 |
-| C2 | planned | C1、A3 | S08 窄驱动；S09 独立通道/grant/可信绑定 |
-| C3 | planned | C2、A4 对应应用端口 | S09 薄协议入口、角色隔离、发送确认 |
-| C4 | planned | C2、B3 结果端口、A4 发布/outbox | S11 订阅/outbox/worker/回执/恢复 |
-| C5 | planned | A5、D3、当次真实授权 | M0—M4 真实证据与缺口 |
+| 阶段 | 状态    | 前置实际交付                    | 目标                                    |
+| ---- | ------- | ------------------------------- | --------------------------------------- |
+| C0   | ready   | 无产品依赖                      | 离线 M0、查询映射、合成夹具、角色矩阵   |
+| C1   | planned | A1/A2、A3 对应 HTTP fake        | S04 认证/分页/能力/受限查询             |
+| C2   | planned | C1、A3                          | S08 窄驱动；S09 独立通道/grant/可信绑定 |
+| C3   | planned | C2、A4 对应应用端口             | S09 薄协议入口、角色隔离、发送确认      |
+| C4   | planned | C2、B3 结果端口、A4 发布/outbox | S11 订阅/outbox/worker/回执/恢复        |
+| C5   | planned | A5、D3、当次真实授权            | M0—M4 真实证据与缺口                    |
 
 ## 交接
 

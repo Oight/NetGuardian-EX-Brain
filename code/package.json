@@ -4,8 +4,13 @@
   "private": true,
   "packageManager": "npm@11.12.1",
   "type": "module",
-  "engines": { "node": ">=24.15 <25" },
-  "workspaces": ["packages/*", "apps/desktop"],
+  "engines": {
+    "node": ">=24.15 <25"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/desktop"
+  ],
   "scripts": {
     "check:environment": "node scripts/product/verify-environment.ts",
     "typecheck": "tsc --noEmit",
@@ -23,6 +28,13 @@
     "check:local": "bun scripts/local/check.ts"
   },
   "trustedDependencies": [],
-  "dependencies": { "zod": "4.6.7" },
-  "devDependencies": { "@campussec/testkit": "0.2.0", "typescript": "5.9.3", "@types/node": "24.19.2", "electron": "45.0.0" }
+  "dependencies": {
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@campussec/testkit": "0.2.0",
+    "typescript": "5.9.3",
+    "@types/node": "24.19.2",
+    "electron": "45.0.0"
+  }
 }

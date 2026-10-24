@@ -7,19 +7,12 @@
       "id": "B0-01",
       "module": "S02",
       "phase": "B1",
-      "ports": [
-        "DatabasePort.read",
-        "DatabasePort.write"
-      ],
-      "fixtureRefs": [
-        "contexts.ui"
-      ],
+      "ports": ["DatabasePort.read", "DatabasePort.write"],
+      "fixtureRefs": ["contexts.ui"],
       "given": {
         "existingMigration": "correct checksum; close/reopen same identity"
       },
-      "when": [
-        "createStorage; write a synthetic case; close; reopen; read"
-      ],
+      "when": ["createStorage; write a synthetic case; close; reopen; read"],
       "expected": {
         "preserveCommittedRows": true,
         "tableCount": 49,
@@ -34,13 +27,8 @@
       "id": "B0-02",
       "module": "S02",
       "phase": "B1",
-      "ports": [
-        "DatabasePort.write",
-        "EventPort.appendInTx"
-      ],
-      "fixtureRefs": [
-        "contexts.ui"
-      ],
+      "ports": ["DatabasePort.write", "EventPort.appendInTx"],
+      "fixtureRefs": ["contexts.ui"],
       "given": {
         "businessRows": 0,
         "eventRows": 0
@@ -59,13 +47,8 @@
       "id": "B0-03",
       "module": "S02",
       "phase": "B1",
-      "ports": [
-        "DatabasePort.read",
-        "DatabasePort.write"
-      ],
-      "fixtureRefs": [
-        "contexts.ui"
-      ],
+      "ports": ["DatabasePort.read", "DatabasePort.write"],
+      "fixtureRefs": ["contexts.ui"],
       "given": {
         "handles": "captured inside active callbacks"
       },
@@ -84,19 +67,12 @@
       "id": "B0-04",
       "module": "S02",
       "phase": "B1",
-      "ports": [
-        "DatabasePort.read",
-        "DatabasePort.write"
-      ],
-      "fixtureRefs": [
-        "contexts.ui"
-      ],
+      "ports": ["DatabasePort.read", "DatabasePort.write"],
+      "fixtureRefs": ["contexts.ui"],
       "given": {
         "storedIdentity": "fixture UI actor"
       },
-      "when": [
-        "change spaceId, principalId, or identityEpoch; read/write"
-      ],
+      "when": ["change spaceId, principalId, or identityEpoch; read/write"],
       "expected": {
         "error": "FORBIDDEN",
         "disclosedStoredValues": false
@@ -107,28 +83,14 @@
       "id": "B0-05",
       "module": "S02",
       "phase": "B1",
-      "ports": [
-        "EventPort.appendInTx",
-        "EventPort.read"
-      ],
-      "fixtureRefs": [
-        "contexts.system"
-      ],
+      "ports": ["EventPort.appendInTx", "EventPort.read"],
+      "fixtureRefs": ["contexts.system"],
       "given": {
-        "committedSeqs": [
-          1,
-          2,
-          3
-        ]
+        "committedSeqs": [1, 2, 3]
       },
-      "when": [
-        "read limit=2; prune old events; prune all; read afterSeq=0"
-      ],
+      "when": ["read limit=2; prune old events; prune all; read afterSeq=0"],
       "expected": {
-        "initialEventSeqs": [
-          1,
-          2
-        ],
+        "initialEventSeqs": [1, 2],
         "lastSeq": 3,
         "resetRequiredAfterPrune": true,
         "invalidLimit201": "INVALID_INPUT"
@@ -148,10 +110,7 @@
         "CaseAtomicPort.snapshotInTx",
         "CaseAtomicPort.getInTx"
       ],
-      "fixtureRefs": [
-        "cases.pending",
-        "scopes.single"
-      ],
+      "fixtureRefs": ["cases.pending", "scopes.single"],
       "given": {
         "seedRefs": []
       },
@@ -177,9 +136,7 @@
         "CaseAtomicPort.setStatusInTx",
         "CaseAtomicPort.recordChangeInTx"
       ],
-      "fixtureRefs": [
-        "cases.pending"
-      ],
+      "fixtureRefs": ["cases.pending"],
       "given": {
         "revision": 1
       },
@@ -199,21 +156,14 @@
       "id": "B0-08",
       "module": "S06",
       "phase": "B2",
-      "ports": [
-        "CaseService.moveEvidence",
-        "CaseAtomicPort.attachInTx"
-      ],
-      "fixtureRefs": [
-        "refs.one"
-      ],
+      "ports": ["CaseService.moveEvidence", "CaseAtomicPort.attachInTx"],
+      "fixtureRefs": ["refs.one"],
       "given": {
         "sourceRevision": 3,
         "targetRevision": 7,
         "concurrentTargetRevision": 8
       },
-      "when": [
-        "move with revisions 3/7; then retry after refresh"
-      ],
+      "when": ["move with revisions 3/7; then retry after refresh"],
       "expected": {
         "conflictError": "REVISION_CONFLICT",
         "bothCasesUnchangedOnFailure": true,
@@ -227,13 +177,8 @@
       "id": "B0-09",
       "module": "S06",
       "phase": "B2",
-      "ports": [
-        "CaseAtomicPort.captureInTx"
-      ],
-      "fixtureRefs": [
-        "records.authentication",
-        "pages.partial"
-      ],
+      "ports": ["CaseAtomicPort.captureInTx"],
+      "fixtureRefs": ["records.authentication", "pages.partial"],
       "given": {
         "sameSource": "same locator; available version 1"
       },
@@ -253,13 +198,8 @@
       "id": "B0-10",
       "module": "S06",
       "phase": "B2",
-      "ports": [
-        "CaseAtomicPort.captureInTx"
-      ],
-      "fixtureRefs": [
-        "records.authentication",
-        "records.missingTime"
-      ],
+      "ports": ["CaseAtomicPort.captureInTx"],
+      "fixtureRefs": ["records.authentication", "records.missingTime"],
       "given": {
         "otherLocator": "same text, different documentId"
       },
@@ -278,15 +218,8 @@
       "id": "B0-11",
       "module": "S06",
       "phase": "B2",
-      "ports": [
-        "CaseAtomicPort.captureInTx",
-        "CaseService.snapshot"
-      ],
-      "fixtureRefs": [
-        "pages.partial",
-        "pages.empty",
-        "pages.denied"
-      ],
+      "ports": ["CaseAtomicPort.captureInTx", "CaseService.snapshot"],
+      "fixtureRefs": ["pages.partial", "pages.empty", "pages.denied"],
       "given": {
         "firstPagePersisted": true
       },
@@ -306,13 +239,8 @@
       "id": "B0-12",
       "module": "S06",
       "phase": "B2",
-      "ports": [
-        "CaseService.putContext"
-      ],
-      "fixtureRefs": [
-        "businessContexts.unverified",
-        "contexts.ui"
-      ],
+      "ports": ["CaseService.putContext"],
+      "fixtureRefs": ["businessContexts.unverified", "contexts.ui"],
       "given": {
         "outerCase": "fixture case",
         "innerCase": "fixture case"
@@ -365,19 +293,12 @@
       "id": "B0-14",
       "module": "S06",
       "phase": "B2",
-      "ports": [
-        "CaseAtomicPort.sealInTx"
-      ],
-      "fixtureRefs": [
-        "runs.active",
-        "validationInputs.current"
-      ],
+      "ports": ["CaseAtomicPort.sealInTx"],
+      "fixtureRefs": ["runs.active", "validationInputs.current"],
       "given": {
         "metadata": "S07 persisted input/profile/mapping/steps"
       },
-      "when": [
-        "seal; repeat same metadata; repeat changed metadata"
-      ],
+      "when": ["seal; repeat same metadata; repeat changed metadata"],
       "expected": {
         "sameHashOnRetry": true,
         "changedMetadataError": "CONFLICT",
@@ -390,20 +311,14 @@
       "id": "B0-15",
       "module": "S06",
       "phase": "B2",
-      "ports": [
-        "CaseAtomicPort.applyRunInTx"
-      ],
-      "fixtureRefs": [
-        "runs.active"
-      ],
+      "ports": ["CaseAtomicPort.applyRunInTx"],
+      "fixtureRefs": ["runs.active"],
       "given": {
         "baseRevision": 2,
         "currentCaseRevision": 3,
         "currentReportId": "existing report"
       },
-      "when": [
-        "apply completed run based on revision 2"
-      ],
+      "when": ["apply completed run based on revision 2"],
       "expected": {
         "applied": false,
         "revision": 3,
@@ -421,10 +336,7 @@
         "CaseAtomicPort.previewCleanupInTx",
         "CaseAtomicPort.applyCleanupInTx"
       ],
-      "fixtureRefs": [
-        "runs.active",
-        "refs.one"
-      ],
+      "fixtureRefs": ["runs.active", "refs.one"],
       "given": {
         "planTTLMinutes": 10,
         "protectedRunIds": "read by S07 in current WriteTx"
@@ -450,10 +362,7 @@
         "AlertService.list",
         "AlertService.markRead"
       ],
-      "fixtureRefs": [
-        "pages.alerts",
-        "policies.enabled"
-      ],
+      "fixtureRefs": ["pages.alerts", "policies.enabled"],
       "given": {
         "firstConnect": true,
         "enabledAfterReceiveSeq": 10
@@ -474,12 +383,8 @@
       "id": "B0-18",
       "module": "S05",
       "phase": "B3",
-      "ports": [
-        "AlertService.pollOnce"
-      ],
-      "fixtureRefs": [
-        "pages.alerts"
-      ],
+      "ports": ["AlertService.pollOnce"],
+      "fixtureRefs": ["pages.alerts"],
       "given": {
         "duplicatePage": "same source IDs",
         "differentDocument": "same event text"
@@ -499,13 +404,8 @@
       "id": "B0-19",
       "module": "S05",
       "phase": "B3",
-      "ports": [
-        "AlertService.pollOnce"
-      ],
-      "fixtureRefs": [
-        "pages.alerts",
-        "pages.alertsDenied"
-      ],
+      "ports": ["AlertService.pollOnce"],
+      "fixtureRefs": ["pages.alerts", "pages.alertsDenied"],
       "given": {
         "completedUpper": "2026-10-23T00:30:00.000Z",
         "newFixedUpper": "2026-10-23T01:00:00.000Z"
@@ -526,13 +426,8 @@
       "id": "B0-20",
       "module": "S05",
       "phase": "B3",
-      "ports": [
-        "AlertService.setPolicy",
-        "AlertService.flushCandidates"
-      ],
-      "fixtureRefs": [
-        "policies.enabled"
-      ],
+      "ports": ["AlertService.setPolicy", "AlertService.flushCandidates"],
+      "fixtureRefs": ["policies.enabled"],
       "given": {
         "policyEpoch": 1,
         "candidateEpoch": 1,
@@ -554,13 +449,8 @@
       "id": "B0-21",
       "module": "S05",
       "phase": "B3",
-      "ports": [
-        "AlertService.flushCandidates",
-        "AlertService.pollOnce"
-      ],
-      "fixtureRefs": [
-        "policies.enabled"
-      ],
+      "ports": ["AlertService.flushCandidates", "AlertService.pollOnce"],
+      "fixtureRefs": ["policies.enabled"],
       "given": {
         "candidate": "coalesced and due",
         "createAutoResults": [
@@ -587,12 +477,8 @@
       "id": "B0-22",
       "module": "S05",
       "phase": "B3",
-      "ports": [
-        "AlertService.pollOnce"
-      ],
-      "fixtureRefs": [
-        "pages.alerts"
-      ],
+      "ports": ["AlertService.pollOnce"],
+      "fixtureRefs": ["pages.alerts"],
       "given": {
         "records": "multiple missing agent/subject namespace; equal source IP"
       },
@@ -614,12 +500,8 @@
       "id": "B0-23",
       "module": "S05",
       "phase": "B3",
-      "ports": [
-        "AlertService.pollOnce"
-      ],
-      "fixtureRefs": [
-        "pages.alerts"
-      ],
+      "ports": ["AlertService.pollOnce"],
+      "fixtureRefs": ["pages.alerts"],
       "given": {
         "notificationState": "pending"
       },
@@ -638,13 +520,8 @@
       "id": "B0-24",
       "module": "S10",
       "phase": "B3",
-      "ports": [
-        "ReportService.prepare"
-      ],
-      "fixtureRefs": [
-        "frozenInputs.noSeed",
-        "runs.active"
-      ],
+      "ports": ["ReportService.prepare"],
+      "fixtureRefs": ["frozenInputs.noSeed", "runs.active"],
       "given": {
         "seedProjections": []
       },
@@ -665,20 +542,12 @@
       "id": "B0-25",
       "module": "S10",
       "phase": "B3",
-      "ports": [
-        "ReportService.proposeInTx",
-        "ReportService.assessInTx"
-      ],
-      "fixtureRefs": [
-        "candidates.bounded",
-        "validationInputs.current"
-      ],
+      "ports": ["ReportService.proposeInTx", "ReportService.assessInTx"],
+      "fixtureRefs": ["candidates.bounded", "validationInputs.current"],
       "given": {
         "caller": "trusted S07 validation snapshot"
       },
-      "when": [
-        "propose bounded candidate; assess latest"
-      ],
+      "when": ["propose bounded candidate; assess latest"],
       "expected": {
         "validation": "valid",
         "review": "unreviewed",
@@ -691,9 +560,7 @@
       "id": "B0-26",
       "module": "S10",
       "phase": "B3",
-      "ports": [
-        "ReportService.proposeInTx"
-      ],
+      "ports": ["ReportService.proposeInTx"],
       "fixtureRefs": [
         "candidates.unreleased",
         "candidates.crossRun",
@@ -708,9 +575,7 @@
           "context not actually delivered"
         ]
       },
-      "when": [
-        "submit each invalid reference variant"
-      ],
+      "when": ["submit each invalid reference variant"],
       "expected": {
         "validationNeverValid": true,
         "invalidCandidateRetained": true,
@@ -723,9 +588,7 @@
       "id": "B0-27",
       "module": "S10",
       "phase": "B3",
-      "ports": [
-        "ReportService.proposeInTx"
-      ],
+      "ports": ["ReportService.proposeInTx"],
       "fixtureRefs": [
         "candidates.zeroMatches",
         "candidates.semanticOverclaim",
@@ -753,10 +616,7 @@
       "id": "B0-28",
       "module": "S10",
       "phase": "B3",
-      "ports": [
-        "ReportService.assessInTx",
-        "ReportService.finalizeInTx"
-      ],
+      "ports": ["ReportService.assessInTx", "ReportService.finalizeInTx"],
       "fixtureRefs": [
         "runs.active",
         "resultContexts.withRun",
@@ -792,9 +652,7 @@
       "given": {
         "noRunWasCreated": true
       },
-      "when": [
-        "cancel before run; read result; read a request with no result"
-      ],
+      "when": ["cancel before run; read result; read a request with no result"],
       "expected": {
         "runIdAbsent": true,
         "fabricatedSessionOrEvidence": false,
@@ -808,13 +666,8 @@
       "id": "B0-30",
       "module": "S10",
       "phase": "B3",
-      "ports": [
-        "ReportService.finalizeInTx",
-        "ResultPackageReadPort.getInTx"
-      ],
-      "fixtureRefs": [
-        "resultPackages.review"
-      ],
+      "ports": ["ReportService.finalizeInTx", "ResultPackageReadPort.getInTx"],
+      "fixtureRefs": ["resultPackages.review"],
       "given": {
         "existingVersion": 1
       },
@@ -839,10 +692,7 @@
         "ReportService.followups",
         "CaseAtomicPort.recordChangeInTx"
       ],
-      "fixtureRefs": [
-        "candidates.bounded",
-        "contexts.ui"
-      ],
+      "fixtureRefs": ["candidates.bounded", "contexts.ui"],
       "given": {
         "caseRevision": 3,
         "reviewExpectedRevision": 3
@@ -864,19 +714,13 @@
       "id": "B0-32",
       "module": "S10",
       "phase": "B4",
-      "ports": [
-        "ReportService.publishReviewedInTx"
-      ],
-      "fixtureRefs": [
-        "resultPackages.review"
-      ],
+      "ports": ["ReportService.publishReviewedInTx"],
+      "fixtureRefs": ["resultPackages.review"],
       "given": {
         "expectedCaseRevision": 4,
         "expectedResultVersion": 1
       },
-      "when": [
-        "publish; simulate S11 enqueue failure; race result version"
-      ],
+      "when": ["publish; simulate S11 enqueue failure; race result version"],
       "expected": {
         "resultAndOutboxRollbackTogether": true,
         "terminalStatePreserved": "needs_review",
@@ -895,9 +739,7 @@
         "ReportService.searchFollowups",
         "ReportService.followups"
       ],
-      "fixtureRefs": [
-        "followups.new"
-      ],
+      "fixtureRefs": ["followups.new"],
       "given": {
         "newExpectedRevision": 0,
         "newItemRevision": 1
@@ -920,24 +762,13 @@
       "id": "B0-34",
       "module": "S10",
       "phase": "B3",
-      "ports": [
-        "ReportService.export",
-        "CaseAtomicPort.snapshotInTx"
-      ],
-      "fixtureRefs": [
-        "unsafeText.export",
-        "cases.pending"
-      ],
+      "ports": ["ReportService.export", "CaseAtomicPort.snapshotInTx"],
+      "fixtureRefs": ["unsafeText.export", "cases.pending"],
       "given": {
         "requestedCaseRevision": 3,
-        "format": [
-          "markdown",
-          "json"
-        ]
+        "format": ["markdown", "json"]
       },
-      "when": [
-        "read S06 plus S10 in one ReadTx; export untrusted strings"
-      ],
+      "when": ["read S06 plus S10 in one ReadTx; export untrusted strings"],
       "expected": {
         "oneSnapshot": true,
         "semanticParity": true,
@@ -953,22 +784,14 @@
       "id": "B0-35",
       "module": "S06",
       "phase": "B4",
-      "ports": [
-        "CaseAtomicPort.captureInTx",
-        "CaseAtomicPort.projectInTx"
-      ],
-      "fixtureRefs": [
-        "pages.partial",
-        "runs.active"
-      ],
+      "ports": ["CaseAtomicPort.captureInTx", "CaseAtomicPort.projectInTx"],
+      "fixtureRefs": ["pages.partial", "runs.active"],
       "given": {
         "distinctEventsUsed": 300,
         "newSourceKeys": 1,
         "caller": "S07 after fence check"
       },
-      "when": [
-        "recordEventsInTx then capture/project in same transaction"
-      ],
+      "when": ["recordEventsInTx then capture/project in same transaction"],
       "expected": {
         "error": "BUDGET_EXHAUSTED",
         "newEvidenceRows": 0,
@@ -981,21 +804,13 @@
       "id": "B0-36",
       "module": "S10",
       "phase": "B4",
-      "ports": [
-        "ReportService.finalizeInTx",
-        "CaseAtomicPort.applyRunInTx"
-      ],
-      "fixtureRefs": [
-        "runs.active",
-        "decisions.review"
-      ],
+      "ports": ["ReportService.finalizeInTx", "CaseAtomicPort.applyRunInTx"],
+      "fixtureRefs": ["runs.active", "decisions.review"],
       "given": {
         "jobState": "verifying",
         "outboxWrite": "fails after package creation"
       },
-      "when": [
-        "S07 seal/assess/decide/finalize/apply/enqueue in same WriteTx"
-      ],
+      "when": ["S07 seal/assess/decide/finalize/apply/enqueue in same WriteTx"],
       "expected": {
         "jobResultCaseAndOutboxAtomic": true,
         "terminalStateUnchangedOnRollback": true,
